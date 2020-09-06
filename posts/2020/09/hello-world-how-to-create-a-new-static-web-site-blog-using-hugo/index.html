@@ -4,9 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="author" content="Daniel Cano">
-<meta name="description" content="Daniel Cano(u915) personal blog about Security, Hacking and Technology.">
+<meta name="description" content="Instead to make another Hello world page or enumerating the reasons of writting a new blog, this is a writeup of how this site was build. Is a good way to make the first page useful and serve as work a memory.">
 <meta name="keywords" content="hacking, technology, programming">
 <meta name="referrer" content="always">
+<meta name="og:description" content="Instead to make another Hello world page or enumerating the reasons of writting a new blog, this is a writeup of how this site was build. Is a good way to make the first page useful and serve as work a memory.">
+<meta name="og:title" content="Hello world, how to create a new static web site blog using Hugo">
+<meta name="og:url" content="https://u915.net/posts/2020/09/hello-world-how-to-create-a-new-static-web-site-blog-using-hugo/">
 <title>Hello world, how to create a new static web site blog using Hugo - u915</title>
 <link rel="stylesheet" type="text/css" href="/css/main.css">
 <link rel="icon" href="/images/favicon.png" type="image/x-icon">
@@ -49,14 +52,14 @@ Maybe i can help me or someone in the future.</p>
 <p>I wanted something <em>simple,clean and easy to read</em>, so i was testing a plenty of themes and finally i used this <a href="https://themes.gohugo.io/simple-style/">Simple style</a></p>
 <h3 id="simple-style-modified">Simple style modified</h3>
 <p>I did some tweaks to the theme to adjust it, because i didn´t like the search bar so i just added a property to hide the search bar. Also i modified some chinese words on the tags bar.</p>
-<p>Source code is available here: <a href="https://daringfireball.net/projects/markdown/">modified</a></p>
+<p>Source code is available here: <a href="https://github.com/u915/Spartan-Style">Spartan-Style</a></p>
 <h2 id="firts-steps">Firts steps</h2>
 <p>Based on <a href="https://gohugo.io/getting-started/quick-start/">Hugo Quickstart guide</a></p>
 <p>I used the precompiled version, <a href="https://github.com/gohugoio/hugo/releases">Releases</a></p>
 <pre><code>hugo new site quickstart
 
 cd quickstart
-git clone https://github.com/yanlinlin82/simple-style.git themes/
+git clone https://github.com/u915/Spartan-Style themes/
 
 hugo new posts/my-first-post.md
 </code></pre>
@@ -124,33 +127,54 @@ hugo new posts/my-first-post.md
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">80
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">81
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">82
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">83
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">84
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">85
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">86
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">87
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">88
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">89
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">90
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">baseurl = &#34;https://example.com/&#34;
-title = &#34;simple demo&#34;
-languageCode = &#34;en-us&#34;
-
-# Theme to use
-theme = &#34;simple-style&#34;
-
-# Pagination
-paginate = 3
-paginatePath = &#34;page&#34;
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[params]
+# Hugo common variables
+baseurl = &#34;&#34;
+title = &#34;&#34;
+author = &#34;&#34;
+copyright = &#34;&#34;
+languageCode = &#34;&#34; #example en-us
 
 # Google analytics
 # googleAnalytics = &#34;&#34;
 
-# Copyright
-copyright = &#34;© 2019 — Some Author — All rights reserved.&#34;
+# Theme to use
+theme = &#34;spartan-style&#34;
 
-# Highlighting
-pygmentsCodefences = true
-pygmentsCodeFencesGuessSyntax = true
-pygmentsoptions = &#34;linenos=table&#34;
-pygmentsStyle = &#34;vs&#34;
-
-#search
-search = false
+# Pagination
+paginate = 10
+paginatePath = &#34;page&#34;
 
 # Taxonomies
 [taxonomies]
@@ -161,23 +185,35 @@ search = false
 [menu]
   # Header
   [[menu.main]]
-    url = &#34;/posts/&#34;
-    name = &#34;blog&#34;
+    url = &#34;/&#34;
+    name = &#34;Index&#34;
     weight = 1
   [[menu.main]]
-    url = &#34;/about/&#34;
-    name = &#34;about&#34;
+    url = &#34;/posts/&#34;
+    name = &#34;Posts&#34;
     weight = 2
+  [[menu.main]]
+    url = &#34;/tags/&#34;
+    name = &#34;Tags&#34;
+    weight = 3
 
   # Footer
   [[menu.footer]]
-    url = &#34;https://github.com/Xzya&#34;
+    url = &#34;&#34;
     name = &#34;GitHub&#34;
     weight = 1
   [[menu.footer]]
+    url = &#34;&#34;
+    name = &#34;Linkedin&#34;
+    weight = 2
+  [[menu.footer]]
     url = &#34;/posts/index.xml&#34;
     name = &#34;RSS&#34;
-    weight = 2
+    weight = 3
+  [[menu.footer]]
+    url = &#34;/sitemap.xml&#34;
+    name = &#34;Sitemap&#34;
+    weight = 4
 
 
 # Links format
@@ -185,8 +221,33 @@ search = false
   posts = &#34;/posts/:year/:month/:title/&#34;
 
 [params]
-  # Date format (default: Jan 2, 2006)
-  # datefmt  = &#34;Jan 2, 2006&#34;
+# General
+datefmt  = &#34;2006-01-02&#34;
+subtitle = &#34;&#34;
+
+# Metadata
+description = &#34;&#34; 
+ogdescription = &#34;&#34;
+ogurl = &#34;&#34;
+ogtitle = &#34;&#34;
+
+keywords = &#34;&#34;
+referrer = &#34;&#34;
+author = &#34;&#34;
+
+
+# Footer and license with copyright enabled
+licensepage = &#34;/license/&#34;
+licensetext = &#34;&#34;
+licenselink = &#34;https://creativecommons.org/licenses/by-nc-sa/4.0/&#34;
+
+
+# Blog images
+favicon = &#34;/images/favicon.png&#34;
+bloglogo = &#34;/images/logo_small.png&#34; #prepared to 100px
+
+# CSS 
+csslocation = &#34;/css/main.css&#34;
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="generate-static-source-code">Generate static source code</h2>
