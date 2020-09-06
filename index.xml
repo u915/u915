@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>u915</title>
+    <link>https://u915.net/</link>
+    <description>Recent content on u915</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 2020 — u915 —</copyright>
+    <lastBuildDate>Thu, 03 Sep 2020 19:51:49 +0200</lastBuildDate>
+    
+	<atom:link href="https://u915.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hello world, how to create a new static web site blog using Hugo</title>
+      <link>https://u915.net/posts/2020/09/hello-world-how-to-create-a-new-static-web-site-blog-using-hugo/</link>
+      <pubDate>Thu, 03 Sep 2020 19:51:49 +0200</pubDate>
+      
+      <guid>https://u915.net/posts/2020/09/hello-world-how-to-create-a-new-static-web-site-blog-using-hugo/</guid>
+      <description>Instead to make another Hello world page or enumerating the reasons of writting a new blog, this is a writeup of how this site was build. Is a good way to make the first page useful and serve as work a memory. Maybe i can help me or someone in the future.
+Choosing CMS  Learn something new Durable and easy to maintain Portable Simple Secure ?  Technology involved This site is based of using static plain text files written in Markdown.</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://u915.net/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/about/</guid>
+      <description>Daniel Cano(u915) personal blog about Security, Hacking and Technology.
+You can find here projects, writeups about CTFs and personal notes.
+Theme and logo This site is using my custom theme Spartan-Style based on the work done by yanlinlin82. Original work licensed under MIT.
+The ouroboros logo is a minimal modification of the great work done by andresalazar project &amp;ldquo;TODO VUELVE&amp;rdquo;. Original work licensed under CC BY 4.0
+No comments? Because this site is very simple there is no backend behind storing data, there are no comments available.</description>
+    </item>
+    
+    <item>
+      <title>Hacking tools</title>
+      <link>https://u915.net/hacking-tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/hacking-tools/</guid>
+      <description>hacking tools and cheatsheets</description>
+    </item>
+    
+    <item>
+      <title>License</title>
+      <link>https://u915.net/license/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/license/</guid>
+      <description>All content of u915, by Daniel Cano is licensed under Creative Commons:
+Attribution-NonCommercial-ShareAlike 4.0 International license.
+You are free to:
+ Share — copy and redistribute the material in any medium or format Adapt — remix, transform, and build upon the material  Under the following terms:
+ Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</description>
+    </item>
+    
+  </channel>
+</rss>

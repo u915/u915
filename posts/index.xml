@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on u915</title>
+    <link>https://u915.net/posts/</link>
+    <description>Recent content in Posts on u915</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 2020 — u915 —</copyright>
+    <lastBuildDate>Thu, 03 Sep 2020 19:51:49 +0200</lastBuildDate>
+    
+	<atom:link href="https://u915.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Hello world, how to create a new static web site blog using Hugo</title>
+      <link>https://u915.net/posts/2020/09/hello-world-how-to-create-a-new-static-web-site-blog-using-hugo/</link>
+      <pubDate>Thu, 03 Sep 2020 19:51:49 +0200</pubDate>
+      
+      <guid>https://u915.net/posts/2020/09/hello-world-how-to-create-a-new-static-web-site-blog-using-hugo/</guid>
+      <description>Instead to make another Hello world page or enumerating the reasons of writting a new blog, this is a writeup of how this site was build. Is a good way to make the first page useful and serve as work a memory. Maybe i can help me or someone in the future.
+Choosing CMS  Learn something new Durable and easy to maintain Portable Simple Secure ?  Technology involved This site is based of using static plain text files written in Markdown.</description>
+    </item>
+    
+  </channel>
+</rss>
