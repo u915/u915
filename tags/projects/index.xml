@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 — u915 —</copyright>
-    <lastBuildDate>Thu, 03 Sep 2020 19:51:49 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 06 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://u915.net/tags/projects/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Host a static web using Github pages, custom domain and https</title>
+      <link>https://u915.net/posts/2020/09/host-a-static-web-using-github-pages-custom-domain-and-https/</link>
+      <pubDate>Sun, 06 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/posts/2020/09/host-a-static-web-using-github-pages-custom-domain-and-https/</guid>
+      <description>This post is about how to host a static web site on Github pages, using a custom domain and HTTPS.
+Static site First a static web site prepared to be deployed on any host.
+Note: remember, a static web site is not using php, pythom, asp etc is only html,css and js. Dynamic content will not work
+Github account Second, a Github account to create a new public repository. This repository will be special because is designed to have one per free account and are limited.</description>
+    </item>
     
     <item>
       <title>Hello world, how to create a new static web site blog using Hugo</title>

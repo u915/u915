@@ -3,27 +3,52 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://u915.net/posts/2020/09/hello-world-how-to-create-a-new-static-web-site-blog-using-hugo/</loc>
-    <lastmod>2020-09-03T19:51:49+02:00</lastmod>
+    <loc>https://u915.net/tags/hacking/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/tags/hackthebox/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/tags/pentesting/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://u915.net/posts/</loc>
-    <lastmod>2020-09-03T19:51:49+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://u915.net/tags/projects/</loc>
-    <lastmod>2020-09-03T19:51:49+02:00</lastmod>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://u915.net/tags/</loc>
-    <lastmod>2020-09-03T19:51:49+02:00</lastmod>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://u915.net/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/posts/2020/09/writeup-hackthebox-htb-remote/</loc>
+    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/posts/2020/09/host-a-static-web-using-github-pages-custom-domain-and-https/</loc>
+    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/tags/projects/</loc>
+    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/posts/2020/09/hello-world-how-to-create-a-new-static-web-site-blog-using-hugo/</loc>
     <lastmod>2020-09-03T19:51:49+02:00</lastmod>
   </url>
   

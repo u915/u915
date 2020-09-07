@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hacking on u915</title>
+    <link>https://u915.net/tags/hacking/</link>
+    <description>Recent content in Hacking on u915</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 2020 — u915 —</copyright>
+    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://u915.net/tags/hacking/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Writeup Hackthebox HTB Remote</title>
+      <link>https://u915.net/posts/2020/09/writeup-hackthebox-htb-remote/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/posts/2020/09/writeup-hackthebox-htb-remote/</guid>
+      <description>0 - Basic info OS: Windows
+IP: 10.10.10.180
+1 - Reconnaissance 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66  sudo nmap -sS -sV -sC -O 10.</description>
+    </item>
+    
+  </channel>
+</rss>

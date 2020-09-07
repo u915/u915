@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Daniel Cano">
+<meta name="description" content="This post describes how to host a static web site created with Hugo on GitHub Pages using a custom domain and HTTPS">
+<meta name="keywords" content="hacking, technology, programming">
+<meta name="referrer" content="always">
+<meta property="og:description" content="This post describes how to host a static web site created with Hugo on GitHub Pages using a custom domain and HTTPS">
+<meta property="og:title" content="Host a static web using Github pages, custom domain and https">
+<meta property="og:url" content="https://u915.net/posts/2020/09/host-a-static-web-using-github-pages-custom-domain-and-https/">
+<meta property="og:image" content="https://u915.net/images/logo_small.png" />
+<title>Host a static web using Github pages, custom domain and https - u915</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+</head>
+<body>
+<header>
+  <div class="blog-header">
+    <h1><a href="https://u915.net/">u915</a></h1>
+    <div><a href="https://u915.net/"><img src="/images/logo_small.png" class="bloglogo"></img></a></div><h4>Daniel Cano Merchán - Hacking &amp; Tech</h4>
+  </div>
+  <nav><a href="/">Index</a><a href="/posts/">Posts</a><a href="/tags/">Tags</a><a href="/hacking-tools/">Tools</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>Host a static web using Github pages, custom domain and https</h1>
+  </div>
+<div class="meta">
+  <div class="meta-bar">2020-09-06
+  <span><a href="https://u915.net/tags/projects/">#projects</a></span>
+      </div>
+  </div>
+<div class="content">
+  <p>This post is about how to host a static web site on Github pages, using a custom domain and HTTPS.</p>
+<h3 id="static-site">Static site</h3>
+<p>First a static web site prepared to be deployed on any host.</p>
+<p><em>Note: remember, a static web site is not using php, pythom, asp etc is only html,css and js. Dynamic content will not work</em></p>
+<h3 id="github-account">Github account</h3>
+<p>Second, a Github account to create a new public repository. This repository will be special because is designed to have one per free account and are limited.</p>
+<p>The repository needs to have a special name, your username. Using my username as a example, <em>u915</em> ,you need to create a new repository called <em>u915</em>.</p>
+<p>You will be warned about using the same name as your username and it will create a special repository like:</p>
+<pre><code>u915/u915 is a special repository. 
+Its README.md will appear on your public profile! Send feedback 
+</code></pre>
+<p>Once the site is created you can place any test plain file to probe the site, something like a default <em>index.html</em></p>
+<p>Clone the repository and test the site</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git clone https://github.com/u915/u915.git
+echo &#34;it´s works&#34; &gt; index.html
+git add --all
+git commit -m &#34;testing&#34;
+git push
+</code></pre></td></tr></table>
+</div>
+</div><p>Now there are a basic index.html prepared to be accesed via internet.</p>
+<p>Check the repository configuration:</p>
+<pre><code>https://github.com/u915/u915 &gt; settings  &gt; Github Pages
+</code></pre>
+<p>Point the master branch or the branch you used to push the default <em>index.html</em> a similar message to this can be readed:</p>
+<pre><code>Your Github Pages site is currently being built from the master branch.
+</code></pre>
+<p>By default all the content is deployed on the special url:</p>
+<pre><code>https://u915.github.io/u915
+</code></pre>
+<p>Accesing the url will display the <em>index.html</em></p>
+<h3 id="custom-domain">Custom domain</h3>
+<p>Third, a custom domain, example: <em>u915.net</em>.</p>
+<p>Instead of the Github page url supplied, I want to use the site with a custom domain.</p>
+<p>To do that is necessary to point the domain to the Github pages url.</p>
+<p>So, when a custom domain <em>u915.net</em> is resolved will be pointed to <em>u915.github.io</em></p>
+<h3 id="enabling-dns">Enabling DNS</h3>
+<p>To do that, DNS must be configured pointing to the Github servers.</p>
+<p>The Github urls on the day of this post have been written are:</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+</code></pre></td></tr></table>
+</div>
+</div><p>On the domain provider add the Github urls with DNS A records and add a CNAME <em>www</em> pointing to the Github pages url, <em><a href="https://u915.github.io">https://u915.github.io</a></em></p>
+<p>This is my configuration:</p>
+<p><img src="/images/posts/github_dns_screenshot.png" alt="alt text" title="GitHub DNS screenshot"></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Host</th>
+<th>Value</th>
+<th>TTL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A record</td>
+<td>@</td>
+<td>185.199.108.153</td>
+<td>auto</td>
+</tr>
+<tr>
+<td>A record</td>
+<td>@</td>
+<td>185.199.109.153</td>
+<td>auto</td>
+</tr>
+<tr>
+<td>A record</td>
+<td>@</td>
+<td>185.199.110.153</td>
+<td>auto</td>
+</tr>
+<tr>
+<td>A record</td>
+<td>@</td>
+<td>185.199.111.153</td>
+<td>auto</td>
+</tr>
+<tr>
+<td>CNAME</td>
+<td>www</td>
+<td>u915.github.io</td>
+<td>auto</td>
+</tr>
+</tbody>
+</table>
+<p>When changes are confirmed, it is normal that the changes are not inmmediate specially if it is a new domain, the changes will have effect when the DNS are propagated.</p>
+<p>There are some sites like: <a href="https://dnschecker.org">dnschecker.org</a> where you can check the DNS propagation.</p>
+<p>Or can be confirmed using dig</p>
+<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">dig +noall +answer u915.net
+u915.net.               1799    IN      A       185.199.111.153
+u915.net.               1799    IN      A       185.199.110.153
+u915.net.               1799    IN      A       185.199.108.153
+u915.net.               1799    IN      A       185.199.109.153
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="check-the-configuration-and-enable-https">Check the configuration and enable HTTPS</h3>
+<p>Add the custom domain using the repository configuration and Confirm that the custom domain can reach Github pages on the configuration page.
+Inside you can enforce to use HTTPS requests, Github will generate a special cert for the repository in a 3 phase action.</p>
+<p><img src="/images/posts/github_pages_screenshot.png" alt="alt text" title="GitHub pages screenshot"></p>
+<p>If there are any error or warnings will be appear on the same place (the configuration panel), if all is ok you will be rewarded with the green tick and the site will be accesible using the custom domain and https.</p>
+<p>Thanks for reading.</p>
+<hr>
+<p>The content of this post is a personal <em>writeup</em> of the process done, all is based of the Github documentation.</p>
+<p>Source: <a href="https://docs.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site">https://docs.github.com</a></p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <nav class="footer-menu"><a href="https://github.com/u915">GitHub</a><a href="https://www.linkedin.com/in/daniel-canomerchan">Linkedin</a><a href="/posts/index.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></nav>
+    <div>© 2020 — u915 — <a href="/license/">License</a></div>
+  </div>
+</footer>
+</body>
+</html>
