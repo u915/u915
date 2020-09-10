@@ -3,6 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://u915.net/posts/</loc>
+    <lastmod>2020-09-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/tags/projects/</loc>
+    <lastmod>2020-09-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/posts/2020/09/shell-script-to-push-content-to-github-pages/</loc>
+    <lastmod>2020-09-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/tags/</loc>
+    <lastmod>2020-09-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/</loc>
+    <lastmod>2020-09-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://u915.net/tags/hacking/</loc>
     <lastmod>2020-09-07T00:00:00+00:00</lastmod>
   </url>
@@ -18,32 +43,12 @@
   </url>
   
   <url>
-    <loc>https://u915.net/posts/</loc>
-    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://u915.net/tags/</loc>
-    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://u915.net/</loc>
-    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://u915.net/posts/2020/09/writeup-hackthebox-htb-remote/</loc>
     <lastmod>2020-09-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://u915.net/posts/2020/09/host-a-static-web-using-github-pages-custom-domain-and-https/</loc>
-    <lastmod>2020-09-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://u915.net/tags/projects/</loc>
     <lastmod>2020-09-06T00:00:00+00:00</lastmod>
   </url>
   

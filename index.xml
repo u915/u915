@@ -7,10 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 — u915 —</copyright>
-    <lastBuildDate>Mon, 07 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://u915.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Shell script to push content to Github pages</title>
+      <link>https://u915.net/posts/2020/09/shell-script-to-push-content-to-github-pages/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/posts/2020/09/shell-script-to-push-content-to-github-pages/</guid>
+      <description>This post is about how to make a simple shell script to push content to Github.
+The goal is to automate the process of posting into my blog on Github pages.
+Note: This script assumes that the git folder contains an already init git.
+Creating a new file named pusher.sh
+Permissions:
+chmod +x pusher.sh  1 2 3 4 5 6 7 8 9 10 11 12 13  #!/bin/bash PATH_BLOG=/awesome/path/* PATH_GIT=/awesome/path TIMESTAMP=`date +&amp;#39;%Y-%m-%d %H:%M:%S&amp;#39;` USER=&amp;#34;awesomeUser&amp;#34; REPO=&amp;#34;awesomeRepo&amp;#34; BRANCH=&amp;#34;master&amp;#34; cp -R ${PATH_BLOG} ${PATH_GIT} cd ${PATH_GIT} git add --all .</description>
+    </item>
     
     <item>
       <title>Writeup Hackthebox HTB Remote</title>

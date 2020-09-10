@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>projects on u915</title>
+    <title>Projects on u915</title>
     <link>https://u915.net/tags/projects/</link>
-    <description>Recent content in projects on u915</description>
+    <description>Recent content in Projects on u915</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 — u915 —</copyright>
-    <lastBuildDate>Sun, 06 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://u915.net/tags/projects/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Shell script to push content to Github pages</title>
+      <link>https://u915.net/posts/2020/09/shell-script-to-push-content-to-github-pages/</link>
+      <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/posts/2020/09/shell-script-to-push-content-to-github-pages/</guid>
+      <description>This post is about how to make a simple shell script to push content to Github.
+The goal is to automate the process of posting into my blog on Github pages.
+Note: This script assumes that the git folder contains an already init git.
+Creating a new file named pusher.sh
+Permissions:
+chmod +x pusher.sh  1 2 3 4 5 6 7 8 9 10 11 12 13  #!/bin/bash PATH_BLOG=/awesome/path/* PATH_GIT=/awesome/path TIMESTAMP=`date +&amp;#39;%Y-%m-%d %H:%M:%S&amp;#39;` USER=&amp;#34;awesomeUser&amp;#34; REPO=&amp;#34;awesomeRepo&amp;#34; BRANCH=&amp;#34;master&amp;#34; cp -R ${PATH_BLOG} ${PATH_GIT} cd ${PATH_GIT} git add --all .</description>
+    </item>
     
     <item>
       <title>Host a static web using Github pages, custom domain and https</title>
