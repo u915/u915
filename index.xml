@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 — u915 —</copyright>
-    <lastBuildDate>Thu, 10 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://u915.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Veil Kali Linux: Unable to create output file, wine is not owned by you</title>
+      <link>https://u915.net/posts/2020/09/veil-kali-linux-unable-to-create-output-file-wine-is-not-owned-by-you/</link>
+      <pubDate>Tue, 15 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/posts/2020/09/veil-kali-linux-unable-to-create-output-file-wine-is-not-owned-by-you/</guid>
+      <description>This post is a temporal fix for the framework Veil on Kali Linux.
+Veil-Evasion is a framework used to generate metasploit payloads that can bypass old AVs and other defenses. It is outdated and is strange that can bypass modern AVs but sometimes can be useful for CTFs and outdated software.
+Note: This solution worked for me but maybe you need to do something more, take this post with caution.</description>
+    </item>
     
     <item>
       <title>Shell script to push content to Github pages</title>

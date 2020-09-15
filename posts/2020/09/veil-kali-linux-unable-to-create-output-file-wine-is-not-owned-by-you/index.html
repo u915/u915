@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Daniel Cano">
+<meta name="description" content="Fix Veil Error [!] ERROR: Unable to create output file / wine: /var/lib/veil/wine is not owned by you on Kali Linux">
+<meta name="keywords" content="hacking, technology, programming">
+<meta name="referrer" content="always">
+<meta property="og:description" content="Fix Veil Error [!] ERROR: Unable to create output file / wine: /var/lib/veil/wine is not owned by you on Kali Linux">
+<meta property="og:title" content="Veil Kali Linux: Unable to create output file, wine is not owned by you">
+<meta property="og:url" content="https://u915.net/posts/2020/09/veil-kali-linux-unable-to-create-output-file-wine-is-not-owned-by-you/">
+<meta property="og:image" content="https://u915.net/images/logo_small.png" />
+<title>Veil Kali Linux: Unable to create output file, wine is not owned by you - u915</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+</head>
+<body>
+<header>
+  <div class="blog-header">
+    <h1><a href="https://u915.net/">u915</a></h1>
+    <div><a href="https://u915.net/"><img src="/images/logo_small.png" class="bloglogo"></img></a></div><h4>Daniel Cano Merchán - Hacking &amp; Tech</h4>
+  </div>
+  <nav><a href="/">Index</a><a href="/posts/">Posts</a><a href="/tags/">Tags</a><a href="/hacking-tools/">Tools</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>Veil Kali Linux: Unable to create output file, wine is not owned by you</h1>
+  </div>
+<div class="meta">
+  <div class="meta-bar">2020-09-15
+  <span><a href="https://u915.net/tags/hacking/">#Hacking</a></span>
+      </div>
+  </div>
+<div class="content">
+  <p>This post is a temporal fix for the framework Veil on Kali Linux.</p>
+<p>Veil-Evasion is a framework used to generate metasploit payloads that can bypass old AVs and other defenses. It is outdated and is strange that can bypass modern AVs but sometimes can be useful for CTFs and outdated software.</p>
+<p><em>Note</em>: This solution worked for me but maybe you need to do something more, take this post with caution.</p>
+<p>Original error:</p>
+<pre><code>425 INFO: PyInstaller: 3.2.1
+425 INFO: Python: 3.4.4
+425 INFO: Platform: Windows-7-6.1.7601-SP1
+Traceback (most recent call last):
+File &quot;/var/lib/veil/PyInstaller-3.2.1//pyinstaller.py&quot;, line 15, in &lt;module&gt;
+run()
+File &quot;Z:\var\lib\veil\PyInstaller-3.2.1\PyInstaller\__main__.py&quot;, line 88, in run
+spec_file = run_makespec(**vars(args))
+File &quot;Z:\var\lib\veil\PyInstaller-3.2.1\PyInstaller\__main__.py&quot;, line 40, in run_makespec
+spec_file = PyInstaller.building.makespec.main(filenames, **opts)
+File &quot;Z:\var\lib\veil\PyInstaller-3.2.1\PyInstaller\building\makespec.py&quot;, line 372, in main
+specfile = open(specfnm, 'w')
+PermissionError: [Errno 13] Permission denied: 'Z:\\usr\\share\\veil\\evil3.spec'
+===============================================================================
+                               Veil-Evasion
+===============================================================================
+      [Web]: https://www.veil-framework.com/ | [Twitter]: @VeilFramework
+===============================================================================
+
+ [!] ERROR: Unable to create output file.
+ [*] Source code written to: /var/lib/veil/output/source/evil3.py
+ [*] Metasploit Resource file written to: /var/lib/veil/output/handlers/evil3.rc
+</code></pre>
+<p>This happend because the permission is denied on the default path, used by Wine:</p>
+<pre><code>Z:\\usr\\share\\veil\\*
+</code></pre>
+<p>So after that I tried to use sudo / root to launch Veil but I get the error:</p>
+<pre><code>wine: /var/lib/veil/wine is not owned by you
+</code></pre>
+<p>I was dissapointed, because in the past I had problems compiling .exe exploits inside Kali Linux but this time seems to work.</p>
+<p>I reinstalled all again:</p>
+<pre><code>/usr/share/veil/config/setup.sh --force --silent
+</code></pre>
+<p>Changed the Veil Wine owner:</p>
+<pre><code>sudo chown root:root -R /var/lib/veil/wine
+</code></pre>
+<p>After that, all was working fine:</p>
+<pre><code>14541 INFO: Building EXE from out00-EXE.toc completed successfully.
+===============================================================================
+                               Veil-Evasion
+===============================================================================
+[Web]: https://www.veil-framework.com/ | [Twitter]: @VeilFramework
+===============================================================================
+
+[*] Language: python
+[*] Payload Module: python/meterpreter/rev_http
+[*] Executable written to: /var/lib/veil/output/compiled/tooEvil.exe
+[*] Source code written to: /var/lib/veil/output/source/tooEvil.py
+[*] Metasploit Resource file written to: /var/lib/veil/output/handlers/tooEvil.rc
+
+Hit enter to continue...
+</code></pre>
+<p>Maybe when Veil was designed, it was build taking in consideration that Kali Linux worked with root by default and now there is a low privileged account running by default.</p>
+<p>Thanks for reading.</p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <nav class="footer-menu"><a href="https://github.com/u915">GitHub</a><a href="https://www.linkedin.com/in/daniel-canomerchan">Linkedin</a><a href="/posts/index.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></nav>
+    <div>© 2020 — u915 — <a href="/license/">License</a></div>
+  </div>
+</footer>
+</body>
+</html>

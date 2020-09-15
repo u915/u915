@@ -3,12 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://u915.net/tags/github-pages/</loc>
-    <lastmod>2020-09-10T00:00:00+00:00</lastmod>
+    <loc>https://u915.net/tags/hacking/</loc>
+    <lastmod>2020-09-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://u915.net/posts/</loc>
+    <lastmod>2020-09-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/tags/</loc>
+    <lastmod>2020-09-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/</loc>
+    <lastmod>2020-09-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/posts/2020/09/veil-kali-linux-unable-to-create-output-file-wine-is-not-owned-by-you/</loc>
+    <lastmod>2020-09-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://u915.net/tags/github-pages/</loc>
     <lastmod>2020-09-10T00:00:00+00:00</lastmod>
   </url>
   
@@ -20,21 +40,6 @@
   <url>
     <loc>https://u915.net/posts/2020/09/shell-script-to-push-content-to-github-pages/</loc>
     <lastmod>2020-09-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://u915.net/tags/</loc>
-    <lastmod>2020-09-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://u915.net/</loc>
-    <lastmod>2020-09-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://u915.net/tags/hacking/</loc>
-    <lastmod>2020-09-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
