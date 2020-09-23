@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 — u915 —</copyright>
-    <lastBuildDate>Tue, 15 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://u915.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Port forwarding with Chisel over HTTP</title>
+      <link>https://u915.net/posts/2020/09/port-forwarding-with-chisel-over-http/</link>
+      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/posts/2020/09/port-forwarding-with-chisel-over-http/</guid>
+      <description>This time i want to talk about Chisel an amazing tool written in Go, simple to use and multi OS which enable port forwarding over HTTP. This post are just minimal notes of how to use Chisel with a practical example.
+Getting Chisel and more info Source code and full documentation about Chisel can be found on Github.
+There are precompiled binaries under the path releases: Chisel releases.
+Port forwarding Two modes needed, client and server, example with two machines.</description>
+    </item>
     
     <item>
       <title>Veil Kali Linux: Unable to create output file, wine is not owned by you</title>

