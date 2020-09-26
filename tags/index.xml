@@ -7,7 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 — u915 —</copyright>
-    <lastBuildDate>Wed, 23 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 26 Sep 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://u915.net/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -15,9 +15,27 @@
     <item>
       <title>Hacking</title>
       <link>https://u915.net/tags/hacking/</link>
-      <pubDate>Wed, 23 Sep 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 26 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://u915.net/tags/hacking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hackthebox</title>
+      <link>https://u915.net/tags/hackthebox/</link>
+      <pubDate>Sat, 26 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/tags/hackthebox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pentesting</title>
+      <link>https://u915.net/tags/pentesting/</link>
+      <pubDate>Sat, 26 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/tags/pentesting/</guid>
       <description></description>
     </item>
     
@@ -36,24 +54,6 @@
       <pubDate>Thu, 10 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://u915.net/tags/projects/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Hackthebox</title>
-      <link>https://u915.net/tags/hackthebox/</link>
-      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://u915.net/tags/hackthebox/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Pentesting</title>
-      <link>https://u915.net/tags/pentesting/</link>
-      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://u915.net/tags/pentesting/</guid>
       <description></description>
     </item>
     
