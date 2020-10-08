@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 — u915 —</copyright>
-    <lastBuildDate>Sat, 26 Sep 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://u915.net/tags/hacking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Writeup Hackthebox HTB Magic</title>
+      <link>https://u915.net/posts/2020/10/writeup-hackthebox-htb-magic/</link>
+      <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/posts/2020/10/writeup-hackthebox-htb-magic/</guid>
+      <description>0 - Basic info OS: Linux
+IP: 10.10.10.185
+1 - Reconnaissance and enumeration sudo nmap -sS -sV -sC -O 10.10.10.185 Starting Nmap 7.80 ( https://nmap.org ) at 2020-08-02 17:21 CEST Nmap scan report for 10.10.10.185 Host is up (0.041s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 06:d4:89:bf:51:f7:fc:0c:f9:08:5e:97:63:64:8d:ca (RSA) | 256 11:a6:92:98:ce:35:40:c7:29:09:4f:6c:2d:74:aa:66 (ECDSA) |_ 256 71:05:99:1f:a8:1b:14:d6:03:85:53:f8:78:8e:cb:88 (ED25519) 80/tcp open http Apache httpd 2.</description>
+    </item>
     
     <item>
       <title>Writeup Hackthebox HTB Admirer</title>
