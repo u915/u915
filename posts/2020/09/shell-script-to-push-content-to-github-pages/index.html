@@ -43,39 +43,20 @@
 <p>Permissions:</p>
 <pre><code>chmod +x pusher.sh
 </code></pre>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#00f">#!/bin/bash
-</span><span style="color:#00f"></span>PATH_BLOG=/awesome/path/*
+<pre><code>#!/bin/bash
+PATH_BLOG=/awesome/path/*
 PATH_GIT=/awesome/path
-TIMESTAMP=<span style="color:#a31515">`</span>date +<span style="color:#a31515">&#39;%Y-%m-%d %H:%M:%S&#39;</span><span style="color:#a31515">`</span>
-USER=<span style="color:#a31515">&#34;awesomeUser&#34;</span>
-REPO=<span style="color:#a31515">&#34;awesomeRepo&#34;</span>
-BRANCH=<span style="color:#a31515">&#34;master&#34;</span>
+TIMESTAMP=`date +'%Y-%m-%d %H:%M:%S'`
+USER=&quot;awesomeUser&quot;
+REPO=&quot;awesomeRepo&quot;
+BRANCH=&quot;master&quot;
 
-cp -R <span style="color:#a31515">${</span>PATH_BLOG<span style="color:#a31515">}</span> <span style="color:#a31515">${</span>PATH_GIT<span style="color:#a31515">}</span>
-cd <span style="color:#a31515">${</span>PATH_GIT<span style="color:#a31515">}</span>
+cp -R ${PATH_BLOG} ${PATH_GIT}
+cd ${PATH_GIT}
 git add --all .
-git commit -m <span style="color:#a31515">&#34;Blog updated </span><span style="color:#a31515">${</span>TIMESTAMP<span style="color:#a31515">}</span><span style="color:#a31515">&#34;</span>
-git push https://github.com/<span style="color:#a31515">${</span>USER<span style="color:#a31515">}</span>/<span style="color:#a31515">${</span>REPO<span style="color:#a31515">}</span>.git <span style="color:#a31515">${</span>BRANCH<span style="color:#a31515">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><hr>
+git commit -m &quot;Blog updated ${TIMESTAMP}&quot;
+git push https://github.com/${USER}/${REPO}.git ${BRANCH}
+</code></pre><hr>
 <h3 id="little-description">Little Description:</h3>
 <p>This script copies all the files indicated on the var PATH_BLOG using the parameter <em>-R</em>, so the copy is recursive and using the wildcard * all files are copied to the path PATH_GIT.</p>
 <p>After that, it adds all the files, sets a commit with a timestamp and finally pushes all the content to the branch indicated on the var BRANCH.</p>

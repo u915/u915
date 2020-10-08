@@ -49,23 +49,12 @@ Its README.md will appear on your public profile! Send feedback
 </code></pre>
 <p>Once the site is created you can place any test plain file to probe the site, something like a default <em>index.html</em></p>
 <p>Clone the repository and test the site</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">git clone https://github.com/u915/u915.git
-echo &#34;it´s works&#34; &gt; index.html
+<pre><code>git clone https://github.com/u915/u915.git
+echo &quot;it´s works&quot; &gt; index.html
 git add --all
-git commit -m &#34;testing&#34;
+git commit -m &quot;testing&quot;
 git push
-</code></pre></td></tr></table>
-</div>
-</div><p>Now there are a basic index.html prepared to be accesed via internet.</p>
+</code></pre><p>Now there are a basic index.html prepared to be accesed via internet.</p>
 <p>Check the repository configuration:</p>
 <pre><code>https://github.com/u915/u915 &gt; settings  &gt; Github Pages
 </code></pre>
@@ -84,21 +73,11 @@ git push
 <h3 id="enabling-dns">Enabling DNS</h3>
 <p>To do that, DNS must be configured pointing to the Github servers.</p>
 <p>The Github urls on the day of this post have been written are:</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">185.199.108.153
+<pre><code>185.199.108.153
 185.199.109.153
 185.199.110.153
 185.199.111.153
-</code></pre></td></tr></table>
-</div>
-</div><p>On the domain provider add the Github urls with DNS A records and add a CNAME <em>www</em> pointing to the Github pages url, <em><a href="https://u915.github.io">https://u915.github.io</a></em></p>
+</code></pre><p>On the domain provider add the Github urls with DNS A records and add a CNAME <em>www</em> pointing to the Github pages url, <em><a href="https://u915.github.io">https://u915.github.io</a></em></p>
 <p>This is my configuration:</p>
 <p><img src="/images/posts/github_dns_screenshot.png" alt="alt text" title="GitHub DNS screenshot"></p>
 <table>
@@ -146,23 +125,12 @@ git push
 <p>When changes are confirmed, it is normal that the changes are not inmmediate specially if it is a new domain, the changes will have effect when the DNS are propagated.</p>
 <p>There are some sites like: <a href="https://dnschecker.org">dnschecker.org</a> where you can check the DNS propagation.</p>
 <p>Or can be confirmed using dig</p>
-<div class="highlight"><div style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">dig +noall +answer u915.net
+<pre><code>dig +noall +answer u915.net
 u915.net.               1799    IN      A       185.199.111.153
 u915.net.               1799    IN      A       185.199.110.153
 u915.net.               1799    IN      A       185.199.108.153
 u915.net.               1799    IN      A       185.199.109.153
-</code></pre></td></tr></table>
-</div>
-</div><h3 id="check-the-configuration-and-enable-https">Check the configuration and enable HTTPS</h3>
+</code></pre><h3 id="check-the-configuration-and-enable-https">Check the configuration and enable HTTPS</h3>
 <p>Add the custom domain using the repository configuration and Confirm that the custom domain can reach Github pages on the configuration page.
 Inside you can enforce to use HTTPS requests, Github will generate a special cert for the repository in a 3 phase action.</p>
 <p><img src="/images/posts/github_pages_screenshot.png" alt="alt text" title="GitHub pages screenshot"></p>
