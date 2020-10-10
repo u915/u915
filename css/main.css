@@ -44,3 +44,12 @@ svg:hover.permalink{color:#f00;fill:currentColor}
 .footer-menu{text-align:center;}
 .footer-menu a{padding-left:10px;}
 .content{text-align:justify;}
+
+div.highlight {
+  max-width: 800px;
+}
+div.highlight pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
