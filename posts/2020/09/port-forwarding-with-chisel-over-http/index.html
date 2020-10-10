@@ -42,34 +42,29 @@
 <h3 id="port-forwarding">Port forwarding</h3>
 <p>Two modes needed, client and server, example with two machines.</p>
 <p><em>machine 1</em>: Deploying the server</p>
-<pre><code>chisel server -p PORT --reverse
-</code></pre>
-<p><em>machine 2</em>: Connecting to the Chisel server</p>
-<pre><code>chisel client IP_SERVER_CHISEL:PORT_SERVER_CHISEL R:PORT1:IP:PORT2
-</code></pre>
-<h3 id="practical-example">Practical example</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chisel server -p PORT --reverse
+</code></pre></div><p><em>machine 2</em>: Connecting to the Chisel server</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chisel client IP_SERVER_CHISEL:PORT_SERVER_CHISEL R:PORT1:IP:PORT2
+</code></pre></div><h3 id="practical-example">Practical example</h3>
 <p>There is a remote server cracked with a low privileged account, and we want to use a certain exploit with our machine for practical reasons, like there is not Python inside the server and there is a hard way to make the exploit work precompiling the source.</p>
 <p>Another example can be redirect the cracked server local port to be viewed on our local machine, there are infinity reasons.</p>
 <p>In the example, inside the cracked machine this time there is a service running with root privileges on the port 8080, deployed only on the localhost network 127.0.0.1 and we know a exploit to escalate priveleges.</p>
 <p>Deploying the Chisel server on the pentest machine using the precompiled version for Linux:</p>
-<pre><code>./chisel server -p 9003 --reverse
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">./chisel server -p <span style="color:#ae81ff">9003</span> --reverse
 2020/09/23 09:16:55 server: Reverse tunnelling enabled
 2020/09/23 09:16:55 server: Fingerprint XXXXXXXXXXXXX
 2020/09/23 09:16:55 server: Listening on 0.0.0.0:9003...
-</code></pre>
-<p>So this time a VM with Kali is listening on the port 9003 and awaiting remote connections to the port 9003.</p>
+</code></pre></div><p>So this time a VM with Kali is listening on the port 9003 and awaiting remote connections to the port 9003.</p>
 <p><em>&ndash;reverse</em>, Allow clients to specify reverse port forwarding remotes in addition to normal remotes.</p>
 <p>On the remote server, Windows, starting a precompiled Chisel and reverse connecting the (remote)localhost port 8080 with the port 8080 on the Kali machine:</p>
-<pre><code>.\chisel.exe client 1.2.3.4:9003 R:8080:127.0.0.1:8080
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">.<span style="color:#ae81ff">\c</span>hisel.exe client 1.2.3.4:9003 R:8080:127.0.0.1:8080
 2020/09/23 09:17:08 client: Connecting to ws://1.2.3.4:9003
 2020/09/23 09:17:08 client: Fingerprint XXXXXXXXXXXXX
-2020/09/23 09:17:09 client: Connected (Latency 47.968ms)
-</code></pre>
-<p>Now the (remote)localhost port 8080 can be accesed on Kali and is reverse connected with the port 8080 on the Windows machine.</p>
+2020/09/23 09:17:09 client: Connected <span style="color:#f92672">(</span>Latency 47.968ms<span style="color:#f92672">)</span>
+</code></pre></div><p>Now the (remote)localhost port 8080 can be accesed on Kali and is reverse connected with the port 8080 on the Windows machine.</p>
 <p>The port 8080 can be used directly against the local network on Kali and will impact to the Windows remote server, so it is possible to use the exploit in a way like that:</p>
-<pre><code>python exploit.py 127.0.0.1 8080
-</code></pre>
-<p>Happy hacking</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python exploit.py 127.0.0.1 <span style="color:#ae81ff">8080</span>
+</code></pre></div><p>Happy hacking</p>
 </div>
 
   </article>

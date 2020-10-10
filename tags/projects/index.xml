@@ -23,7 +23,7 @@ The goal is to automate the process of posting into my blog on Github pages.
 Note: This script assumes that the git folder contains an already init git.
 Creating a new file named pusher.sh
 Permissions:
-chmod +x pusher.sh  #!/bin/bash PATH_BLOG=/awesome/path/* PATH_GIT=/awesome/path TIMESTAMP=`date +&#39;%Y-%m-%d %H:%M:%S&#39;` USER=&amp;quot;awesomeUser&amp;quot; REPO=&amp;quot;awesomeRepo&amp;quot; BRANCH=&amp;quot;master&amp;quot; cp -R ${PATH_BLOG} ${PATH_GIT} cd ${PATH_GIT} git add --all .</description>
+chmod +x pusher.sh #!/bin/bash PATH_BLOG=/awesome/path/* PATH_GIT=/awesome/path TIMESTAMP=`date +&amp;#39;%Y-%m-%d %H:%M:%S&amp;#39;` USER=&amp;#34;awesomeUser&amp;#34; REPO=&amp;#34;awesomeRepo&amp;#34; BRANCH=&amp;#34;master&amp;#34; cp -R ${PATH_BLOG} ${PATH_GIT} cd ${PATH_GIT} git add --all .</description>
     </item>
     
     <item>

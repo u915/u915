@@ -59,109 +59,108 @@ Maybe i can help me or someone in the future.</p>
 <h2 id="firts-steps">Firts steps</h2>
 <p>Based on <a href="https://gohugo.io/getting-started/quick-start/">Hugo Quickstart guide</a></p>
 <p>I used the precompiled version, <a href="https://github.com/gohugoio/hugo/releases">Releases</a></p>
-<pre><code>hugo new site quickstart
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+hugo new site quickstart
 
 cd quickstart
 git clone https://github.com/u915/Spartan-Style themes/
 
 hugo new posts/my-first-post.md
-</code></pre>
-<h2 id="config-example">Config example</h2>
-<pre><code>[params]
-# Hugo common variables
-baseurl = &quot;&quot;
-title = &quot;&quot;
-author = &quot;&quot;
-copyright = &quot;&quot;
-languageCode = &quot;&quot; #example en-us
+</code></pre></div><h2 id="config-example">Config example</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">[params]
+<span style="color:#75715e"># Hugo common variables</span>
+baseurl = <span style="color:#e6db74">&#34;&#34;</span>
+title = <span style="color:#e6db74">&#34;&#34;</span>
+author = <span style="color:#e6db74">&#34;&#34;</span>
+copyright = <span style="color:#e6db74">&#34;&#34;</span>
+languageCode = <span style="color:#e6db74">&#34;&#34;</span> <span style="color:#75715e">#example en-us</span>
 
-# Google analytics
-# googleAnalytics = &quot;&quot;
+<span style="color:#75715e"># Google analytics</span>
+<span style="color:#75715e"># googleAnalytics = &#34;&#34;</span>
 
-# Theme to use
-theme = &quot;spartan-style&quot;
+<span style="color:#75715e"># Theme to use</span>
+theme = <span style="color:#e6db74">&#34;spartan-style&#34;</span>
 
-# Pagination
-paginate = 10
-paginatePath = &quot;page&quot;
+<span style="color:#75715e"># Pagination</span>
+paginate = <span style="color:#ae81ff">10</span>
+paginatePath = <span style="color:#e6db74">&#34;page&#34;</span>
 
-# Taxonomies
+<span style="color:#75715e"># Taxonomies</span>
 [taxonomies]
-  tag = &quot;tags&quot;
-  category = &quot;categories&quot;
+  tag = <span style="color:#e6db74">&#34;tags&#34;</span>
+  category = <span style="color:#e6db74">&#34;categories&#34;</span>
 
-# Menu
+<span style="color:#75715e"># Menu</span>
 [menu]
-  # Header
+  <span style="color:#75715e"># Header</span>
   [[menu.main]]
-    url = &quot;/&quot;
-    name = &quot;Index&quot;
-    weight = 1
+    url = <span style="color:#e6db74">&#34;/&#34;</span>
+    name = <span style="color:#e6db74">&#34;Index&#34;</span>
+    weight = <span style="color:#ae81ff">1</span>
   [[menu.main]]
-    url = &quot;/posts/&quot;
-    name = &quot;Posts&quot;
-    weight = 2
+    url = <span style="color:#e6db74">&#34;/posts/&#34;</span>
+    name = <span style="color:#e6db74">&#34;Posts&#34;</span>
+    weight = <span style="color:#ae81ff">2</span>
   [[menu.main]]
-    url = &quot;/tags/&quot;
-    name = &quot;Tags&quot;
-    weight = 3
+    url = <span style="color:#e6db74">&#34;/tags/&#34;</span>
+    name = <span style="color:#e6db74">&#34;Tags&#34;</span>
+    weight = <span style="color:#ae81ff">3</span>
 
-  # Footer
+  <span style="color:#75715e"># Footer</span>
   [[menu.footer]]
-    url = &quot;&quot;
-    name = &quot;GitHub&quot;
-    weight = 1
+    url = <span style="color:#e6db74">&#34;&#34;</span>
+    name = <span style="color:#e6db74">&#34;GitHub&#34;</span>
+    weight = <span style="color:#ae81ff">1</span>
   [[menu.footer]]
-    url = &quot;&quot;
-    name = &quot;Linkedin&quot;
-    weight = 2
+    url = <span style="color:#e6db74">&#34;&#34;</span>
+    name = <span style="color:#e6db74">&#34;Linkedin&#34;</span>
+    weight = <span style="color:#ae81ff">2</span>
   [[menu.footer]]
-    url = &quot;/posts/index.xml&quot;
-    name = &quot;RSS&quot;
-    weight = 3
+    url = <span style="color:#e6db74">&#34;/posts/index.xml&#34;</span>
+    name = <span style="color:#e6db74">&#34;RSS&#34;</span>
+    weight = <span style="color:#ae81ff">3</span>
   [[menu.footer]]
-    url = &quot;/sitemap.xml&quot;
-    name = &quot;Sitemap&quot;
-    weight = 4
+    url = <span style="color:#e6db74">&#34;/sitemap.xml&#34;</span>
+    name = <span style="color:#e6db74">&#34;Sitemap&#34;</span>
+    weight = <span style="color:#ae81ff">4</span>
 
 
-# Links format
+<span style="color:#75715e"># Links format</span>
 [permalinks]
-  posts = &quot;/posts/:year/:month/:title/&quot;
+  posts = <span style="color:#e6db74">&#34;/posts/:year/:month/:title/&#34;</span>
 
 [params]
-# General
-datefmt  = &quot;2006-01-02&quot;
-subtitle = &quot;&quot;
+<span style="color:#75715e"># General</span>
+datefmt  = <span style="color:#e6db74">&#34;2006-01-02&#34;</span>
+subtitle = <span style="color:#e6db74">&#34;&#34;</span>
 
-# Metadata
-description = &quot;&quot; 
-ogdescription = &quot;&quot;
-ogurl = &quot;&quot;
-ogtitle = &quot;&quot;
+<span style="color:#75715e"># Metadata</span>
+description = <span style="color:#e6db74">&#34;&#34;</span> 
+ogdescription = <span style="color:#e6db74">&#34;&#34;</span>
+ogurl = <span style="color:#e6db74">&#34;&#34;</span>
+ogtitle = <span style="color:#e6db74">&#34;&#34;</span>
 
-keywords = &quot;&quot;
-referrer = &quot;&quot;
-author = &quot;&quot;
-
-
-# Footer and license with copyright enabled
-licensepage = &quot;/license/&quot;
-licensetext = &quot;&quot;
-licenselink = &quot;https://creativecommons.org/licenses/by-nc-sa/4.0/&quot;
+keywords = <span style="color:#e6db74">&#34;&#34;</span>
+referrer = <span style="color:#e6db74">&#34;&#34;</span>
+author = <span style="color:#e6db74">&#34;&#34;</span>
 
 
-# Blog images
-favicon = &quot;/images/favicon.png&quot;
-bloglogo = &quot;/images/logo_small.png&quot; #prepared to 100px
+<span style="color:#75715e"># Footer and license with copyright enabled</span>
+licensepage = <span style="color:#e6db74">&#34;/license/&#34;</span>
+licensetext = <span style="color:#e6db74">&#34;&#34;</span>
+licenselink = <span style="color:#e6db74">&#34;https://creativecommons.org/licenses/by-nc-sa/4.0/&#34;</span>
 
-# CSS 
-csslocation = &quot;/css/main.css&quot;
-</code></pre><h2 id="generate-static-source-code">Generate static source code</h2>
+
+<span style="color:#75715e"># Blog images</span>
+favicon = <span style="color:#e6db74">&#34;/images/favicon.png&#34;</span>
+bloglogo = <span style="color:#e6db74">&#34;/images/logo_small.png&#34;</span> <span style="color:#75715e">#prepared to 100px</span>
+
+<span style="color:#75715e"># CSS </span>
+csslocation = <span style="color:#e6db74">&#34;/css/main.css&#34;</span>
+</code></pre></div><h2 id="generate-static-source-code">Generate static source code</h2>
 <p>Finally to generate the web content:</p>
-<pre><code>hugo -D
-</code></pre>
-<p>With this, the site is build under the folder <em>public</em> you can place these files under the server of your choice to publish the blog.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hugo -D
+</code></pre></div><p>With this, the site is build under the folder <em>public</em> you can place these files under the server of your choice to publish the blog.</p>
 </div>
 
   </article>

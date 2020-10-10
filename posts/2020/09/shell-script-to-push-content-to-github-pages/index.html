@@ -41,22 +41,21 @@
 <p><em>Note: This script assumes that the git folder contains an already init git.</em></p>
 <p>Creating a new file named <em>pusher.sh</em></p>
 <p>Permissions:</p>
-<pre><code>chmod +x pusher.sh
-</code></pre>
-<pre><code>#!/bin/bash
-PATH_BLOG=/awesome/path/*
-PATH_GIT=/awesome/path
-TIMESTAMP=`date +'%Y-%m-%d %H:%M:%S'`
-USER=&quot;awesomeUser&quot;
-REPO=&quot;awesomeRepo&quot;
-BRANCH=&quot;master&quot;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">chmod +x pusher.sh
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>PATH_BLOG<span style="color:#f92672">=</span>/awesome/path/*
+PATH_GIT<span style="color:#f92672">=</span>/awesome/path
+TIMESTAMP<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>date +<span style="color:#e6db74">&#39;%Y-%m-%d %H:%M:%S&#39;</span><span style="color:#e6db74">`</span>
+USER<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;awesomeUser&#34;</span>
+REPO<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;awesomeRepo&#34;</span>
+BRANCH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;master&#34;</span>
 
-cp -R ${PATH_BLOG} ${PATH_GIT}
-cd ${PATH_GIT}
+cp -R <span style="color:#e6db74">${</span>PATH_BLOG<span style="color:#e6db74">}</span> <span style="color:#e6db74">${</span>PATH_GIT<span style="color:#e6db74">}</span>
+cd <span style="color:#e6db74">${</span>PATH_GIT<span style="color:#e6db74">}</span>
 git add --all .
-git commit -m &quot;Blog updated ${TIMESTAMP}&quot;
-git push https://github.com/${USER}/${REPO}.git ${BRANCH}
-</code></pre><hr>
+git commit -m <span style="color:#e6db74">&#34;Blog updated </span><span style="color:#e6db74">${</span>TIMESTAMP<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+git push https://github.com/<span style="color:#e6db74">${</span>USER<span style="color:#e6db74">}</span>/<span style="color:#e6db74">${</span>REPO<span style="color:#e6db74">}</span>.git <span style="color:#e6db74">${</span>BRANCH<span style="color:#e6db74">}</span>
+</code></pre></div><hr>
 <h3 id="little-description">Little Description:</h3>
 <p>This script copies all the files indicated on the var PATH_BLOG using the parameter <em>-R</em>, so the copy is recursive and using the wildcard * all files are copied to the path PATH_GIT.</p>
 <p>After that, it adds all the files, sets a commit with a timestamp and finally pushes all the content to the branch indicated on the var BRANCH.</p>

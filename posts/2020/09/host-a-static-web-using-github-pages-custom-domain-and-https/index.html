@@ -44,27 +44,23 @@
 <p>Second, a Github account to create a new public repository. This repository will be special because is designed to have one per free account and are limited.</p>
 <p>The repository needs to have a special name, your username. Using my username as a example, <em>u915</em> ,you need to create a new repository called <em>u915</em>.</p>
 <p>You will be warned about using the same name as your username and it will create a special repository like:</p>
-<pre><code>u915/u915 is a special repository. 
-Its README.md will appear on your public profile! Send feedback 
-</code></pre>
-<p>Once the site is created you can place any test plain file to probe the site, something like a default <em>index.html</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">	u915/u915 is a special repository. 
+	Its README.md will appear on your public profile! Send feedback 
+</code></pre></div><p>Once the site is created you can place any test plain file to probe the site, something like a default <em>index.html</em></p>
 <p>Clone the repository and test the site</p>
-<pre><code>git clone https://github.com/u915/u915.git
-echo &quot;it´s works&quot; &gt; index.html
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/u915/u915.git
+echo <span style="color:#e6db74">&#34;it´s works&#34;</span> &gt; index.html
 git add --all
-git commit -m &quot;testing&quot;
+git commit -m <span style="color:#e6db74">&#34;testing&#34;</span>
 git push
-</code></pre><p>Now there are a basic index.html prepared to be accesed via internet.</p>
+</code></pre></div><p>Now there are a basic index.html prepared to be accesed via internet.</p>
 <p>Check the repository configuration:</p>
-<pre><code>https://github.com/u915/u915 &gt; settings  &gt; Github Pages
-</code></pre>
-<p>Point the master branch or the branch you used to push the default <em>index.html</em> a similar message to this can be readed:</p>
-<pre><code>Your Github Pages site is currently being built from the master branch.
-</code></pre>
-<p>By default all the content is deployed on the special url:</p>
-<pre><code>https://u915.github.io/u915
-</code></pre>
-<p>Accesing the url will display the <em>index.html</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">https://github.com/u915/u915 &gt; settings  &gt; Github Pages
+</code></pre></div><p>Point the master branch or the branch you used to push the default <em>index.html</em> a similar message to this can be readed:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Your Github Pages site is currently being built from the master branch.
+</code></pre></div><p>By default all the content is deployed on the special url:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">https://u915.github.io/u915
+</code></pre></div><p>Accesing the url will display the <em>index.html</em></p>
 <h3 id="custom-domain">Custom domain</h3>
 <p>Third, a custom domain, example: <em>u915.net</em>.</p>
 <p>Instead of the Github page url supplied, I want to use the site with a custom domain.</p>
@@ -73,64 +69,29 @@ git push
 <h3 id="enabling-dns">Enabling DNS</h3>
 <p>To do that, DNS must be configured pointing to the Github servers.</p>
 <p>The Github urls on the day of this post have been written are:</p>
-<pre><code>185.199.108.153
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">185.199.108.153
 185.199.109.153
 185.199.110.153
 185.199.111.153
-</code></pre><p>On the domain provider add the Github urls with DNS A records and add a CNAME <em>www</em> pointing to the Github pages url, <em><a href="https://u915.github.io">https://u915.github.io</a></em></p>
+</code></pre></div><p>On the domain provider add the Github urls with DNS A records and add a CNAME <em>www</em> pointing to the Github pages url, <em><a href="https://u915.github.io">https://u915.github.io</a></em></p>
 <p>This is my configuration:</p>
 <p><img src="/images/posts/github_dns_screenshot.png" alt="alt text" title="GitHub DNS screenshot"></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Host</th>
-<th>Value</th>
-<th>TTL</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>A record</td>
-<td>@</td>
-<td>185.199.108.153</td>
-<td>auto</td>
-</tr>
-<tr>
-<td>A record</td>
-<td>@</td>
-<td>185.199.109.153</td>
-<td>auto</td>
-</tr>
-<tr>
-<td>A record</td>
-<td>@</td>
-<td>185.199.110.153</td>
-<td>auto</td>
-</tr>
-<tr>
-<td>A record</td>
-<td>@</td>
-<td>185.199.111.153</td>
-<td>auto</td>
-</tr>
-<tr>
-<td>CNAME</td>
-<td>www</td>
-<td>u915.github.io</td>
-<td>auto</td>
-</tr>
-</tbody>
-</table>
-<p>When changes are confirmed, it is normal that the changes are not inmmediate specially if it is a new domain, the changes will have effect when the DNS are propagated.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Type | Host | Value | TTL
+--- | --- | --- | ---
+A record | @ | 185.199.108.153 | auto
+A record | @ | 185.199.109.153 | auto
+A record | @ | 185.199.110.153 | auto
+A record | @ | 185.199.111.153 | auto
+CNAME | www | u915.github.io | auto
+</code></pre></div><p>When changes are confirmed, it is normal that the changes are not inmmediate specially if it is a new domain, the changes will have effect when the DNS are propagated.</p>
 <p>There are some sites like: <a href="https://dnschecker.org">dnschecker.org</a> where you can check the DNS propagation.</p>
 <p>Or can be confirmed using dig</p>
-<pre><code>dig +noall +answer u915.net
-u915.net.               1799    IN      A       185.199.111.153
-u915.net.               1799    IN      A       185.199.110.153
-u915.net.               1799    IN      A       185.199.108.153
-u915.net.               1799    IN      A       185.199.109.153
-</code></pre><h3 id="check-the-configuration-and-enable-https">Check the configuration and enable HTTPS</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">dig +noall +answer u915.net
+u915.net.               <span style="color:#ae81ff">1799</span>    IN      A       185.199.111.153
+u915.net.               <span style="color:#ae81ff">1799</span>    IN      A       185.199.110.153
+u915.net.               <span style="color:#ae81ff">1799</span>    IN      A       185.199.108.153
+u915.net.               <span style="color:#ae81ff">1799</span>    IN      A       185.199.109.153
+</code></pre></div><h3 id="check-the-configuration-and-enable-https">Check the configuration and enable HTTPS</h3>
 <p>Add the custom domain using the repository configuration and Confirm that the custom domain can reach Github pages on the configuration page.
 Inside you can enforce to use HTTPS requests, Github will generate a special cert for the repository in a 3 phase action.</p>
 <p><img src="/images/posts/github_pages_screenshot.png" alt="alt text" title="GitHub pages screenshot"></p>

