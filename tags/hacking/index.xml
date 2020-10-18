@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 — u915 —</copyright>
-    <lastBuildDate>Sat, 10 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://u915.net/tags/hacking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Writeup Hackthebox HTB Blunder</title>
+      <link>https://u915.net/posts/2020/10/writeup-hackthebox-htb-blunder/</link>
+      <pubDate>Sat, 17 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/posts/2020/10/writeup-hackthebox-htb-blunder/</guid>
+      <description>0 - Basic info OS: Linux
+IP: 10.10.10.191
+1 - Reconnaissance and enumeration sudo nmap -sS -sV -sC -O 10.10.10.191 Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-28 22:24 CEST Nmap scan report for 10.10.10.191 Host is up (0.041s latency). Not shown: 998 filtered ports PORT STATE SERVICE VERSION 21/tcp closed ftp 80/tcp open http Apache httpd 2.4.41 ((Ubuntu)) |_http-generator: Blunder |_http-server-header: Apache/2.4.41 (Ubuntu) |_http-title: Blunder | A blunder of interesting facts Aggressive OS guesses: HP P2000 G3 NAS device (91%), Linux 2.</description>
+    </item>
     
     <item>
       <title>Writeup Hackthebox HTB Cache</title>
