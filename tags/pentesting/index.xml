@@ -20,7 +20,7 @@
       <guid>https://u915.net/posts/2020/11/writeup-hackthebox-htb-tabby/</guid>
       <description>0 - Basic info OS: Linux
 IP: 10.10.10.194
-1 - Reconnaissance and enumeration sudo nmap -sS -sV -sC -O 10.10.10.194 [sudo] password for ratsteak: Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-20 17:36 CEST Nmap scan report for 10.10.10.194 Host is up (0.037s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.2p1 Ubuntu 4 (Ubuntu Linux; protocol 2.0) 80/tcp open http Apache httpd 2.4.41 ((Ubuntu)) |_http-server-header: Apache/2.</description>
+1 - Reconnaissance and enumeration sudo nmap -sS -sV -sC -O 10.10.10.194 Starting Nmap 7.80 ( https://nmap.org ) at 2020-07-20 17:36 CEST Nmap scan report for 10.10.10.194 Host is up (0.037s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 8.2p1 Ubuntu 4 (Ubuntu Linux; protocol 2.0) 80/tcp open http Apache httpd 2.4.41 ((Ubuntu)) |_http-server-header: Apache/2.4.41 (Ubuntu) |_http-title: Mega Hosting 8080/tcp open http Apache Tomcat |_http-title: Apache Tomcat No exact OS matches for host (If you know what OS is running on it, see https://nmap.</description>
     </item>
     
     <item>
