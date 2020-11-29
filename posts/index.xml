@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 — u915 —</copyright>
-    <lastBuildDate>Fri, 13 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 29 Nov 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://u915.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to setup a pihole to block ads</title>
+      <link>https://u915.net/posts/2020/11/how-to-setup-a-pihole-to-block-ads/</link>
+      <pubDate>Sun, 29 Nov 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/posts/2020/11/how-to-setup-a-pihole-to-block-ads/</guid>
+      <description>This post is about how to configurate a raspberry pi with pihole to block advertisements. I discovered Pihole on a CTF and was cool to have one !
+I was bored this weekend and tired about the advertisements. So I decided to configure a Pihole, this post contains simple work memory used on the process.
+ ESPECIAL THANKS to my friend Mario who just changed a raspberry pi for a few beers!</description>
+    </item>
     
     <item>
       <title>Writeup Hackthebox HTB Tabby</title>

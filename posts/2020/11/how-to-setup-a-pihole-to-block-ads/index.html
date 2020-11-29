@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Daniel Cano">
+<meta name="description" content="Simple way of configurating a raspberry pi with pihole">
+<meta name="keywords" content="hacking, technology, programming">
+<meta name="referrer" content="always">
+<meta property="og:description" content="Simple way of configurating a raspberry pi with pihole">
+<meta property="og:title" content="How to setup a pihole to block ads">
+<meta property="og:url" content="https://u915.net/posts/2020/11/how-to-setup-a-pihole-to-block-ads/">
+<meta property="og:image" content="https://u915.net/images/logo_small.png" />
+<title>How to setup a pihole to block ads - u915</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="/images/favicon_48_48.png">
+</head>
+<body>
+<header>
+  <div class="blog-header">
+    <h1><a href="https://u915.net/">u915</a></h1>
+    <div><a href="https://u915.net/"><img src="/images/logo_small.png" class="bloglogo"></img></a></div><h4>Daniel Cano Merchán - Hacking &amp; Tech</h4>
+  </div>
+  <nav><a href="/">Index</a><a href="/posts/">Posts</a><a href="/tags/">Tags</a><a href="/hacking-tools/">Tools</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>How to setup a pihole to block ads</h1>
+  </div>
+<div class="meta">
+  <div class="meta-bar">2020-11-29
+  <span><a href="https://u915.net/tags/projects/">#Projects</a></span>
+      <span><a href="https://u915.net/tags/hardware/">#Hardware</a></span>
+      </div>
+  </div>
+<div class="content">
+  <p>This post is about how to configurate a raspberry pi with pihole to block advertisements. I discovered Pihole on a CTF and was cool to have one !</p>
+<p>I was bored this weekend and tired about the advertisements. So I decided to configure a Pihole, this post contains simple work memory used on the process.</p>
+<hr>
+<p><em>ESPECIAL THANKS</em> to my friend <em>Mario</em> who just changed a raspberry pi for a few beers!</p>
+<p>That raspberry pi has history too!. We won the raspberry on T3chFest, a hackathon on Universidad Carlos III. Each team member won one raspberry pi model 3 kit.</p>
+<p>Mine is working hard on my 3D Printer, Ender3, as a remote server (Octopi) to control the printer.</p>
+<hr>
+<p>After the cool story behind the raspberry pi, let&rsquo;s go ahead !</p>
+<h3 id="0x01-parts-needed">0x01 Parts needed:</h3>
+<ol>
+<li>Raspberry Pi, I think all or near to all models are Ok for this. <em>512 MB</em> are required and a few disk space.</li>
+<li>SD Card with the system of your choice, I used <strong>Raspbian</strong>.</li>
+<li>A charger to power up your Raspberry pi.</li>
+<li>USB Keyboard, mouse and monitor for the initial setup.</li>
+<li>This is a must, admin access to your router.</li>
+</ol>
+<h3 id="0x02-flashing-the-sd-card">0x02 Flashing the SD Card</h3>
+<p>Raspberry Pi has a cool image writer to do the process in a simple way:</p>
+<p><a href="https://www.raspberrypi.org/software/">https://www.raspberrypi.org/software/</a></p>
+<p><img src="/images/posts/pihole1.PNG" alt="alt text" title="Raspberry pi downloads"></p>
+<p>Just download the software and plug in the SD card to flash It.</p>
+<p><img src="/images/posts/pihole2.PNG" alt="alt text" title="Pihole image writter"></p>
+<h3 id="0x03-setting-up-the-raspberry-pi">0x03 Setting up the raspberry pi</h3>
+<p>Connect everything. Keyboard, mouse and HDMI and just follow the steps and update the system.</p>
+<p>Once I get the system up to date. I enabled the SSH service to remote management the Raspberry. No more keyboard, mouse and HDMI needed.</p>
+<h3 id="0x04-installing-pihole">0x04 Installing Pihole</h3>
+<p>You can get Pihole from the official page:</p>
+<p><a href="https://pi-hole.net/">https://pi-hole.net/</a></p>
+<p>There are 2 methods, I used the awesome wget method. To download the script, I enabled execution permissions and just fired with sudo:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget -O basic-install.sh https://install.pi-hole.net
+chmod +x basic-install.sh
+sudo ./basic-install.sh
+</code></pre></div><p>Just follow the steps. The script is well designed and will guide you to all the process:</p>
+<p>I used the cloudfare DNS 1.1.1.1 and enabled all the blacklists available on the install process.</p>
+<p>Pihole needs a static IP address so just configure a static IP to be available.</p>
+<p>In my case I used a local static IP address:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">192.168.1.203
+</code></pre></div><p>I recommend installing the admin interface, it is an accesible web admin panel to remote control the Pihole and enable full logging.</p>
+<p>When the installation is over, the admin web panel will be accesible via the <strong>IP/admin</strong>:</p>
+<p><img src="/images/posts/pihole3.png" alt="alt text" title="web admin panel"></p>
+<h3 id="0x05-setting-up-the-router">0x05 Setting up the router</h3>
+<p>Pihole works as a DNS server, so this step consists in configurating our router to use Pihole as a DNS server.</p>
+<p>This process will be different depending on your router model.</p>
+<p>Access to the router, normally is the ip address:</p>
+<p>http://192.168.1.1/</p>
+<p>Mine is a Movistar router, it was easy to access to the admin panel and change the DNS records. Just point to the DNS records to the static IP address for Pihole.</p>
+<p>In my case was:</p>
+<p><em>Local network &gt; Local network &gt; DNS1/DNS2</em></p>
+<p>Probably you need to restart the router, because sometimes this things are cached. So I just restarted the router and the Pihole FTL:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo /etc/init.d/pihole-FTL restart
+</code></pre></div><h3 id="final-thoughts">Final thoughts</h3>
+<p>When everything is OK you will have an additional protection VS those evil ads. But take into consideration that <em>nothing is perfect</em>, a great amount of ads will be blocked but others are just not blacklisted yet.</p>
+<p>It is interesting that near 20% to 30% of traffic are blocked, so this 20%/30% are just junk traffic, amazing.</p>
+<hr>
+<p>Awesome links:</p>
+<p><a href="https://pi-hole.net/">https://pi-hole.net/</a>
+<a href="https://github.com/pi-hole/pi-hole">https://github.com/pi-hole/pi-hole</a></p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <nav class="footer-menu"><a href="https://github.com/u915">GitHub</a><a href="https://www.linkedin.com/in/daniel-canomerchan">Linkedin</a><a href="/posts/index.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></nav>
+    <div>© 2020 — u915 — <a href="/license/">License</a></div>
+  </div>
+</footer>
+</body>
+</html>
