@@ -37,7 +37,7 @@
       </div>
   </div>
 <div class="content">
-  <p>This post is about how to enable ssh X11 fordwarding on Oracle Linux 7 OCI (Oracle Cloud Infrastructure)</p>
+  <p>This post is about how to enable ssh X11 forwarding on Oracle Linux 7 OCI (Oracle Cloud Infrastructure)</p>
 <p>Tested with the following version in a fresh instance:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Linux linux 5.4.17-2036.100.6.1.el7uek.x86_64 <span style="color:#75715e">#2 SMP Thu Oct 29 17:04:48 PDT 2020 x86_64 x86_64 x86_64 GNU/Linux</span> 
 </code></pre></div><h2 id="common-error">Common error</h2>
@@ -60,13 +60,13 @@ X11UseLocalhost no
 <p>Reload the service to enable the changes made</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl reload sshd.service
 </code></pre></div><h2 id="test-your-instance">Test your instance</h2>
-<p>Don´t forget to use the flag -X or -Y to enable X11 forwarding when you are connecting to the Linux instance:</p>
+<p>Don´t forget to use the flag -X or -Y to enable X11 forwarding when connecting to the Linux instance:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -X user@ip
 </code></pre></div><p>If you are using your key:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -X -i <span style="color:#e6db74">&#34;path_to_key.key&#34;</span> user@ip
 </code></pre></div><p>Plus, you can enable the debug mode with the flag -v if you still have issues:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -X -v -i <span style="color:#e6db74">&#34;path_to_key.key&#34;</span> user@ip
-</code></pre></div><p>When you sucessfully connected with the Linux instance you will see the following lines:</p>
+</code></pre></div><p>When you sucessfully connect with the Linux instance you will see the following lines:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">debug1: Requesting X11 forwarding with authentication spoofing.
 debug1: Requesting authentication agent forwarding.
 </code></pre></div><p>If all went as expected you can launch graphical apps like the venerable <em>Xeyes</em></p>
