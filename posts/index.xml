@@ -7,10 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2020 — u915 —</copyright>
-    <lastBuildDate>Sun, 29 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 Jan 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://u915.net/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ssh X11 forwarding Oracle Linux 7 RHEL OCI</title>
+      <link>https://u915.net/posts/2021/01/ssh-x11-forwarding-oracle-linux-7-rhel-oci/</link>
+      <pubDate>Sun, 10 Jan 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://u915.net/posts/2021/01/ssh-x11-forwarding-oracle-linux-7-rhel-oci/</guid>
+      <description>This post is about how to enable ssh X11 fordwarding on Oracle Linux 7 OCI (Oracle Cloud Infrastructure)
+Tested with the following version in a fresh instance:
+Linux linux 5.4.17-2036.100.6.1.el7uek.x86_64 #2 SMP Thu Oct 29 17:04:48 PDT 2020 x86_64 x86_64 x86_64 GNU/Linux Common error X11 forwarding request failed on channel 0 I got this error when I sucessfully login to the Linux instance via SSH.
+Packages needed sudo yum install -y xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-apps -y to accept the install xorg-x11-server-Xorg in case is not installed xorg-x11-xauth to enable X authentication and finally xorg-x11-apps to test X11 with dummy apps</description>
+    </item>
     
     <item>
       <title>How to setup a pihole to block ads</title>

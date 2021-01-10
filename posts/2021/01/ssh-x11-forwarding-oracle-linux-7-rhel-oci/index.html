@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Daniel Cano">
+<meta name="description" content="How to enable ssh X11 fordwarding on Oracle Linux 7 OCI">
+<meta name="keywords" content="hacking, technology, programming">
+<meta name="referrer" content="always">
+<meta property="og:description" content="How to enable ssh X11 fordwarding on Oracle Linux 7 OCI">
+<meta property="og:title" content="ssh X11 forwarding Oracle Linux 7 RHEL OCI">
+<meta property="og:url" content="https://u915.net/posts/2021/01/ssh-x11-forwarding-oracle-linux-7-rhel-oci/">
+<meta property="og:image" content="https://u915.net/images/logo_small.png" />
+<title>ssh X11 forwarding Oracle Linux 7 RHEL OCI - u915</title>
+<link rel="stylesheet" type="text/css" href="/css/main.css">
+<link rel="icon" href="/images/favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="/images/favicon_48_48.png">
+</head>
+<body>
+<header>
+  <div class="blog-header">
+    <h1><a href="https://u915.net/">u915</a></h1>
+    <div><a href="https://u915.net/"><img src="/images/logo_small.png" class="bloglogo"></img></a></div><h4>Daniel Cano Merchán - Hacking &amp; Tech</h4>
+  </div>
+  <nav><a href="/">Index</a><a href="/posts/">Posts</a><a href="/tags/">Tags</a><a href="/hacking-tools/">Tools</a><a href="/about/">About</a></nav>
+</header>
+<main>
+  <article>
+    <div class="title">
+  <h1>ssh X11 forwarding Oracle Linux 7 RHEL OCI</h1>
+  </div>
+<div class="meta">
+  <div class="meta-bar">2021-01-10
+  <span><a href="https://u915.net/tags/fix/">#Fix</a></span>
+      <span><a href="https://u915.net/tags/linux/">#Linux</a></span>
+      <span><a href="https://u915.net/tags/oci/">#OCI</a></span>
+      </div>
+  </div>
+<div class="content">
+  <p>This post is about how to enable ssh X11 fordwarding on Oracle Linux 7 OCI (Oracle Cloud Infrastructure)</p>
+<p>Tested with the following version in a fresh instance:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">Linux linux 5.4.17-2036.100.6.1.el7uek.x86_64 <span style="color:#75715e">#2 SMP Thu Oct 29 17:04:48 PDT 2020 x86_64 x86_64 x86_64 GNU/Linux</span> 
+</code></pre></div><h2 id="common-error">Common error</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">X11 forwarding request failed on channel <span style="color:#ae81ff">0</span>
+</code></pre></div><p>I got this error when I sucessfully login to the Linux instance via SSH.</p>
+<h2 id="packages-needed">Packages needed</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo yum install -y xorg-x11-server-Xorg xorg-x11-xauth xorg-x11-apps
+</code></pre></div><p>-y to accept the install
+xorg-x11-server-Xorg in case is not installed
+xorg-x11-xauth to enable X authentication
+and finally xorg-x11-apps to test X11 with dummy apps</p>
+<h2 id="modify-sshd_config">Modify sshd_config</h2>
+<p>Root permissions required. Use your favorite text editor to edit the following file:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo vim /etc/ssh/sshd_config
+</code></pre></div><p>Add/modify</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">X11Forwarding yes
+X11DisplayOffset <span style="color:#ae81ff">10</span>
+X11UseLocalhost no
+</code></pre></div><h2 id="reload-the-new-ssh-configuration">Reload the new SSH configuration</h2>
+<p>Reload the service to enable the changes made</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl reload sshd.service
+</code></pre></div><h2 id="test-your-instance">Test your instance</h2>
+<p>Don´t forget to use the flag -X or -Y to enable X11 forwarding when you are connecting to the Linux instance:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -X user@ip
+</code></pre></div><p>If you are using your key:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -X -i <span style="color:#e6db74">&#34;path_to_key.key&#34;</span> user@ip
+</code></pre></div><p>Plus, you can enable the debug mode with the flag -v if you still have issues:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ssh -X -v -i <span style="color:#e6db74">&#34;path_to_key.key&#34;</span> user@ip
+</code></pre></div><p>When you sucessfully connected with the Linux instance you will see the following lines:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">debug1: Requesting X11 forwarding with authentication spoofing.
+debug1: Requesting authentication agent forwarding.
+</code></pre></div><p>If all went as expected you can launch graphical apps like the venerable <em>Xeyes</em></p>
+<p><img src="/images/posts/x11_oci.jpg" alt="alt text" title="x11 OCI Linux"></p>
+<p>Thanks for reading!</p>
+</div>
+
+  </article>
+</main>
+<footer>
+  <div>
+    <nav class="footer-menu"><a href="https://github.com/u915">GitHub</a><a href="https://www.linkedin.com/in/daniel-canomerchan">Linkedin</a><a href="/posts/index.xml">RSS</a><a href="/sitemap.xml">Sitemap</a></nav>
+    <div>© 2020 — u915 — <a href="/license/">License</a></div>
+  </div>
+</footer>
+</body>
+</html>
